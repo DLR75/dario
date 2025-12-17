@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dartcounter</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="bigbox">
+            <div class="lev_1">
+                <h1>Dartcounter</h1>
+            </div>
+
+            <div class="lev_2">
+                <div class="box_p1">
+                    <div class="name">
+                        <p id="namep1"></p>
+                    </div>
+                    <div class="score">
+                        <h2 id="p1"></h2>
+                    </div>
+                    <div class="average">
+                        <p>average</p>
+                    </div>
+                    <div class="lastscore">
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="box_p2">
+                    <div class="name">
+                        <p id="namep2"></p>
+                    </div>
+                    <div class="score">
+                        <h2 id="p2"></h2>
+                    </div>
+                    <div class="average">
+                        <p>average</p>
+                    </div>
+                    <div class="lastscore">
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lev_3">
+                <h3 id="action"></h3>
+            </div>
+
+            <div class="lev_4">
+                <button onclick="startSkript()">Start New Game</button>
+                <input id="inputbox" type="text" placeholder="enter score" size="25">
+                <button onclick="addScoreSkript()">Score</button>
+            </div>
+
+            
+            
+        </div>
+
+        
+        <script src="scripts.js"></script>
+    </body>
+</html>
