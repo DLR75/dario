@@ -1,0 +1,98 @@
+* {
+    box-sizing: border-box;
+    padding: 0%;
+    margin: 0;
+    font-family: Helvetica, sans-serif;
+    color: black;
+}
+
+.background {
+    background-color: #f6deb8;
+}
+
+.container {
+    display: flex;
+    /* border: 2px solid purple; */
+    justify-content: center;
+    margin: 1rem 0 1rem 0;
+}
+
+.menu {
+    background-color: white;
+    width: 75%;
+}
+
+.title {
+    width: 75%;
+    aspect-ratio: 2185 / 1198;
+    background-image: url(../img/cinnamon-close.jpg);
+    background-size: cover;
+    align-content: flex-end;
+    padding: 1rem 1rem 1rem 1.5rem;
+
+}
+
+.title-pumpkin {
+    width: 75%;
+    aspect-ratio: 5304 / 2651;
+    background-image: url(../img/kuerbis-curry-breit-2zu1-title.jpg);
+    background-size: cover;
+    align-content: flex-end;
+    padding: 1rem 1rem 1rem 1.5rem;
+}
+
+.ingr-plate-container {
+    display: flex;
+    width: 75%;
+    justify-content: space-between;
+    gap: 1rem;
+
+}
+
+.quadrat-container {
+    background-color: white;
+    flex: 1;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+
+.ingredients {
+    padding: 0 1rem 0 1.5rem;
+}
+
+.plate {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.steps-container {
+    background-color: white;
+    width: 75%;
+}
+
+.steps {
+    padding: 0 1rem 0 1.5rem;
+}
+
+h1 {
+    color: white;
+    font-size: 3rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+ul {
+    font-size: 1rem;
+}
+
+ol {
+    font-size: 1rem;
+}
+
+a {
+    color: rgb(192, 16, 45);
+}

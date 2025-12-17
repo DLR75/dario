@@ -1,0 +1,133 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    /*border: 2px solid rgb(156, 81, 156);*/
+    margin: 0;
+    font-family: Helvetica, sans-serif;
+    color: black;
+}
+
+#background {
+    background-color: rgb(216, 202, 204);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    /* border: 2px solid purple; */
+}
+
+#box-menu {
+    /*box*/
+    width:75%;
+    margin: 0.5rem 0 0 0;
+
+    display: flex;
+
+    /*content*/
+    justify-content: space-between;        /*horiziontal alignment*/
+    align-items: center;            /*vertical alignment*/
+    gap: 0.5em;
+
+}
+
+.menu-button {
+    /*box*/
+    padding: 0 0.5rem 0 0.5rem;
+    height: 2.5rem;
+    flex: auto;
+   
+    display: flex;
+
+    /*content*/
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(220, 30, 61);
+    color: white;
+    font-weight: 900;
+    text-decoration: none;
+    font-size: 1rem;
+    
+}
+
+.menu-button:hover {
+    background-color: rgb(192, 16, 45);
+}
+
+
+.box-title {
+    background-color: rgb(236, 76, 102);
+    width: 75%;
+    padding: 0.5rem;
+    margin: 1rem 0 0 0;
+}
+
+.box-recipe {
+    background-color: white;
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;                /*start new line when no space*/
+    gap: 0.5rem;
+    padding: 0.5rem;
+
+    
+}
+
+.recipe {
+    /*box*/
+    background-color: rgb(246, 132, 150);
+    /* height: 150px; */
+    /* width: 150px; */
+    
+
+    display: flex;
+
+    /*content*/
+    
+    justify-content: center;
+    align-items: center;
+
+    aspect-ratio: 1 / 1;
+    flex: 1 1 10rem;
+    
+    text-decoration: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.cinnamon {
+    background-image: url(./img/cinnamon-top.jpeg);
+    background-size: cover;
+}
+
+.pumpkin-curry {
+    background-image: url(./img/kuerbis-curry-quadrat.jpg);
+    background-size: cover;
+}
+
+.note {
+    background-color: rgb(230, 236, 255);
+    border: 0.25rem solid rgb(131, 158, 244);
+    width: 75%;
+    margin: 1rem 0 1rem 0;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.note p {
+    color: rgb(5, 39, 151);
+}
+
+.note p strong {
+    color: rgb(0, 12, 50);
+}
+
+h1 {
+    text-align: center;
+    font-weight: 600;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 3rem;
+    color: white;
+}

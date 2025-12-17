@@ -1,0 +1,105 @@
+* {
+    box-sizing: border-box;
+    font-family: Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 0.2rem solid orange; */
+    gap: 1rem;
+    background-color: rgb(90, 77, 79);
+}
+
+.container {
+    display: flex;
+    width: 75%;
+    /* border: 0.2rem solid lightcoral; */
+    gap: 1rem;
+}
+
+.box-menu {
+    display: flex;
+    flex-grow: 1;
+    padding: 0.2rem 0 0.2rem 1rem;
+    background-color: rgb(242, 231, 233);
+    margin: 0.5rem 0 0 0;
+}
+
+.box-title {
+    display: flex;
+    flex-grow: 1;
+
+    background-image: url(../img/kuerbis-curry-breit-2zu1-title.jpg);
+    background-size: cover;
+    aspect-ratio: 5304 / 2651;
+
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 1rem 1rem 0.5rem 1rem;
+    /* border: 0.2rem solid lightblue; */
+}
+
+.box-ingredients {
+    flex: 1 1 0;
+    min-width: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: rgb(242, 231, 233);
+    padding: 0.5rem 1rem 1rem 1rem;
+    /* border: 0.2rem solid brown; */
+}
+
+.box-ingredients-img {
+    flex: 0 0 auto;
+    /* border: 0.2rem solid blue; */
+}
+
+.box-ingredients-img img {
+    display: block;
+    width: auto;
+    height: 200px;
+    object-fit: contain;
+    max-width: 100%;
+    /* border: 0.2rem solid green; */
+}
+
+.box-content {
+    flex-grow: 1;
+    background-color: rgb(242, 231, 233);
+    padding: 0.5rem 1rem 1rem 1rem;
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 3rem;
+    margin: 0;
+    color: rgb(90, 77, 79);
+}
+
+h2 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
+    color: rgb(58, 48, 49);
+    color: rgb(90, 77, 79);
+    /* color: rgb(128, 112, 114); */
+
+}
+
+ul {
+    /* border: 0.1em solid purple; */
+    margin: 0;
+    padding: 0 0 0 1rem;
+    color: rgb(90, 77, 79);
+    /* color: rgb(128, 112, 114); */
+}
+
+a {
+    color: rgb(90, 77, 79);
+    text-decoration: none;
+}
+
