@@ -153,19 +153,37 @@ html, body {
             font-size: calc(var(--u) * 12);
             font-weight: 600;
         }
-        .player_average {
+        .player_average_active {
             height: calc(var(--u) * 7.5);
 
             display: flex;
             align-items: center;
             font-size: calc(var(--u) * 4.5);
+            color: hsl(345, 80%, 33%);
         }
-        .player_lastscore {
+        .player_average_passive {
             height: calc(var(--u) * 7.5);
 
             display: flex;
             align-items: center;
             font-size: calc(var(--u) * 4.5);
+            color: hsl(0, 0%, 44%);
+        }
+        .player_lastscore_active {
+            height: calc(var(--u) * 7.5);
+
+            display: flex;
+            align-items: center;
+            font-size: calc(var(--u) * 4.5);
+            color: hsl(345, 80%, 33%);
+        }
+        .player_lastscore_passive {
+            height: calc(var(--u) * 7.5);
+
+            display: flex;
+            align-items: center;
+            font-size: calc(var(--u) * 4.5);
+            color: hsl(0, 0%, 44%);
         }
 
 .inputline {
