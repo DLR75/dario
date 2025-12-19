@@ -59,6 +59,8 @@ html, body {
         color: hsl(0, 73%, 19%);
         font-size: calc(var(--u) * 6);
         font-weight: 600;
+
+        text-decoration: none;
     }
     .selector {
         width: calc(var(--u) * 10);
@@ -120,7 +122,7 @@ html, body {
             width: calc(var(--u) * 46.25);
             display: flex;
             justify-content: space-between;
-        }
+        } 
             .player_spacer {
                 height: calc(var(--u) * 7.5);
                 width: calc(var(--u) * 7.5);
