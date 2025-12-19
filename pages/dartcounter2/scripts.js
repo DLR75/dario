@@ -39,6 +39,7 @@ let input_row_set_2;    //adder
 let score;
 
 let activeplayer = 0;
+let startingplayer = 1;
 
 const gamemode_value = document.getElementById("gamemode_selector");
 const firstto_prompt = document.getElementById("firstto_button");
@@ -199,7 +200,7 @@ function updatePlayerLegs () {
     select_player_3_legs.innerText = player_3_legs;
     const select_player_4_legs = document.querySelector("#player_4 .player_legs");
     select_player_4_legs.innerText = player_4_legs;
-    checkLegWin();
+    
 }
 function updatePlayerRemainingScore () {
     const player_1_remaining_score = document.querySelector("#player_1 .player_score")
@@ -250,9 +251,14 @@ function startGame () {
     player_2_thrown = 0;
     player_3_thrown = 0;
     player_4_thrown = 0;
+    player_1_remaining = target;
+    player_2_remaining = target;
+    player_3_remaining = target;
+    player_4_remaining = target;
     updatePlayerLegs();
     updatePlayerAverage();
     updatePlayerLastscore();
+    updatePlayerRemainingScore();
     input = undefined;
     activeplayer = 1;
 }
@@ -419,6 +425,7 @@ function addLeg () {
         console.log("player 4 now has",player_4_legs,"legs")
     }
     updatePlayerLegs();
+    checkLegWin();
 }
 function checkLegWin () {
     console.log("running checkLegWin");
@@ -434,10 +441,10 @@ function checkLegWin () {
         console.log("Player 4 wins the game with", player_4_legs," legs");
     } else {
         nextPlayer();
-        StartNextLeg();
+        startNextLeg();
     }
 }
-function StartNextLeg() {
+function startNextLeg() {
     console.log("running StartNextLeg");
     player_1_lastscore = "/";
     player_2_lastscore = "/";
@@ -450,4 +457,37 @@ function StartNextLeg() {
     updatePlayerRemainingScore();
     updatePlayerLastscore();
     input = undefined;
+    determinStartingplayer();
+}
+function determinStartingplayer () {
+    console.log("running determineStartingplayer");
+    if (numberofplayers === 1) {
+        startingplayer = 1;
+    } else if (numberofplayers === 2) {
+        if (startingplayer === 1) {
+            startingplayer = 2;
+        } else if (startingplayer === 2) {
+            startingplayer = 1;
+        }
+    } else if (numberofplayers === 3) {
+        if (startingplayer === 1) {
+            startingplayer = 2;
+        } else if (startingplayer === 2) {
+            startingplayer = 3;
+        } else if (startingplayer === 3) {
+            startingplayer = 1;
+        }
+    } else if (numberofplayers === 4) {
+        if (startingplayer === 1) {
+            startingplayer = 2;
+        } else if (startingplayer === 2) {
+            startingplayer = 3;
+        } else if (startingplayer === 3) {
+            startingplayer = 4;
+        } else if (startingplayer === 4) {
+            startingplayer = 1;
+        }
+    }
+    activeplayer = startingplayer;
+    console.log("startingplayer:", activeplayer);
 }
