@@ -1,7 +1,7 @@
-// Variables:
-let gamemode = "501do";
+// VARIABLES:
+let gamemode;               //1=501do 2=501so 3=301do 4=301so 
 let firstto = 1;
-let numberofplayers = 2;
+let numberofplayers;
 let gamestate = "idle";
 
 let player_1_name = "Player 1";
@@ -30,13 +30,57 @@ let player_3_thrown;
 let player_4_thrown;
 
 let target;                         //required to win
+//INSERT STARTING VARIABLES HTML
+document.getElementById("firstto_current").innerText = `${firstto} legs`;
 
+const gamemode_value = document.getElementById("gamemode_selector");
+gamemode = gamemode_value.value;
+gamemode = Number(gamemode);
 
-//Eventlisteners:
-const gamemodeselector = document.querySelector(".gamemode_button");
-    gamemodeselector.addEventListener("click", () => {
-        console.log("gamemode click")
+const playernumber_value = document.getElementById("playernumber_selector");
+numberofplayers = playernumber_value.value;
+numberofplayers = Number(numberofplayers);
 
-    });
+const select_player_1_name = document.querySelector("#player_1 .player_name");
+select_player_1_name.innerText = player_1_name;
 
-//Functions:
+const select_player_2_name = document.querySelector("#player_2 .player_name");
+select_player_2_name.innerText = player_2_name;
+
+// const select_player_3_name = document.querySelector("#player_3 .player_name");
+// select_player_3_name.innerText = player_3_name;
+
+// const select_player_4_name = document.querySelector("#player_4 .player_name");
+// select_player_4_name.innerText = player_4_name;
+
+//EVENTLISTENERS:
+// const gamemodeselector = document.querySelector(".gamemode_button");
+//     gamemodeselector.addEventListener("click", () => {
+//         console.log("gamemode click")
+
+//     });
+gamemode_value.addEventListener("change", () => {
+    gamemode = gamemode_value.value;
+    gamemode = Number(gamemode);
+    if (gamemode === 1 || gamemode === 2) {
+        target = 501;
+    } else {
+        target = 301;
+    }
+    console.log(target);
+});
+
+const firstto_prompt = document.getElementById("firstto_button");
+firstto_prompt.addEventListener("click", () => {
+    const firstto_value = prompt("Legs required to win:");
+
+    firstto = firstto_value;
+    document.getElementById("firstto_current").innerText = `${firstto} legs`;
+});
+
+playernumber_value.addEventListener("change", () => {
+    numberofplayers = playernumber_value.value;
+    numberofplayers = Number(numberofplayers);
+});
+
+//FUNCTIONS:

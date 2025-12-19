@@ -62,21 +62,22 @@ html, body {
 
         text-decoration: none;
     }
-    .selector {
+    .selector_box {
         width: calc(var(--u) * 10);
         flex-grow: 1;
         background-color: hsl(0, 0%, 25%);
 
         display: flex;
         flex-direction: column;
+
+        color: hsl(0, 0%, 49%);
+        font-size: calc(var(--u) * 4.5);
+        text-align: center;
     }
         .selector_title {
-            color: hsl(0, 0%, 49%);
             font-size: calc(var(--u) * 2);
-
-            text-align: center;
         }
-        #selector {
+        .selector_selector {
             width: calc(var(--u) * 18);
             background: transparent;
             color: hsl(0, 0%, 49%);
@@ -108,23 +109,20 @@ html, body {
     display: flex;
     gap: calc(var(--u) * 2.5);
 }
-    .playerbox_active {
+    .playerbox {
         width: calc(var(--u) * 46.25);
-        background-color: hsl(345, 85%, 47%);
-        color: hsl(0, 73%, 19%);
 
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-    .playerbox_passive {
-        width: calc(var(--u) * 46.25);
+    .active {
+        background-color: hsl(345, 85%, 47%);
+        color: hsl(0, 73%, 19%);
+    }
+    .passive {
         background-color: hsl(0, 0%, 25%);
         color: hsl(0, 0%, 68%);
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
     }
         .player_name_wrapper {
             width: calc(var(--u) * 46.25);

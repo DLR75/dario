@@ -12,13 +12,10 @@
                     <div class="x_button">
                         <a href="../../index.html" rel="noreferrer" class="x_button">X</a>
                     </div>
-
-
-
-                    <div class="selector gamemode_button">
+                    <div class="selector_box gamemode_button">
                         <div class="selector_title">Gamemode</div>
                         <div>
-                            <select name="gamemodeselector" id="selector">
+                            <select name="gamemodeselector" class="selector_selector" id="gamemode_selector">
                                 <option value="1">501 do</option>
                                 <option value="2">501 so</option>
                                 <option value="3">301 do</option>
@@ -26,21 +23,27 @@
                             </select>
                         </div>
                     </div>
-
-
-
-                    <div class="selector firstto_button">
+                    <div class="selector_box" id="firstto_button">                          <!--prompt-->
                         <div class="selector_title">First to</div>
-                        <div class="selector_current firstto_current">3 legs</div>
+                        <div class="selector_current" id="firstto_current"></div> 
                     </div>
-                    <div class="selector playernumber_button">
+                    <div class="selector_box playernumber_button">
                         <div class="selector_title">Players</div>
-                        <div class="selector_current playernumber_current">2</div>
+                        <div>
+                            <select name="playernumberselector" class="selector_selector" id="playernumber_selector">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="selector startgame_button">start</div>
                 </div>
+
+
                 <div class="scoreboard">
-                    <div class="playerbox_active">
+                    <div class="playerbox active" id="player_1">
                         <div class="player_name_wrapper">
                             <div class="player_spacer"></div>
                             <div class="player_name">Player 1</div>
@@ -50,7 +53,9 @@
                         <div class="player_average_active">Average: 40.84</div>
                         <div class="player_lastscore_active">Last score: 42</div>
                     </div>
-                    <div class="playerbox_passive">
+
+
+                    <div class="playerbox passive" id="player_2">
                         <div class="player_name_wrapper">
                             <div class="player_spacer"></div>
                             <div class="player_name">Player 2</div>
@@ -61,6 +66,8 @@
                         <div class="player_lastscore_passive">Last score: 42</div>
                     </div>
                 </div>
+
+
                 <div class="inputline">
                     <div class="spacer_button"></div>
                     <div class="inputdisplay">180</div>
