@@ -112,7 +112,7 @@ html, body {
     .playerbox {
         width: calc(var(--u) * 46.25);
 
-        display: flex;
+        display: none;
         flex-direction: column;
         align-items: center;
     }
@@ -140,7 +140,7 @@ html, body {
                 align-items: center;
                 font-size: calc(var(--u) * 6);
             }
-            .player_legs_active {
+            .player_legs.active {
                 height: calc(var(--u) * 7.5);
                 width: calc(var(--u) * 7.5);
                 background-color: hsl(345, 88%, 16%);
@@ -151,7 +151,7 @@ html, body {
                 font-size: calc(var(--u) * 6);
                 color: hsl(345, 85%, 47%);
             }
-            .player_legs_passive {
+            .player_legs.passive {
                 height: calc(var(--u) * 7.5);
                 width: calc(var(--u) * 7.5);
                 background-color: hsl(0, 0%, 13%);
@@ -170,7 +170,7 @@ html, body {
             font-size: calc(var(--u) * 12);
             font-weight: 600;
         }
-        .player_average_active {
+        .player_average.active {
             height: calc(var(--u) * 7.5);
 
             display: flex;
@@ -178,7 +178,7 @@ html, body {
             font-size: calc(var(--u) * 4.5);
             color: hsl(345, 80%, 33%);
         }
-        .player_average_passive {
+        .player_average.passive {
             height: calc(var(--u) * 7.5);
 
             display: flex;
@@ -186,7 +186,7 @@ html, body {
             font-size: calc(var(--u) * 4.5);
             color: hsl(0, 0%, 44%);
         }
-        .player_lastscore_active {
+        .player_lastscore.active {
             height: calc(var(--u) * 7.5);
 
             display: flex;
@@ -194,7 +194,7 @@ html, body {
             font-size: calc(var(--u) * 4.5);
             color: hsl(345, 80%, 33%);
         }
-        .player_lastscore_passive {
+        .player_lastscore.passive {
             height: calc(var(--u) * 7.5);
 
             display: flex;

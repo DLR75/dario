@@ -30,7 +30,7 @@ let player_3_thrown;
 let player_4_thrown;
 
 let target;                         //required to win
-//INSERT STARTING VARIABLES HTML
+//START-UP INSERT STARTING VARIABLES/RUNNING SCRIPTS
 document.getElementById("firstto_current").innerText = `${firstto} legs`;
 
 const gamemode_value = document.getElementById("gamemode_selector");
@@ -47,11 +47,14 @@ select_player_1_name.innerText = player_1_name;
 const select_player_2_name = document.querySelector("#player_2 .player_name");
 select_player_2_name.innerText = player_2_name;
 
-// const select_player_3_name = document.querySelector("#player_3 .player_name");
-// select_player_3_name.innerText = player_3_name;
+const scoreboards = document.querySelectorAll(".playerbox");
+updateNumberOfScoreboards();
 
-// const select_player_4_name = document.querySelector("#player_4 .player_name");
-// select_player_4_name.innerText = player_4_name;
+const select_player_3_name = document.querySelector("#player_3 .player_name");
+select_player_3_name.innerText = player_3_name;
+
+const select_player_4_name = document.querySelector("#player_4 .player_name");
+select_player_4_name.innerText = player_4_name;
 
 //EVENTLISTENERS:
 // const gamemodeselector = document.querySelector(".gamemode_button");
@@ -81,6 +84,12 @@ firstto_prompt.addEventListener("click", () => {
 playernumber_value.addEventListener("change", () => {
     numberofplayers = playernumber_value.value;
     numberofplayers = Number(numberofplayers);
+    updateNumberOfScoreboards();
 });
 
 //FUNCTIONS:
+function updateNumberOfScoreboards () {
+    scoreboards.forEach((el, index) => {
+    el.style.display = index < numberofplayers ? "flex" : "none";
+    });
+}
