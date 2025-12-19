@@ -38,18 +38,13 @@ let input_row_set_1;    //adder
 let input_row_set_2;    //adder
 let score;
 
-let activeplayer = 1;
+let activeplayer = 0;
 
 const gamemode_value = document.getElementById("gamemode_selector");
-
 const firstto_prompt = document.getElementById("firstto_button");
-
 const playernumber_value = document.getElementById("playernumber_selector");
-
 const startgame_click = document.getElementById("startbutton");
-
 const get_input_display = document.getElementById("inputdisplay");
-
 const plate_1 = document.getElementById("plate_1");
 const plate_2 = document.getElementById("plate_2");
 const plate_3 = document.getElementById("plate_3");
@@ -84,6 +79,7 @@ firstto_prompt.addEventListener("click", () => {
     const firstto_value = prompt("Legs required to win:");
 
     firstto = firstto_value;
+    firstto = Number(firstto)
     document.getElementById("firstto_current").innerText = `${firstto} legs`;
 });
 
@@ -157,7 +153,6 @@ plate_score.addEventListener("click", () => {
 });
 
 
-
 //FUNCTIONS:
 function updateGamemode () {
     gamemode = gamemode_value.value;
@@ -172,7 +167,6 @@ function updateGamemode () {
     player_3_remaining = target;
     player_4_remaining = target;
     updatePlayerRemainingScore();
-    console.log("target:", target);
 }
 function updateNumberOfPlayers () {
     numberofplayers = playernumber_value.value;
@@ -196,6 +190,7 @@ function updatePlayerNames () {
     select_player_4_name.innerText = player_4_name;
 }
 function updatePlayerLegs () {
+    console.log("running updatePlayerLegs");
     const select_player_1_legs = document.querySelector("#player_1 .player_legs");
     select_player_1_legs.innerText = player_1_legs;
     const select_player_2_legs = document.querySelector("#player_2 .player_legs");
@@ -204,6 +199,7 @@ function updatePlayerLegs () {
     select_player_3_legs.innerText = player_3_legs;
     const select_player_4_legs = document.querySelector("#player_4 .player_legs");
     select_player_4_legs.innerText = player_4_legs;
+    checkLegWin();
 }
 function updatePlayerRemainingScore () {
     const player_1_remaining_score = document.querySelector("#player_1 .player_score")
@@ -214,6 +210,7 @@ function updatePlayerRemainingScore () {
     player_3_remaining_score.innerText = player_3_remaining;
     const player_4_remaining_score = document.querySelector("#player_4 .player_score")
     player_4_remaining_score.innerText = player_4_remaining;
+    
 }
 function updatePlayerAverage () {
     const select_player_1_average = document.querySelector("#player_1 .player_average");
@@ -236,6 +233,7 @@ function updatePlayerLastscore () {
     select_player_4_lastscore.innerText = `Last score: ${player_4_lastscore}`;
 }
 function startGame () {
+    console.log("running startGame");
     player_1_legs = 0;
     player_2_legs = 0;
     player_3_legs = 0;
@@ -256,8 +254,8 @@ function startGame () {
     updatePlayerAverage();
     updatePlayerLastscore();
     input = undefined;
+    activeplayer = 1;
 }
-
 function inputDisplay (input) {
     if (input_display === undefined) {
         input_display = input
@@ -270,22 +268,22 @@ function inputDisplay (input) {
 function combineInputs (input) {
     if (input_row === undefined && input != "+") {
         input_row = input
-        console.log("input_row=", input_row);
+        // console.log("input_row=", input_row);
     } else if (input === "+") {
         if (input_row_set_1 === undefined) {
             input_row_set_1 = Number(input_row);
-            console.log("input_row_set_1=", input_row_set_1);
+            // console.log("input_row_set_1=", input_row_set_1);
             input_row = undefined;
         } else if (input_row_set_2 === undefined) {
             input_row_set_2 = Number(input_row);
-            console.log("input_row_set_2=", input_row_set_2);
+            // console.log("input_row_set_2=", input_row_set_2);
             input_row = undefined;
         } else {
             alert("zu viele +");
         }
     } else {
         input_row = input_row+input
-        console.log("input_row=", input_row);
+        // console.log("input_row=", input_row);
     }  
 }
 function calculateScore () {
@@ -314,24 +312,142 @@ function calculateScore () {
 }
 function applyScore () {
     if (activeplayer === 1) {
-        player_1_remaining = player_1_remaining-score
-        console.log(player_1_remaining);
-        updatePlayerRemainingScore();
-        activeplayer = 2;
+        player_1_remaining = player_1_remaining-score;
+        if (player_1_remaining > 0) {
+            updatePlayerRemainingScore();
+            nextPlayer();
+        } else if (player_1_remaining === 0) {
+            updatePlayerRemainingScore();
+            console.log("leg won");
+            addLeg();
+        } else {
+            player_1_remaining = player_1_remaining+score;
+            alert("to much");
+            console.log("tomuch");
+            nextPlayer();
+        }
     } else if (activeplayer === 2) {
-        player_2_remaining = player_2_remaining-score
-        console.log(player_2_remaining);
-        updatePlayerRemainingScore();
-        activeplayer = 3;
+        player_2_remaining = player_2_remaining-score;
+        if (player_2_remaining > 0) {
+            updatePlayerRemainingScore();
+            nextPlayer();
+        } else if (player_2_remaining === 0) {
+            updatePlayerRemainingScore();
+            console.log("leg won");
+            addLeg();
+        } else {
+            player_2_remaining = player_2_remaining+score;
+            alert("to much");
+            console.log("tomuch");
+            nextPlayer();
+        }
     } else if (activeplayer === 3) {
-        player_3_remaining = player_3_remaining-score
-        console.log(player_3_remaining);
-        updatePlayerRemainingScore();
-        activeplayer = 4;
+        player_3_remaining = player_3_remaining-score;
+        if (player_3_remaining > 0) {
+            updatePlayerRemainingScore();
+            nextPlayer();
+        } else if (player_3_remaining === 0) {
+            updatePlayerRemainingScore();
+            console.log("leg won");
+            addLeg();
+        } else {
+            player_3_remaining = player_3_remaining+score;
+            alert("to much");
+            console.log("tomuch");
+            nextPlayer();
+        }    
     } else if (activeplayer === 4) {
-        player_4_remaining = player_4_remaining-score
-        console.log(player_4_remaining);
-        updatePlayerRemainingScore();
-        activeplayer = 1;
+        player_4_remaining = player_4_remaining-score;
+        if (player_4_remaining > 0) {
+            updatePlayerRemainingScore();
+            nextPlayer();
+        } else if (player_4_remaining === 0) {
+            updatePlayerRemainingScore();
+            console.log("leg won");
+            addLeg();
+        } else {
+            player_4_remaining = player_4_remaining+score;
+            alert("to much");
+            console.log("tomuch");
+            nextPlayer();
+        }
     }
+    score = undefined;
+}
+function nextPlayer () {
+    if (numberofplayers === 1) {
+        activeplayer = 1;
+    } else if (numberofplayers === 2) {
+        if (activeplayer === 1) {
+            activeplayer = 2;
+        } else if (activeplayer === 2) {
+            activeplayer = 1;
+        }
+    } else if (numberofplayers === 3) {
+        if (activeplayer === 1) {
+            activeplayer = 2;
+        } else if (activeplayer === 2) {
+            activeplayer = 3;
+        } else if (activeplayer === 3) {
+            activeplayer = 1;
+        }
+    } else if (numberofplayers === 4) {
+        if (activeplayer === 1) {
+            activeplayer = 2;
+        } else if (activeplayer === 2) {
+            activeplayer = 3;
+        } else if (activeplayer === 3) {
+            activeplayer = 4;
+        } else if (activeplayer === 4) {
+            activeplayer = 1;
+        }
+    }
+}
+function addLeg () {
+    console.log("running addLeg");
+    if (activeplayer === 1) {
+        ++player_1_legs;
+        console.log("player 1 now has",player_1_legs,"legs")
+    } else if (activeplayer === 2) {
+        ++player_2_legs;
+        console.log("player 2 now has",player_2_legs,"legs")
+    } else if (activeplayer === 3) {
+        ++player_3_legs;
+        console.log("player 3 now has",player_3_legs,"legs")
+    } else if (activeplayer === 4) {
+        ++player_4_legs;
+        console.log("player 4 now has",player_4_legs,"legs")
+    }
+    updatePlayerLegs();
+}
+function checkLegWin () {
+    console.log("running checkLegWin");
+    console.log("firstto:",firstto, typeof firstto);
+    console.log("player1legs:", player_1_legs, typeof player_1_legs);
+    if (firstto === player_1_legs) {
+        console.log("Player 1 wins the game with", player_1_legs," legs");
+    } else if (firstto === player_2_legs) {
+        console.log("Player 2 wins the game with", player_2_legs," legs");
+    } else if (firstto === player_3_legs) {
+        console.log("Player 3 wins the game with", player_3_legs," legs");
+    } else if (firstto === player_4_legs) {
+        console.log("Player 4 wins the game with", player_4_legs," legs");
+    } else {
+        nextPlayer();
+        StartNextLeg();
+    }
+}
+function StartNextLeg() {
+    console.log("running StartNextLeg");
+    player_1_lastscore = "/";
+    player_2_lastscore = "/";
+    player_3_lastscore = "/";
+    player_4_lastscore = "/";
+    player_1_remaining = target;
+    player_2_remaining = target;
+    player_3_remaining = target;
+    player_4_remaining = target;
+    updatePlayerRemainingScore();
+    updatePlayerLastscore();
+    input = undefined;
 }
