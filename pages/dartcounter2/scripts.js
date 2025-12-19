@@ -20,10 +20,10 @@ let player_1_average = "/";
 let player_2_average = "/";
 let player_3_average = "/";
 let player_4_average = "/";
-let player_1_lastscore;
-let player_2_lastscore;
-let player_3_lastscore;
-let player_4_lastscore;
+let player_1_lastscore = "/";
+let player_2_lastscore = "/";
+let player_3_lastscore = "/";
+let player_4_lastscore = "/";
 let player_1_thrown;                //number of darts thrown
 let player_2_thrown;
 let player_3_thrown;
@@ -31,14 +31,14 @@ let player_4_thrown;
 
 let target;                         //required to win
 
-//START-UP INSERT STARTING VARIABLES/RUNNING SCRIPTS
-document.getElementById("firstto_current").innerText = `${firstto} legs`;
-
 const gamemode_value = document.getElementById("gamemode_selector");
 
 const firstto_prompt = document.getElementById("firstto_button");
 
 const playernumber_value = document.getElementById("playernumber_selector");
+
+//START-UP INSERT FIRST VARIABLES / RUNNING SCRIPTS
+document.getElementById("firstto_current").innerText = `${firstto} legs`;
 
 updateGamemode();
 updateNumberOfPlayers();
@@ -46,6 +46,7 @@ updateNumberOfScoreboards();
 updatePlayerNames();
 updatePlayerLegs();
 updatePlayerAverage();
+updatePlayerLastscore();
 
 
 //EVENTLISTENERS:
@@ -134,4 +135,14 @@ function updatePlayerAverage () {
     select_player_3_average.innerText = `Average: ${player_3_average}`;
     const select_player_4_average = document.querySelector("#player_4 .player_average");
     select_player_4_average.innerText = `Average: ${player_4_average}`;
+}
+function updatePlayerLastscore () {
+    const select_player_1_lastscore = document.querySelector("#player_1 .player_lastscore");
+    select_player_1_lastscore.innerText = `Last score: ${player_1_lastscore}`;
+    const select_player_2_lastscore = document.querySelector("#player_2 .player_lastscore");
+    select_player_2_lastscore.innerText = `Last score: ${player_2_lastscore}`;
+    const select_player_3_lastscore = document.querySelector("#player_3 .player_lastscore");
+    select_player_3_lastscore.innerText = `Last score: ${player_3_lastscore}`;
+    const select_player_4_lastscore = document.querySelector("#player_4 .player_lastscore");
+    select_player_4_lastscore.innerText = `Last score: ${player_4_lastscore}`;
 }
