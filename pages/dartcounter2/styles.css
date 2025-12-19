@@ -110,8 +110,8 @@ html, body {
     gap: calc(var(--u) * 2.5);
 }
     .playerbox {
-        width: calc(var(--u) * 46.25);
-
+        /* width: calc(var(--u) * 46.25); */
+        flex: 1 1 0;
         display: none;
         flex-direction: column;
         align-items: center;
@@ -125,7 +125,9 @@ html, body {
         color: hsl(0, 0%, 68%);
     }
         .player_name_wrapper {
-            width: calc(var(--u) * 46.25);
+            /* width: calc(var(--u) * 46.25); */
+            align-self: stretch;
+            flex: 1 1 0;
             display: flex;
             justify-content: space-between;
         } 
