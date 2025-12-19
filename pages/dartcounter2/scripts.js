@@ -31,11 +31,37 @@ let player_4_thrown;
 
 let target;                         //required to win
 
+let input_display;      //inputline content for scoring
+let input;              //button output
+let input_row;                          
+let input_row_set_1;    //adder
+let input_row_set_2;    //adder
+let score;
+
+let activeplayer = 1;
+
 const gamemode_value = document.getElementById("gamemode_selector");
 
 const firstto_prompt = document.getElementById("firstto_button");
 
 const playernumber_value = document.getElementById("playernumber_selector");
+
+const startgame_click = document.getElementById("startbutton");
+
+const get_input_display = document.getElementById("inputdisplay");
+
+const plate_1 = document.getElementById("plate_1");
+const plate_2 = document.getElementById("plate_2");
+const plate_3 = document.getElementById("plate_3");
+const plate_4 = document.getElementById("plate_4");
+const plate_5 = document.getElementById("plate_5");
+const plate_6 = document.getElementById("plate_6");
+const plate_7 = document.getElementById("plate_7");
+const plate_8 = document.getElementById("plate_8");
+const plate_9 = document.getElementById("plate_9");
+const plate_plus = document.getElementById("plate_plus");
+const plate_0 = document.getElementById("plate_0");
+const plate_score = document.getElementById("plate_score");
 
 //START-UP INSERT FIRST VARIABLES / RUNNING SCRIPTS
 document.getElementById("firstto_current").innerText = `${firstto} legs`;
@@ -65,6 +91,69 @@ playernumber_value.addEventListener("change", () => {
     numberofplayers = playernumber_value.value;
     numberofplayers = Number(numberofplayers);
     updateNumberOfScoreboards();
+});
+
+startgame_click.addEventListener("click", () => {
+    startGame();
+});
+
+plate_1.addEventListener("click", () => {
+    input = "1";
+    inputDisplay (input);
+    combineInputs (input);
+});
+plate_2.addEventListener("click", () => {
+    input = "2";
+    inputDisplay (input);
+    combineInputs (input);
+});
+plate_3.addEventListener("click", () => {
+    input = "3";
+    inputDisplay (input);
+    combineInputs (input);
+});
+plate_4.addEventListener("click", () => {
+    input = "4";
+    inputDisplay (input);
+    combineInputs (input);
+});
+plate_5.addEventListener("click", () => {
+    input = "5";
+    inputDisplay (input);
+    combineInputs (input);
+});
+plate_6.addEventListener("click", () => {
+    input = "6";
+    inputDisplay (input);
+    combineInputs (input);
+});
+plate_7.addEventListener("click", () => {
+    input = "7";
+    inputDisplay (input);
+    combineInputs (input);
+});
+plate_8.addEventListener("click", () => {
+    input = "8";
+    inputDisplay (input);
+    combineInputs (input);
+});
+plate_9.addEventListener("click", () => {
+    input = "9";
+    inputDisplay (input);
+    combineInputs (input);
+});
+plate_plus.addEventListener("click", () => {
+    input = "+";
+    inputDisplay (input);
+    combineInputs (input);
+});
+plate_0.addEventListener("click", () => {
+    input = "0";
+    inputDisplay (input);
+    combineInputs (input);
+});
+plate_score.addEventListener("click", () => {
+    calculateScore();
 });
 
 
@@ -145,4 +234,104 @@ function updatePlayerLastscore () {
     select_player_3_lastscore.innerText = `Last score: ${player_3_lastscore}`;
     const select_player_4_lastscore = document.querySelector("#player_4 .player_lastscore");
     select_player_4_lastscore.innerText = `Last score: ${player_4_lastscore}`;
+}
+function startGame () {
+    player_1_legs = 0;
+    player_2_legs = 0;
+    player_3_legs = 0;
+    player_4_legs = 0;
+    player_1_average = 0;
+    player_2_average = 0;
+    player_3_average = 0;
+    player_4_average = 0;
+    player_1_lastscore = "/";
+    player_2_lastscore = "/";
+    player_3_lastscore = "/";
+    player_4_lastscore = "/";
+    player_1_thrown = 0;
+    player_2_thrown = 0;
+    player_3_thrown = 0;
+    player_4_thrown = 0;
+    updatePlayerLegs();
+    updatePlayerAverage();
+    updatePlayerLastscore();
+    input = undefined;
+}
+
+function inputDisplay (input) {
+    if (input_display === undefined) {
+        input_display = input
+        get_input_display.innerText = input_display;
+    } else {
+        input_display = input_display+input;
+        get_input_display.innerText = input_display;
+    }
+}
+function combineInputs (input) {
+    if (input_row === undefined && input != "+") {
+        input_row = input
+        console.log("input_row=", input_row);
+    } else if (input === "+") {
+        if (input_row_set_1 === undefined) {
+            input_row_set_1 = Number(input_row);
+            console.log("input_row_set_1=", input_row_set_1);
+            input_row = undefined;
+        } else if (input_row_set_2 === undefined) {
+            input_row_set_2 = Number(input_row);
+            console.log("input_row_set_2=", input_row_set_2);
+            input_row = undefined;
+        } else {
+            alert("zu viele +");
+        }
+    } else {
+        input_row = input_row+input
+        console.log("input_row=", input_row);
+    }  
+}
+function calculateScore () {
+    if (input_row_set_2 != undefined) {
+        score = input_row_set_2+input_row_set_1+Number(input_row);
+        console.log("score=", score);
+    } else if (input_row_set_1 != undefined) {
+        score = input_row_set_1+Number(input_row);
+        console.log("score=", score);
+    } else if (input_row != undefined) {
+        score = Number(input_row);
+        console.log("score=", score);
+    } else if (input != undefined) {
+        score = Number(input);
+        console.log("score=", score);
+    }
+    get_input_display.innerText = score;
+
+    input_row_set_2 = undefined;
+    input_row_set_1 = undefined;
+    input_row = undefined;
+    input = undefined;
+    input_display = undefined;
+    get_input_display.innerText = "";
+    applyScore();
+}
+function applyScore () {
+    if (activeplayer === 1) {
+        player_1_remaining = player_1_remaining-score
+        console.log(player_1_remaining);
+        updatePlayerRemainingScore();
+        activeplayer = 2;
+    } else if (activeplayer === 2) {
+        player_2_remaining = player_2_remaining-score
+        console.log(player_2_remaining);
+        updatePlayerRemainingScore();
+        activeplayer = 3;
+    } else if (activeplayer === 3) {
+        player_3_remaining = player_3_remaining-score
+        console.log(player_3_remaining);
+        updatePlayerRemainingScore();
+        activeplayer = 4;
+    } else if (activeplayer === 4) {
+        player_4_remaining = player_4_remaining-score
+        console.log(player_4_remaining);
+        updatePlayerRemainingScore();
+        activeplayer = 1;
+    }
 }
