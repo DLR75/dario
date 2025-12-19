@@ -12,14 +12,14 @@ let player_1_legs = 0;
 let player_2_legs = 0;
 let player_3_legs = 0;
 let player_4_legs = 0;
-let player_1_remaining = 501;
-let player_2_remaining = 501;
-let player_3_remaining = 501;
-let player_4_remaining = 501;
-let player_1_average;
-let player_2_average;
-let player_3_average;
-let player_4_average;
+let player_1_remaining;
+let player_2_remaining;
+let player_3_remaining;
+let player_4_remaining;
+let player_1_average = "/";
+let player_2_average = "/";
+let player_3_average = "/";
+let player_4_average = "/";
 let player_1_lastscore;
 let player_2_lastscore;
 let player_3_lastscore;
@@ -30,50 +30,29 @@ let player_3_thrown;
 let player_4_thrown;
 
 let target;                         //required to win
+
 //START-UP INSERT STARTING VARIABLES/RUNNING SCRIPTS
 document.getElementById("firstto_current").innerText = `${firstto} legs`;
 
 const gamemode_value = document.getElementById("gamemode_selector");
-gamemode = gamemode_value.value;
-gamemode = Number(gamemode);
-
-const playernumber_value = document.getElementById("playernumber_selector");
-numberofplayers = playernumber_value.value;
-numberofplayers = Number(numberofplayers);
-
-const select_player_1_name = document.querySelector("#player_1 .player_name");
-select_player_1_name.innerText = player_1_name;
-
-const select_player_2_name = document.querySelector("#player_2 .player_name");
-select_player_2_name.innerText = player_2_name;
-
-const scoreboards = document.querySelectorAll(".playerbox");
-updateNumberOfScoreboards();
-
-const select_player_3_name = document.querySelector("#player_3 .player_name");
-select_player_3_name.innerText = player_3_name;
-
-const select_player_4_name = document.querySelector("#player_4 .player_name");
-select_player_4_name.innerText = player_4_name;
-
-//EVENTLISTENERS:
-// const gamemodeselector = document.querySelector(".gamemode_button");
-//     gamemodeselector.addEventListener("click", () => {
-//         console.log("gamemode click")
-
-//     });
-gamemode_value.addEventListener("change", () => {
-    gamemode = gamemode_value.value;
-    gamemode = Number(gamemode);
-    if (gamemode === 1 || gamemode === 2) {
-        target = 501;
-    } else {
-        target = 301;
-    }
-    console.log(target);
-});
 
 const firstto_prompt = document.getElementById("firstto_button");
+
+const playernumber_value = document.getElementById("playernumber_selector");
+
+updateGamemode();
+updateNumberOfPlayers();
+updateNumberOfScoreboards();
+updatePlayerNames();
+updatePlayerLegs();
+updatePlayerAverage();
+
+
+//EVENTLISTENERS:
+gamemode_value.addEventListener("change", () => {
+    updateGamemode();
+});
+
 firstto_prompt.addEventListener("click", () => {
     const firstto_value = prompt("Legs required to win:");
 
@@ -87,9 +66,72 @@ playernumber_value.addEventListener("change", () => {
     updateNumberOfScoreboards();
 });
 
+
+
 //FUNCTIONS:
+function updateGamemode () {
+    gamemode = gamemode_value.value;
+    gamemode = Number(gamemode);
+    if (gamemode === 1 || gamemode === 2) {
+        target = 501;
+    } else {
+        target = 301;
+    }
+    player_1_remaining = target;
+    player_2_remaining = target;
+    player_3_remaining = target;
+    player_4_remaining = target;
+    updatePlayerRemainingScore();
+    console.log("target:", target);
+}
+function updateNumberOfPlayers () {
+    numberofplayers = playernumber_value.value;
+    numberofplayers = Number(numberofplayers);
+}
 function updateNumberOfScoreboards () {
+    const scoreboards = document.querySelectorAll(".playerbox");
+
     scoreboards.forEach((el, index) => {
     el.style.display = index < numberofplayers ? "flex" : "none";
     });
+}
+function updatePlayerNames () {
+    const select_player_1_name = document.querySelector("#player_1 .player_name");
+    select_player_1_name.innerText = player_1_name;
+    const select_player_2_name = document.querySelector("#player_2 .player_name");
+    select_player_2_name.innerText = player_2_name;
+    const select_player_3_name = document.querySelector("#player_3 .player_name");
+    select_player_3_name.innerText = player_3_name;
+    const select_player_4_name = document.querySelector("#player_4 .player_name");
+    select_player_4_name.innerText = player_4_name;
+}
+function updatePlayerLegs () {
+    const select_player_1_legs = document.querySelector("#player_1 .player_legs");
+    select_player_1_legs.innerText = player_1_legs;
+    const select_player_2_legs = document.querySelector("#player_2 .player_legs");
+    select_player_2_legs.innerText = player_2_legs;
+    const select_player_3_legs = document.querySelector("#player_3 .player_legs");
+    select_player_3_legs.innerText = player_3_legs;
+    const select_player_4_legs = document.querySelector("#player_4 .player_legs");
+    select_player_4_legs.innerText = player_4_legs;
+}
+function updatePlayerRemainingScore () {
+    const player_1_remaining_score = document.querySelector("#player_1 .player_score")
+    player_1_remaining_score.innerText = player_1_remaining;
+    const player_2_remaining_score = document.querySelector("#player_2 .player_score")
+    player_2_remaining_score.innerText = player_2_remaining;
+    const player_3_remaining_score = document.querySelector("#player_3 .player_score")
+    player_3_remaining_score.innerText = player_3_remaining;
+    const player_4_remaining_score = document.querySelector("#player_4 .player_score")
+    player_4_remaining_score.innerText = player_4_remaining;
+}
+function updatePlayerAverage () {
+    const select_player_1_average = document.querySelector("#player_1 .player_average");
+    select_player_1_average.innerText = `Average: ${player_1_average}`;
+    const select_player_2_average = document.querySelector("#player_2 .player_average");
+    select_player_2_average.innerText = `Average: ${player_2_average}`;
+    const select_player_3_average = document.querySelector("#player_3 .player_average");
+    select_player_3_average.innerText = `Average: ${player_3_average}`;
+    const select_player_4_average = document.querySelector("#player_4 .player_average");
+    select_player_4_average.innerText = `Average: ${player_4_average}`;
 }
