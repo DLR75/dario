@@ -63,6 +63,7 @@ const plate_9 = document.getElementById("plate_9");
 const plate_plus = document.getElementById("plate_plus");
 const plate_0 = document.getElementById("plate_0");
 const plate_score = document.getElementById("plate_score");
+const plate_delete = document.getElementById("plate_delete");
 
 const player1_name_selector = document.querySelector("#player_1 .player_name");
 const player2_name_selector = document.querySelector("#player_2 .player_name");
@@ -140,61 +141,53 @@ startgame_click.addEventListener("click", () => {
 
 plate_1.addEventListener("click", () => {
     input = "1";
-    inputDisplay (input);
     combineInputs (input);
 });
 plate_2.addEventListener("click", () => {
     input = "2";
-    inputDisplay (input);
     combineInputs (input);
 });
 plate_3.addEventListener("click", () => {
     input = "3";
-    inputDisplay (input);
     combineInputs (input);
 });
 plate_4.addEventListener("click", () => {
     input = "4";
-    inputDisplay (input);
     combineInputs (input);
 });
 plate_5.addEventListener("click", () => {
     input = "5";
-    inputDisplay (input);
     combineInputs (input);
 });
 plate_6.addEventListener("click", () => {
     input = "6";
-    inputDisplay (input);
     combineInputs (input);
 });
 plate_7.addEventListener("click", () => {
     input = "7";
-    inputDisplay (input);
     combineInputs (input);
 });
 plate_8.addEventListener("click", () => {
     input = "8";
-    inputDisplay (input);
     combineInputs (input);
 });
 plate_9.addEventListener("click", () => {
     input = "9";
-    inputDisplay (input);
     combineInputs (input);
 });
 plate_plus.addEventListener("click", () => {
     input = "+";
-    inputDisplay (input);
     combineInputs (input);
 });
 plate_0.addEventListener("click", () => {
     input = "0";
-    inputDisplay (input);
     combineInputs (input);
 });
 plate_score.addEventListener("click", () => {
     calculateScore();
+});
+plate_delete.addEventListener("click", () => {
+    deleteInputs();
 });
 
 player1_name_selector.addEventListener("click", () => {
@@ -324,15 +317,6 @@ function startGame () {
     activeplayer = 1;
     switchActivityPlayer1();
 }
-function inputDisplay (input) {
-    if (input_display === undefined) {
-        input_display = input
-        get_input_display.innerText = input_display;
-    } else {
-        input_display = input_display+input;
-        get_input_display.innerText = input_display;
-    }
-}
 function combineInputs (input) {
     input = String(input);
     if (scorestring === undefined) {
@@ -340,6 +324,7 @@ function combineInputs (input) {
     } else {
         scorestring = scorestring + input;
     }
+    get_input_display.innerText = scorestring;
 }
 function calculateScore () {
     score = scorestring;
@@ -446,6 +431,10 @@ function applyScore () {
         }
     }
     score = undefined;
+}
+function deleteInputs () {
+    scorestring = scorestring.slice(0, -1);
+    get_input_display.innerText = scorestring;
 }
 function nextPlayer () {
     if (numberofplayers === 1) {
