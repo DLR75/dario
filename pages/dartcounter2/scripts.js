@@ -1,51 +1,4 @@
-// VARIABLES:
-let gamemode;               //1=501do 2=501so 3=301do 4=301so 
-let firstto = 1;
-let numberofplayers;
-let gamestate = "idle";
-
-let player_1_name = "Player 1";
-let player_2_name = "Player 2";
-let player_3_name = "Player 3";
-let player_4_name = "Player 4";
-let player_1_legs = 0;
-let player_2_legs = 0;
-let player_3_legs = 0;
-let player_4_legs = 0;
-let player_1_remaining;
-let player_2_remaining;
-let player_3_remaining;
-let player_4_remaining;
-let player_1_average = 0;
-let player_2_average = 0;
-let player_3_average = 0;
-let player_4_average = 0;
-let player_1_lastscore = "/";
-let player_2_lastscore = "/";
-let player_3_lastscore = "/";
-let player_4_lastscore = "/";
-let player_1_thrown = 0;                //number of darts thrown
-let player_2_thrown = 0;
-let player_3_thrown = 0;
-let player_4_thrown = 0;
-let player_1_sum = 0;                   //for average calculation
-let player_2_sum = 0; 
-let player_3_sum = 0; 
-let player_4_sum = 0; 
-
-let target;                         //required to win
-
-let input_display;      //inputline content for scoring
-let input;              //button output
-let input_row;                          
-let input_row_set_1;    //adder
-let input_row_set_2;    //adder
-let score;
-let scorestring;
-
-let activeplayer = 0;
-let startingplayer = 1;
-
+//DOM / SELECTORS:
 const gamemode_value = document.getElementById("gamemode_selector");
 const firstto_prompt = document.getElementById("firstto_button");
 const playernumber_value = document.getElementById("playernumber_selector");
@@ -87,6 +40,50 @@ const player4_legs_selector = document.querySelector("#player_4 .player_legs");
 const player4_average_selector = document.querySelector("#player_4 .player_average");
 const player4_lastscore_selector = document.querySelector("#player_4 .player_lastscore");
 
+// VARIABLES:
+let gamemode;               //1=501do 2=501so 3=301do 4=301so 
+let firstto = 1;
+let numberofplayers;
+
+let player_1_name = "Player 1";
+let player_2_name = "Player 2";
+let player_3_name = "Player 3";
+let player_4_name = "Player 4";
+let player_1_legs = 0;
+let player_2_legs = 0;
+let player_3_legs = 0;
+let player_4_legs = 0;
+let player_1_remaining;
+let player_2_remaining;
+let player_3_remaining;
+let player_4_remaining;
+let player_1_average = 0;
+let player_2_average = 0;
+let player_3_average = 0;
+let player_4_average = 0;
+let player_1_lastscore = "/";
+let player_2_lastscore = "/";
+let player_3_lastscore = "/";
+let player_4_lastscore = "/";
+let player_1_thrown = 0;                //number of darts thrown
+let player_2_thrown = 0;
+let player_3_thrown = 0;
+let player_4_thrown = 0;
+let player_1_sum = 0;                   //for average calculation
+let player_2_sum = 0; 
+let player_3_sum = 0; 
+let player_4_sum = 0; 
+
+let target;                         //required to win
+
+let input_display;      //inputline content for scoring
+let input;              //button output
+let score;
+let scorestring;
+
+let activeplayer = 0;
+let startingplayer = 1;
+
 
 //START-UP INSERT FIRST VARIABLES / RUNNING SCRIPTS
 document.getElementById("firstto_current").innerText = `${firstto} legs`;
@@ -116,96 +113,7 @@ player4_average_selector.classList.add(`passive`);
 player4_lastscore_selector.classList.add(`passive`);
 
 
-//EVENTLISTENERS:
-gamemode_value.addEventListener("change", () => {
-    updateGamemode();
-});
 
-firstto_prompt.addEventListener("click", () => {
-    const firstto_value = prompt("Legs required to win:");
-
-    firstto = firstto_value;
-    firstto = Number(firstto)
-    document.getElementById("firstto_current").innerText = `${firstto} legs`;
-});
-
-playernumber_value.addEventListener("change", () => {
-    numberofplayers = playernumber_value.value;
-    numberofplayers = Number(numberofplayers);
-    updateNumberOfScoreboards();
-});
-
-startgame_click.addEventListener("click", () => {
-    startGame();
-});
-
-plate_1.addEventListener("click", () => {
-    input = "1";
-    combineInputs (input);
-});
-plate_2.addEventListener("click", () => {
-    input = "2";
-    combineInputs (input);
-});
-plate_3.addEventListener("click", () => {
-    input = "3";
-    combineInputs (input);
-});
-plate_4.addEventListener("click", () => {
-    input = "4";
-    combineInputs (input);
-});
-plate_5.addEventListener("click", () => {
-    input = "5";
-    combineInputs (input);
-});
-plate_6.addEventListener("click", () => {
-    input = "6";
-    combineInputs (input);
-});
-plate_7.addEventListener("click", () => {
-    input = "7";
-    combineInputs (input);
-});
-plate_8.addEventListener("click", () => {
-    input = "8";
-    combineInputs (input);
-});
-plate_9.addEventListener("click", () => {
-    input = "9";
-    combineInputs (input);
-});
-plate_plus.addEventListener("click", () => {
-    input = "+";
-    combineInputs (input);
-});
-plate_0.addEventListener("click", () => {
-    input = "0";
-    combineInputs (input);
-});
-plate_score.addEventListener("click", () => {
-    calculateScore();
-});
-plate_delete.addEventListener("click", () => {
-    deleteInputs();
-});
-
-player1_name_selector.addEventListener("click", () => {
-    player_1_name = prompt("What´s your name?");
-    updatePlayerNames();
-})
-player2_name_selector.addEventListener("click", () => {
-    player_2_name = prompt("What´s your name?");
-    updatePlayerNames();
-})
-player3_name_selector.addEventListener("click", () => {
-    player_3_name = prompt("What´s your name?");
-    updatePlayerNames();
-})
-player4_name_selector.addEventListener("click", () => {
-    player_4_name = prompt("What´s your name?");
-    updatePlayerNames();
-})
 
 
 //FUNCTIONS:
@@ -222,19 +130,16 @@ function updateGamemode () {
     player_3_remaining = target;
     player_4_remaining = target;
     updatePlayerRemainingScore();
-}
-function updateNumberOfPlayers () {
+} function updateNumberOfPlayers () {
     numberofplayers = playernumber_value.value;
     numberofplayers = Number(numberofplayers);
-}
-function updateNumberOfScoreboards () {
+} function updateNumberOfScoreboards () {
     const scoreboards = document.querySelectorAll(".playerbox");
 
     scoreboards.forEach((el, index) => {
     el.style.display = index < numberofplayers ? "flex" : "none";
     });
-}
-function updatePlayerNames () {
+} function updatePlayerNames () {
     const select_player_1_name = document.querySelector("#player_1 .player_name");
     select_player_1_name.innerText = player_1_name;
     const select_player_2_name = document.querySelector("#player_2 .player_name");
@@ -243,8 +148,7 @@ function updatePlayerNames () {
     select_player_3_name.innerText = player_3_name;
     const select_player_4_name = document.querySelector("#player_4 .player_name");
     select_player_4_name.innerText = player_4_name;
-}
-function updatePlayerLegs () {
+} function updatePlayerLegs () {
     console.log("running updatePlayerLegs");
     const select_player_1_legs = document.querySelector("#player_1 .player_legs");
     select_player_1_legs.innerText = player_1_legs;
@@ -255,8 +159,7 @@ function updatePlayerLegs () {
     const select_player_4_legs = document.querySelector("#player_4 .player_legs");
     select_player_4_legs.innerText = player_4_legs;
     
-}
-function updatePlayerRemainingScore () {
+} function updatePlayerRemainingScore () {
     const player_1_remaining_score = document.querySelector("#player_1 .player_score")
     player_1_remaining_score.innerText = player_1_remaining;
     const player_2_remaining_score = document.querySelector("#player_2 .player_score")
@@ -266,8 +169,7 @@ function updatePlayerRemainingScore () {
     const player_4_remaining_score = document.querySelector("#player_4 .player_score")
     player_4_remaining_score.innerText = player_4_remaining;
     
-}
-function updatePlayerAverage () {
+} function updatePlayerAverage () {
     const select_player_1_average = document.querySelector("#player_1 .player_average");
     select_player_1_average.innerText = `Average: ${player_1_average.toFixed(2)}`;
     const select_player_2_average = document.querySelector("#player_2 .player_average");
@@ -276,8 +178,7 @@ function updatePlayerAverage () {
     select_player_3_average.innerText = `Average: ${player_3_average.toFixed(2)}`;
     const select_player_4_average = document.querySelector("#player_4 .player_average");
     select_player_4_average.innerText = `Average: ${player_4_average.toFixed(2)}`;
-}
-function updatePlayerLastscore () {
+} function updatePlayerLastscore () {
     const select_player_1_lastscore = document.querySelector("#player_1 .player_lastscore");
     select_player_1_lastscore.innerText = `Last score: ${player_1_lastscore}`;
     const select_player_2_lastscore = document.querySelector("#player_2 .player_lastscore");
@@ -686,3 +587,94 @@ function switchActivityPlayer1 () {
         player4_lastscore_selector.classList.add(`active`);
     }
 }
+
+//EVENTLISTENERS:
+gamemode_value.addEventListener("change", () => {
+    updateGamemode();
+});
+
+firstto_prompt.addEventListener("click", () => {
+    const firstto_value = prompt("Legs required to win:");
+
+    firstto = firstto_value;
+    firstto = Number(firstto)
+    document.getElementById("firstto_current").innerText = `${firstto} legs`;
+});
+
+playernumber_value.addEventListener("change", () => {
+    numberofplayers = playernumber_value.value;
+    numberofplayers = Number(numberofplayers);
+    updateNumberOfScoreboards();
+});
+
+startgame_click.addEventListener("click", () => {
+    startGame();
+});
+
+plate_1.addEventListener("click", () => {
+    input = "1";
+    combineInputs (input);
+});
+plate_2.addEventListener("click", () => {
+    input = "2";
+    combineInputs (input);
+});
+plate_3.addEventListener("click", () => {
+    input = "3";
+    combineInputs (input);
+});
+plate_4.addEventListener("click", () => {
+    input = "4";
+    combineInputs (input);
+});
+plate_5.addEventListener("click", () => {
+    input = "5";
+    combineInputs (input);
+});
+plate_6.addEventListener("click", () => {
+    input = "6";
+    combineInputs (input);
+});
+plate_7.addEventListener("click", () => {
+    input = "7";
+    combineInputs (input);
+});
+plate_8.addEventListener("click", () => {
+    input = "8";
+    combineInputs (input);
+});
+plate_9.addEventListener("click", () => {
+    input = "9";
+    combineInputs (input);
+});
+plate_plus.addEventListener("click", () => {
+    input = "+";
+    combineInputs (input);
+});
+plate_0.addEventListener("click", () => {
+    input = "0";
+    combineInputs (input);
+});
+plate_score.addEventListener("click", () => {
+    calculateScore();
+});
+plate_delete.addEventListener("click", () => {
+    deleteInputs();
+});
+
+player1_name_selector.addEventListener("click", () => {
+    player_1_name = prompt("What´s your name?");
+    updatePlayerNames();
+})
+player2_name_selector.addEventListener("click", () => {
+    player_2_name = prompt("What´s your name?");
+    updatePlayerNames();
+})
+player3_name_selector.addEventListener("click", () => {
+    player_3_name = prompt("What´s your name?");
+    updatePlayerNames();
+})
+player4_name_selector.addEventListener("click", () => {
+    player_4_name = prompt("What´s your name?");
+    updatePlayerNames();
+})
