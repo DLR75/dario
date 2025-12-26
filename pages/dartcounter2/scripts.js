@@ -41,6 +41,7 @@ let input_row;
 let input_row_set_1;    //adder
 let input_row_set_2;    //adder
 let score;
+let scorestring;
 
 let activeplayer = 0;
 let startingplayer = 1;
@@ -333,48 +334,25 @@ function inputDisplay (input) {
     }
 }
 function combineInputs (input) {
-    if (input_row === undefined && input != "+") {
-        input_row = input
-        // console.log("input_row=", input_row);
-    } else if (input === "+") {
-        if (input_row_set_1 === undefined) {
-            input_row_set_1 = Number(input_row);
-            // console.log("input_row_set_1=", input_row_set_1);
-            input_row = undefined;
-        } else if (input_row_set_2 === undefined) {
-            input_row_set_2 = Number(input_row);
-            // console.log("input_row_set_2=", input_row_set_2);
-            input_row = undefined;
-        } else {
-            alert("zu viele +");
-        }
+    input = String(input);
+    if (scorestring === undefined) {
+        scorestring = input;
     } else {
-        input_row = input_row+input
-        // console.log("input_row=", input_row);
-    }  
+        scorestring = scorestring + input;
+    }
 }
 function calculateScore () {
-    if (input_row_set_2 != undefined) {
-        score = input_row_set_2+input_row_set_1+Number(input_row);
-        console.log("score=", score);
-    } else if (input_row_set_1 != undefined) {
-        score = input_row_set_1+Number(input_row);
-        console.log("score=", score);
-    } else if (input_row != undefined) {
-        score = Number(input_row);
-        console.log("score=", score);
-    } else if (input != undefined) {
-        score = Number(input);
-        console.log("score=", score);
-    }
-    get_input_display.innerText = score;
+    score = scorestring;
+    score = score.split("+");
+    score = score.map(Number);
+    score = score.reduce((a,b) => a + b, 0);
 
-    input_row_set_2 = undefined;
-    input_row_set_1 = undefined;
-    input_row = undefined;
+    
     input = undefined;
     input_display = undefined;
     get_input_display.innerText = "";
+    scorestring = undefined;
+
     applyScore();
 }
 function applyScore () {
