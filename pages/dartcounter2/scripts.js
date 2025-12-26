@@ -16,18 +16,22 @@ let player_1_remaining;
 let player_2_remaining;
 let player_3_remaining;
 let player_4_remaining;
-let player_1_average = "/";
-let player_2_average = "/";
-let player_3_average = "/";
-let player_4_average = "/";
+let player_1_average = 0;
+let player_2_average = 0;
+let player_3_average = 0;
+let player_4_average = 0;
 let player_1_lastscore = "/";
 let player_2_lastscore = "/";
 let player_3_lastscore = "/";
 let player_4_lastscore = "/";
-let player_1_thrown;                //number of darts thrown
-let player_2_thrown;
-let player_3_thrown;
-let player_4_thrown;
+let player_1_thrown = 0;                //number of darts thrown
+let player_2_thrown = 0;
+let player_3_thrown = 0;
+let player_4_thrown = 0;
+let player_1_sum = 0;                   //for average calculation
+let player_2_sum = 0; 
+let player_3_sum = 0; 
+let player_4_sum = 0; 
 
 let target;                         //required to win
 
@@ -59,6 +63,29 @@ const plate_plus = document.getElementById("plate_plus");
 const plate_0 = document.getElementById("plate_0");
 const plate_score = document.getElementById("plate_score");
 
+const player1_name_selector = document.querySelector("#player_1 .player_name");
+const player2_name_selector = document.querySelector("#player_2 .player_name");
+const player3_name_selector = document.querySelector("#player_3 .player_name");
+const player4_name_selector = document.querySelector("#player_4 .player_name");
+
+const player1_selector = document.querySelector("#player_1");
+const player1_legs_selector = document.querySelector("#player_1 .player_legs");
+const player1_average_selector = document.querySelector("#player_1 .player_average");
+const player1_lastscore_selector = document.querySelector("#player_1 .player_lastscore");
+const player2_selector = document.querySelector("#player_2");
+const player2_legs_selector = document.querySelector("#player_2 .player_legs");
+const player2_average_selector = document.querySelector("#player_2 .player_average");
+const player2_lastscore_selector = document.querySelector("#player_2 .player_lastscore");
+const player3_selector = document.querySelector("#player_3");
+const player3_legs_selector = document.querySelector("#player_3 .player_legs");
+const player3_average_selector = document.querySelector("#player_3 .player_average");
+const player3_lastscore_selector = document.querySelector("#player_3 .player_lastscore");
+const player4_selector = document.querySelector("#player_4");
+const player4_legs_selector = document.querySelector("#player_4 .player_legs");
+const player4_average_selector = document.querySelector("#player_4 .player_average");
+const player4_lastscore_selector = document.querySelector("#player_4 .player_lastscore");
+
+
 //START-UP INSERT FIRST VARIABLES / RUNNING SCRIPTS
 document.getElementById("firstto_current").innerText = `${firstto} legs`;
 
@@ -67,8 +94,24 @@ updateNumberOfPlayers();
 updateNumberOfScoreboards();
 updatePlayerNames();
 updatePlayerLegs();
-updatePlayerAverage();
 updatePlayerLastscore();
+
+player1_selector.classList.add(`passive`);
+player1_legs_selector.classList.add(`passive`);
+player1_average_selector.classList.add(`passive`);
+player1_lastscore_selector.classList.add(`passive`);
+player2_selector.classList.add(`passive`);
+player2_legs_selector.classList.add(`passive`);
+player2_average_selector.classList.add(`passive`);
+player2_lastscore_selector.classList.add(`passive`);
+player3_selector.classList.add(`passive`);
+player3_legs_selector.classList.add(`passive`);
+player3_average_selector.classList.add(`passive`);
+player3_lastscore_selector.classList.add(`passive`);
+player4_selector.classList.add(`passive`);
+player4_legs_selector.classList.add(`passive`);
+player4_average_selector.classList.add(`passive`);
+player4_lastscore_selector.classList.add(`passive`);
 
 
 //EVENTLISTENERS:
@@ -153,6 +196,23 @@ plate_score.addEventListener("click", () => {
     calculateScore();
 });
 
+player1_name_selector.addEventListener("click", () => {
+    player_1_name = prompt("What´s your name?");
+    updatePlayerNames();
+})
+player2_name_selector.addEventListener("click", () => {
+    player_2_name = prompt("What´s your name?");
+    updatePlayerNames();
+})
+player3_name_selector.addEventListener("click", () => {
+    player_3_name = prompt("What´s your name?");
+    updatePlayerNames();
+})
+player4_name_selector.addEventListener("click", () => {
+    player_4_name = prompt("What´s your name?");
+    updatePlayerNames();
+})
+
 
 //FUNCTIONS:
 function updateGamemode () {
@@ -215,13 +275,13 @@ function updatePlayerRemainingScore () {
 }
 function updatePlayerAverage () {
     const select_player_1_average = document.querySelector("#player_1 .player_average");
-    select_player_1_average.innerText = `Average: ${player_1_average}`;
+    select_player_1_average.innerText = `Average: ${player_1_average.toFixed(2)}`;
     const select_player_2_average = document.querySelector("#player_2 .player_average");
-    select_player_2_average.innerText = `Average: ${player_2_average}`;
+    select_player_2_average.innerText = `Average: ${player_2_average.toFixed(2)}`;
     const select_player_3_average = document.querySelector("#player_3 .player_average");
-    select_player_3_average.innerText = `Average: ${player_3_average}`;
+    select_player_3_average.innerText = `Average: ${player_3_average.toFixed(2)}`;
     const select_player_4_average = document.querySelector("#player_4 .player_average");
-    select_player_4_average.innerText = `Average: ${player_4_average}`;
+    select_player_4_average.innerText = `Average: ${player_4_average.toFixed(2)}`;
 }
 function updatePlayerLastscore () {
     const select_player_1_lastscore = document.querySelector("#player_1 .player_lastscore");
@@ -261,6 +321,7 @@ function startGame () {
     updatePlayerRemainingScore();
     input = undefined;
     activeplayer = 1;
+    switchActivityPlayer1();
 }
 function inputDisplay (input) {
     if (input_display === undefined) {
@@ -321,60 +382,88 @@ function applyScore () {
         player_1_remaining = player_1_remaining-score;
         if (player_1_remaining > 0) {
             updatePlayerRemainingScore();
+            changeAverage();
+            changeLastscore();
             nextPlayer();
         } else if (player_1_remaining === 0) {
             updatePlayerRemainingScore();
             console.log("leg won");
+            changeAverage();
+            changeLastscore();
             addLeg();
         } else {
             player_1_remaining = player_1_remaining+score;
             alert("to much");
             console.log("tomuch");
+            score = 0;
+            changeAverage();
+            changeLastscore();
             nextPlayer();
         }
     } else if (activeplayer === 2) {
         player_2_remaining = player_2_remaining-score;
         if (player_2_remaining > 0) {
             updatePlayerRemainingScore();
+            changeAverage();
+            changeLastscore();
             nextPlayer();
         } else if (player_2_remaining === 0) {
             updatePlayerRemainingScore();
             console.log("leg won");
+            changeAverage();
+            changeLastscore();
             addLeg();
         } else {
             player_2_remaining = player_2_remaining+score;
             alert("to much");
             console.log("tomuch");
+            score = 0;
+            changeAverage();
+            changeLastscore();
             nextPlayer();
         }
     } else if (activeplayer === 3) {
         player_3_remaining = player_3_remaining-score;
         if (player_3_remaining > 0) {
             updatePlayerRemainingScore();
+            changeAverage();
+            changeLastscore();
             nextPlayer();
         } else if (player_3_remaining === 0) {
             updatePlayerRemainingScore();
             console.log("leg won");
+            changeAverage();
+            changeLastscore();
             addLeg();
         } else {
             player_3_remaining = player_3_remaining+score;
             alert("to much");
             console.log("tomuch");
+            score = 0;
+            changeAverage();
+            changeLastscore();
             nextPlayer();
         }    
     } else if (activeplayer === 4) {
         player_4_remaining = player_4_remaining-score;
         if (player_4_remaining > 0) {
             updatePlayerRemainingScore();
+            changeAverage();
+            changeLastscore();
             nextPlayer();
         } else if (player_4_remaining === 0) {
             updatePlayerRemainingScore();
             console.log("leg won");
+            changeAverage();
+            changeLastscore();
             addLeg();
         } else {
             player_4_remaining = player_4_remaining+score;
             alert("to much");
             console.log("tomuch");
+            score = 0;
+            changeAverage();
+            changeLastscore();
             nextPlayer();
         }
     }
@@ -385,27 +474,45 @@ function nextPlayer () {
         activeplayer = 1;
     } else if (numberofplayers === 2) {
         if (activeplayer === 1) {
+            switchActivityPlayer1();
             activeplayer = 2;
+            switchActivityPlayer2();
         } else if (activeplayer === 2) {
+            switchActivityPlayer2();
             activeplayer = 1;
+            switchActivityPlayer1();
         }
     } else if (numberofplayers === 3) {
         if (activeplayer === 1) {
+            switchActivityPlayer1();
             activeplayer = 2;
+            switchActivityPlayer2();
         } else if (activeplayer === 2) {
+            switchActivityPlayer2();
             activeplayer = 3;
+            switchActivityPlayer3();
         } else if (activeplayer === 3) {
+            switchActivityPlayer3();
             activeplayer = 1;
+            switchActivityPlayer1();
         }
     } else if (numberofplayers === 4) {
         if (activeplayer === 1) {
+            switchActivityPlayer1();
             activeplayer = 2;
+            switchActivityPlayer2();
         } else if (activeplayer === 2) {
+            switchActivityPlayer2();
             activeplayer = 3;
+            switchActivityPlayer3();
         } else if (activeplayer === 3) {
+            switchActivityPlayer3();
             activeplayer = 4;
+            switchActivityPlayer4();
         } else if (activeplayer === 4) {
+            switchActivityPlayer4();
             activeplayer = 1;
+            switchActivityPlayer1();
         }
     }
 }
@@ -490,4 +597,125 @@ function determinStartingplayer () {
     }
     activeplayer = startingplayer;
     console.log("startingplayer:", activeplayer);
+}
+function changeAverage () {
+    if (activeplayer === 1) {
+        ++player_1_thrown;
+        player_1_sum = player_1_sum + score;
+        player_1_average = player_1_sum / player_1_thrown;
+    } else if (activeplayer === 2) {
+        ++player_2_thrown;
+        player_2_sum = player_2_sum + score;
+        player_2_average = player_2_sum / player_2_thrown;
+    } else if (activeplayer === 3) {
+        ++player_3_thrown;
+        player_3_sum = player_3_sum + score;
+        player_3_average = player_3_sum / player_3_thrown;   
+    } else if (activeplayer === 4) {
+        ++player_1_thrown;
+        player_4_sum = player_1_sum + score;
+        player_4_average = player_4_sum / player_4_thrown;
+    }
+    updatePlayerAverage();
+}
+function changeLastscore () {
+    if (activeplayer === 1) {
+        player_1_lastscore = score;
+    } else if (activeplayer === 2) {
+        player_2_lastscore = score;
+    } else if (activeplayer === 3) {
+        player_3_lastscore = score;   
+    } else if (activeplayer === 4) {
+        player_4_lastscore = score;
+    }
+    updatePlayerLastscore();
+}
+function switchActivityPlayer1 () {
+    if (player1_selector.classList.contains("active")) {
+        player1_selector.classList.remove(`active`);
+        player1_legs_selector.classList.remove(`active`);
+        player1_average_selector.classList.remove(`active`);
+        player1_lastscore_selector.classList.remove(`active`);
+
+        player1_selector.classList.add(`passive`);
+        player1_legs_selector.classList.add(`passive`);
+        player1_average_selector.classList.add(`passive`);
+        player1_lastscore_selector.classList.add(`passive`);
+    } else {
+        player1_selector.classList.remove(`passive`);
+        player1_legs_selector.classList.remove(`passive`);
+        player1_average_selector.classList.remove(`passive`);
+        player1_lastscore_selector.classList.remove(`passive`);
+
+        player1_selector.classList.add(`active`);
+        player1_legs_selector.classList.add(`active`);
+        player1_average_selector.classList.add(`active`);
+        player1_lastscore_selector.classList.add(`active`);
+    }
+} function switchActivityPlayer2 () {
+    if (player2_selector.classList.contains("active")) {
+        player2_selector.classList.remove(`active`);
+        player2_legs_selector.classList.remove(`active`);
+        player2_average_selector.classList.remove(`active`);
+        player2_lastscore_selector.classList.remove(`active`);
+
+        player2_selector.classList.add(`passive`);
+        player2_legs_selector.classList.add(`passive`);
+        player2_average_selector.classList.add(`passive`);
+        player2_lastscore_selector.classList.add(`passive`);
+    } else {
+        player2_selector.classList.remove(`passive`);
+        player2_legs_selector.classList.remove(`passive`);
+        player2_average_selector.classList.remove(`passive`);
+        player2_lastscore_selector.classList.remove(`passive`);
+
+        player2_selector.classList.add(`active`);
+        player2_legs_selector.classList.add(`active`);
+        player2_average_selector.classList.add(`active`);
+        player2_lastscore_selector.classList.add(`active`);
+    }
+} function switchActivityPlayer3 () {
+    if (player3_selector.classList.contains("active")) {
+        player3_selector.classList.remove(`active`);
+        player3_legs_selector.classList.remove(`active`);
+        player3_average_selector.classList.remove(`active`);
+        player3_lastscore_selector.classList.remove(`active`);
+
+        player3_selector.classList.add(`passive`);
+        player3_legs_selector.classList.add(`passive`);
+        player3_average_selector.classList.add(`passive`);
+        player3_lastscore_selector.classList.add(`passive`);
+    } else {
+        player3_selector.classList.remove(`passive`);
+        player3_legs_selector.classList.remove(`passive`);
+        player3_average_selector.classList.remove(`passive`);
+        player3_lastscore_selector.classList.remove(`passive`);
+
+        player3_selector.classList.add(`active`);
+        player3_legs_selector.classList.add(`active`);
+        player3_average_selector.classList.add(`active`);
+        player3_lastscore_selector.classList.add(`active`);
+    }
+} function switchActivityPlayer4 () {
+    if (player4_selector.classList.contains("active")) {
+        player4_selector.classList.remove(`active`);
+        player4_legs_selector.classList.remove(`active`);
+        player4_average_selector.classList.remove(`active`);
+        player4_lastscore_selector.classList.remove(`active`);
+
+        player4_selector.classList.add(`passive`);
+        player4_legs_selector.classList.add(`passive`);
+        player4_average_selector.classList.add(`passive`);
+        player4_lastscore_selector.classList.add(`passive`);
+    } else {
+        player4_selector.classList.remove(`passive`);
+        player4_legs_selector.classList.remove(`passive`);
+        player4_average_selector.classList.remove(`passive`);
+        player4_lastscore_selector.classList.remove(`passive`);
+
+        player4_selector.classList.add(`active`);
+        player4_legs_selector.classList.add(`active`);
+        player4_average_selector.classList.add(`active`);
+        player4_lastscore_selector.classList.add(`active`);
+    }
 }
