@@ -363,6 +363,7 @@ function applyScore () {
             nextPlayer();
         }
     }
+    displayScore();
     score = undefined;
 }
 function deleteInputs () {
@@ -619,6 +620,19 @@ function switchActivityPlayer1 () {
         player4_lastscore_selector.classList.add(`active`);
     }
 }
+function displayScore () {
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    async function showMessage() {
+        const overlay_message = document.getElementById("overlay_message");
+
+        overlay_message.textContent = score;
+        await sleep(2000);
+        overlay_message.textContent = "";
+    }
+
+    showMessage();
+}
 
 //EVENTLISTENERS:
 gamemode_value.addEventListener("change", () => {
@@ -709,3 +723,4 @@ player4_name_selector.addEventListener("click", () => {
     player_4_name = prompt("What´s your name?");
     updatePlayerNames();
 })
+
