@@ -627,6 +627,7 @@ function displayScore () {
         const overlay_message = document.getElementById("overlay_message");
 
         overlay_message.textContent = score;
+        document.getElementById("overlay_message").classList.add("grow");
         await sleep(2000);
         overlay_message.textContent = "";
     }
