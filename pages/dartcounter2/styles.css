@@ -266,3 +266,12 @@ html, body {
         font-size: calc(var(--u) * 5);
     }
 
+.overlay_display {
+    position: absolute;                     /*independent of flexboxes*/
+    top: 50%;                               /*centers textpoint*/
+    left: 50%;                              /*centers textpoint*/
+    transform: translate(-50%, -50%);       /*centers text*/
+    z-index: 9999;                          /*in front*/
+
+    font-size: 200px;
+}
