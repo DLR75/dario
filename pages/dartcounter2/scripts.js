@@ -112,10 +112,6 @@ player4_legs_selector.classList.add(`passive`);
 player4_average_selector.classList.add(`passive`);
 player4_lastscore_selector.classList.add(`passive`);
 
-
-
-
-
 //FUNCTIONS:
 function updateGamemode () {
     gamemode = gamemode_value.value;
@@ -170,23 +166,46 @@ function updateGamemode () {
     player_4_remaining_score.innerText = player_4_remaining;
     
 } function updatePlayerAverage () {
-    const select_player_1_average = document.querySelector("#player_1 .player_average");
-    select_player_1_average.innerText = `Average: ${player_1_average.toFixed(2)}`;
-    const select_player_2_average = document.querySelector("#player_2 .player_average");
-    select_player_2_average.innerText = `Average: ${player_2_average.toFixed(2)}`;
-    const select_player_3_average = document.querySelector("#player_3 .player_average");
-    select_player_3_average.innerText = `Average: ${player_3_average.toFixed(2)}`;
-    const select_player_4_average = document.querySelector("#player_4 .player_average");
-    select_player_4_average.innerText = `Average: ${player_4_average.toFixed(2)}`;
+    if (numberofplayers >= 3) {
+        const select_player_1_average = document.querySelector("#player_1 .player_average");
+        select_player_1_average.innerText = `Avg: ${player_1_average.toFixed(2)}`;
+        const select_player_2_average = document.querySelector("#player_2 .player_average");
+        select_player_2_average.innerText = `Avg: ${player_2_average.toFixed(2)}`;
+        const select_player_3_average = document.querySelector("#player_3 .player_average");
+        select_player_3_average.innerText = `Avg: ${player_3_average.toFixed(2)}`;
+        const select_player_4_average = document.querySelector("#player_4 .player_average");
+        select_player_4_average.innerText = `Avg: ${player_4_average.toFixed(2)}`;
+    } else {
+        const select_player_1_average = document.querySelector("#player_1 .player_average");
+        select_player_1_average.innerText = `Average: ${player_1_average.toFixed(2)}`;
+        const select_player_2_average = document.querySelector("#player_2 .player_average");
+        select_player_2_average.innerText = `Average: ${player_2_average.toFixed(2)}`;
+        const select_player_3_average = document.querySelector("#player_3 .player_average");
+        select_player_3_average.innerText = `Average: ${player_3_average.toFixed(2)}`;
+        const select_player_4_average = document.querySelector("#player_4 .player_average");
+        select_player_4_average.innerText = `Average: ${player_4_average.toFixed(2)}`;
+    }
 } function updatePlayerLastscore () {
-    const select_player_1_lastscore = document.querySelector("#player_1 .player_lastscore");
-    select_player_1_lastscore.innerText = `Last score: ${player_1_lastscore}`;
-    const select_player_2_lastscore = document.querySelector("#player_2 .player_lastscore");
-    select_player_2_lastscore.innerText = `Last score: ${player_2_lastscore}`;
-    const select_player_3_lastscore = document.querySelector("#player_3 .player_lastscore");
-    select_player_3_lastscore.innerText = `Last score: ${player_3_lastscore}`;
-    const select_player_4_lastscore = document.querySelector("#player_4 .player_lastscore");
-    select_player_4_lastscore.innerText = `Last score: ${player_4_lastscore}`;
+    if (numberofplayers >= 3) {
+        const select_player_1_lastscore = document.querySelector("#player_1 .player_lastscore");
+        select_player_1_lastscore.innerText = `Ls: ${player_1_lastscore}`;
+        const select_player_2_lastscore = document.querySelector("#player_2 .player_lastscore");
+        select_player_2_lastscore.innerText = `Ls: ${player_2_lastscore}`;
+        const select_player_3_lastscore = document.querySelector("#player_3 .player_lastscore");
+        select_player_3_lastscore.innerText = `Ls: ${player_3_lastscore}`;
+        const select_player_4_lastscore = document.querySelector("#player_4 .player_lastscore");
+        select_player_4_lastscore.innerText = `Ls: ${player_4_lastscore}`;
+    } else {
+        const select_player_1_lastscore = document.querySelector("#player_1 .player_lastscore");
+        select_player_1_lastscore.innerText = `Last score: ${player_1_lastscore}`;
+        const select_player_2_lastscore = document.querySelector("#player_2 .player_lastscore");
+        select_player_2_lastscore.innerText = `Last score: ${player_2_lastscore}`;
+        const select_player_3_lastscore = document.querySelector("#player_3 .player_lastscore");
+        select_player_3_lastscore.innerText = `Last score: ${player_3_lastscore}`;
+        const select_player_4_lastscore = document.querySelector("#player_4 .player_lastscore");
+        select_player_4_lastscore.innerText = `Last score: ${player_4_lastscore}`;
+    }
+    
 }
 function startGame () {
     console.log("running startGame");
@@ -239,7 +258,20 @@ function calculateScore () {
     get_input_display.innerText = "";
     scorestring = undefined;
 
-    applyScore();
+    checkScore();
+}
+function checkScore () {
+    if (score > 180) {
+        alert("impossible");
+    } else if (score === 42) {
+        alert("the answer");
+        applyScore();
+    } else if ( score === 69) {
+        alert("nice");
+        applyScore();
+    } else {
+        applyScore();
+    }
 }
 function applyScore () {
     if (activeplayer === 1) {
@@ -592,7 +624,6 @@ function switchActivityPlayer1 () {
 gamemode_value.addEventListener("change", () => {
     updateGamemode();
 });
-
 firstto_prompt.addEventListener("click", () => {
     const firstto_value = prompt("Legs required to win:");
 
@@ -600,13 +631,13 @@ firstto_prompt.addEventListener("click", () => {
     firstto = Number(firstto)
     document.getElementById("firstto_current").innerText = `${firstto} legs`;
 });
-
 playernumber_value.addEventListener("change", () => {
     numberofplayers = playernumber_value.value;
     numberofplayers = Number(numberofplayers);
     updateNumberOfScoreboards();
+    updatePlayerAverage();
+    updatePlayerLastscore();
 });
-
 startgame_click.addEventListener("click", () => {
     startGame();
 });
