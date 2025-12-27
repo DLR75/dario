@@ -264,10 +264,8 @@ function checkScore () {
     if (score > 180) {
         alert("impossible");
     } else if (score === 42) {
-        alert("the answer");
         applyScore();
     } else if ( score === 69) {
-        alert("nice");
         applyScore();
     } else {
         applyScore();
@@ -625,11 +623,36 @@ function displayScore () {
 
     async function showMessage() {
         const overlay_message = document.getElementById("overlay_message");
-
         overlay_message.textContent = score;
-        document.getElementById("overlay_message").classList.add("grow");
-        await sleep(2000);
-        overlay_message.textContent = "";
+
+        if (score === 69) {
+            document.getElementById("overlay_message").classList.add("grow");
+            document.getElementById("overlay_message").classList.add("sixtynine");
+            await sleep(5000);
+            overlay_message.textContent = "";
+            document.getElementById("overlay_message").classList.remove("grow");
+            document.getElementById("overlay_message").classList.remove("sixtynine");
+        } else if (score === 42) {
+            document.getElementById("overlay_message").classList.add("grow");
+            document.getElementById("overlay_message").classList.add("fortytwo");
+            await sleep(5000);
+            overlay_message.textContent = "";
+            document.getElementById("overlay_message").classList.remove("grow");
+            document.getElementById("overlay_message").classList.remove("fortytwo");
+        } else if (score >= 100) {
+            document.getElementById("overlay_message").classList.add("grow");
+            document.getElementById("overlay_message").classList.add("onehundredplus");
+            await sleep(5000);
+            overlay_message.textContent = "";
+            document.getElementById("overlay_message").classList.remove("grow");
+            document.getElementById("overlay_message").classList.remove("onehundredplus");
+        } else {
+            document.getElementById("overlay_message").classList.add("grow");
+            await sleep(2000);
+            overlay_message.textContent = "";
+            document.getElementById("overlay_message").classList.remove("grow");
+        }
+        
     }
 
     showMessage();

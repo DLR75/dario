@@ -274,7 +274,7 @@ html, body {
     position: absolute;                     
     top: 50%;                             
     left: 50%;                            
-    transform: translate(-50%, -50%);      
+    transform: translate(-50%, -50%) scale(1);      
 
     z-index: 9999;                          /*in front*/
 
@@ -284,9 +284,35 @@ html, body {
     font-weight: 700;
 
     display: inline-block;
-    transition: transform 1s ease-in;
-    transform-origin: right;
-}
-.grow {
-    transform: scale(2);
-}
+    transition: transform 0.5s ease-in;
+    transform-origin: top;
+} .grow {
+    transform: translate(-50%, -50%) scale(2);
+} .sixtynine {
+    animation: rainbow 5s linear forwards;
+} @keyframes rainbow {
+    0% {color: red;}
+    16% {color: orange;}
+    33% {color: yellow;}
+    50% {color: green;}
+    66% {color: cyan;}
+    83% {color: blue;}
+    100% {color: rgb(156, 59, 156);}
+} .fortytwo {
+    transform: translate(-50%, -50%) scale(2);
+} .onehundredplus {
+    transform: translate(-50%, -50%) scale(2);
+    animation: breathe 5s linear forwards;
+} @keyframes breathe {
+    0% {font-weight: 700;}
+    10% {font-weight: 900;}
+    20% {font-weight: 700;}
+    30% {font-weight: 900;}
+    40% {font-weight: 700;}
+    50% {font-weight: 900;}
+    60% {font-weight: 700;}
+    70% {font-weight: 900;}
+    80% {font-weight: 700;}
+    90% {font-weight: 900;}
+    100% {font-weight: 700;}
+} 
