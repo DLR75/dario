@@ -1,0 +1,221 @@
+@font-face {
+    font-family: "Roboto";
+    src: url("../../assets/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf")
+        format("truetype");
+    font-weight: 100 900;
+    font-stretch: 75% 125%;
+    font-style: normal;
+    font-display: swap;
+}
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", system-ui, sans-serif;
+}
+h1 {
+    font-size: calc(var(--u) * 10);
+}
+h2 {
+    font-size: calc(var(--u) * 6);
+    font-weight: 600;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.wrapper {
+    height: 100%;
+    background-color: hsl(0, 0%, 55%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.frame {
+    aspect-ratio: 1/1.386;                      
+    width: min(100vw, 72.15vh);                 /*adjusts to screensize*/
+    background-color: hsl(0, 0%, 18%);
+    
+    --u: calc(min(100vw, 72.15vh) / 100);       /*creates css-variable with 1% width of the screen*/
+    
+    display: flex;
+    flex-direction: column;
+    padding: 0 calc(var(--u) * 2.5) calc(var(--u) * 2.5) calc(var(--u) * 2.5);
+    gap: calc(var(--u) * 2.5);
+}
+
+.header_box {
+    display: flex;
+    flex-grow: 1;
+    color: hsl(0, 73%, 19%);
+    background-color: hsl(345, 85%, 47%);
+    justify-content: center;
+    align-items: center;
+}
+.gamemode_wrapper {
+    height: calc(var(--u) * 16);
+    display: flex;
+    gap: calc(var(--u) * 2.5);
+    align-items: center;
+    flex-direction: row;
+}
+    .gamemode_box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        height: calc(var(--u) * 16);
+        color: hsl(0, 0%, 68%);
+        background-color: hsl(0, 0%, 25%);
+    }
+    .gamemode_selector_box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: calc(var(--u) * 16);
+        width: calc(var(--u) * 32);
+        color: hsl(0, 0%, 68%);
+        background-color: hsl(0, 0%, 25%);
+    }
+    .selector {
+        height: calc(var(--u) * 16);
+        width: calc(var(--u) * 32);
+        background: transparent;
+        color: hsl(0, 0%, 68%);
+        font-size: calc(var(--u) * 6);
+        font-weight: 600;
+        text-align: center;
+        appearance: none;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        padding: 0;
+        margin: 0;
+    }
+.firstto_wrapper {
+    height: calc(var(--u) * 16);
+    display: flex;
+    flex-direction: row;
+    gap: calc(var(--u) * 2.5);
+}
+    .firstto_box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        height: calc(var(--u) * 16);
+        color: hsl(0, 0%, 68%);
+        background-color: hsl(0, 0%, 25%);
+    }
+    .firstto_legs_box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: calc(var(--u) * 16);
+        width: calc(var(--u) * 32);
+        color: hsl(0, 0%, 68%);
+        background-color: hsl(0, 0%, 25%);
+    }
+.numberofplayers_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: calc(var(--u) * 2.5);
+    height: calc(var(--u) * 16);
+    color: hsl(0, 0%, 68%);
+    background-color: hsl(0, 0%, 25%);
+}
+.players_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(var(--u) * 16);
+    gap: calc(var(--u) * 2.5);
+}
+    .players_box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        height: calc(var(--u) * 16);
+        color: hsl(0, 73%, 19%);
+        background-color: hsl(345, 85%, 47%);
+    }
+.startingplayer_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(var(--u) * 16);
+    display: flex;
+    flex-direction: row;
+    gap: calc(var(--u) * 2.5);
+}
+    .startingplayer_box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        height: calc(var(--u) * 16);
+        color: hsl(0, 0%, 68%);
+        background-color: hsl(0, 0%, 25%);
+    }
+    .startingplayer_selector_box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: calc(var(--u) * 16);
+        width: calc(var(--u) * 32);
+        color: hsl(0, 0%, 68%);
+        background-color: hsl(0, 0%, 25%);
+    }
+.startgame_box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(var(--u) * 16);
+    color: hsl(0, 73%, 19%);
+    background-color: hsl(345, 85%, 47%);
+}
+#schieber {
+    width: calc(var(--u) * 72);
+    color: hsl(345, 85%, 47%);
+    appearance: none;
+}
+#schieber::-webkit-slider-runnable-track{
+    background: hsl(0, 0%, 18%);
+    height: calc(var(--u) * 1.6);
+}
+#schieber::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: calc(var(--u) * 2.5);
+    height: calc(var(--u) * 5);
+    background-color: hsl(345, 85%, 47%);
+    margin-top: calc(var(--u) * -1.8);
+}
+
+#startgame_button {
+    border: none;
+    flex-grow: 1;
+    height: calc(var(--u) * 16);
+    color: hsl(0, 73%, 19%);
+    background-color: hsl(345, 85%, 47%);
+    font-size: calc(var(--u) * 6);
+    font-weight: 600;
+}
+
+.legs_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(var(--u) * 16);
+    width: calc(var(--u) * 11);
+    font-size: calc(var(--u) * 6);
+    color: hsl(0, 0%, 68%);
+    background: none;
+    border: none;
+}
