@@ -2,7 +2,6 @@
 const legs_minus_selector = document.querySelector("#legs_minus");
 const legs_plus_selector = document.querySelector("#legs_plus");
 
-
 const player1_name_selector = document.querySelector("#player_1");
 const player2_name_selector = document.querySelector("#player_2");
 const player3_name_selector = document.querySelector("#player_3");
@@ -11,7 +10,6 @@ const player4_name_selector = document.querySelector("#player_4");
 const numberofplayers_selector = document.getElementById("schieber");
 const startgame_selector = document.querySelector("#startgame_button");
 const legs_display = document.getElementById("legs_display");
-
 
 // Variables:
 let firstto = 1;
@@ -28,6 +26,10 @@ updateNumberOfScoreboards();
 updateFirstTo();
 
 // Functions:
+function updateFirstTo() {
+    const legs_display = document.getElementById("legs_display");
+    legs_display.innerText = firstto;
+}
 function updatePlayerNames () {
     const select_player_1_name = document.querySelector("#player_1");
     select_player_1_name.innerText = player_1_name;
@@ -38,7 +40,6 @@ function updatePlayerNames () {
     const select_player_4_name = document.querySelector("#player_4");
     select_player_4_name.innerText = player_4_name;
 }
-
 function startGame() {
     const gamemode_value = document.getElementById("gamemode_selector");
     const startingplayer = document.getElementById("startingplayer");
@@ -55,7 +56,6 @@ function startGame() {
 
     window.location.href = "pages/x01/x01.html";
 }
-
 function updateNumberOfScoreboards () {
     const scoreboards = document.querySelectorAll(".players_box");
 
@@ -63,15 +63,20 @@ function updateNumberOfScoreboards () {
     el.style.display = index < numberofplayers ? "flex" : "none";
     });
 }
-
-function updateFirstTo() {
-    const legs_display = document.getElementById("legs_display");
-    legs_display.innerText = firstto;
-}
-
-
-
 // Event Listeners:
+legs_minus_selector.addEventListener("click", () => {
+    firstto = firstto - 1;
+    updateFirstTo();
+})
+legs_plus_selector.addEventListener("click", () => {
+    firstto = firstto + 1;
+    updateFirstTo();
+})
+numberofplayers_selector.addEventListener("change", () => {
+    numberofplayers = numberofplayers_selector.value;
+    numberofplayers = Number(numberofplayers);
+    updateNumberOfScoreboards();
+});
 player1_name_selector.addEventListener("click", () => {
     player_1_name = prompt("What´s your name?");
     updatePlayerNames();
@@ -88,22 +93,6 @@ player4_name_selector.addEventListener("click", () => {
     player_4_name = prompt("What´s your name?");
     updatePlayerNames();
 })
-
 startgame_selector.addEventListener("click", () => {
     startGame();
-})
-
-numberofplayers_selector.addEventListener("change", () => {
-    numberofplayers = numberofplayers_selector.value;
-    numberofplayers = Number(numberofplayers);
-    updateNumberOfScoreboards();
-});
-
-legs_minus_selector.addEventListener("click", () => {
-    firstto = firstto - 1;
-    updateFirstTo();
-})
-legs_plus_selector.addEventListener("click", () => {
-    firstto = firstto + 1;
-    updateFirstTo();
 })
