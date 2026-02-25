@@ -20,12 +20,10 @@ h2 {
     font-size: calc(var(--u) * 6);
     font-weight: 600;
 }
-
 html, body {
     height: 100%;
     margin: 0;
 }
-
 .wrapper {
     height: 100%;
     background-color: hsl(0, 0%, 55%);
@@ -34,7 +32,6 @@ html, body {
     justify-content: center;
     align-items: center;
 }
-
 .frame {
     aspect-ratio: 1/1.386;                      
     width: min(100vw, 72.15vh);                 /*adjusts to screensize*/
@@ -48,6 +45,7 @@ html, body {
     gap: calc(var(--u) * 2.5);
 }
 
+
 .header_box {
     display: flex;
     flex-grow: 1;
@@ -56,6 +54,9 @@ html, body {
     justify-content: center;
     align-items: center;
 }
+
+
+
 .gamemode_wrapper {
     height: calc(var(--u) * 16);
     display: flex;
@@ -96,6 +97,9 @@ html, body {
         padding: 0;
         margin: 0;
     }
+
+
+
 .firstto_wrapper {
     height: calc(var(--u) * 16);
     display: flex;
@@ -120,6 +124,20 @@ html, body {
         color: hsl(0, 0%, 68%);
         background-color: hsl(0, 0%, 25%);
     }
+    .legs_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(var(--u) * 16);
+    width: calc(var(--u) * 11);
+    font-size: calc(var(--u) * 6);
+    color: hsl(0, 0%, 68%);
+    background: none;
+    border: none;
+    }
+
+
+
 .numberofplayers_wrapper {
     display: flex;
     align-items: center;
@@ -129,7 +147,26 @@ html, body {
     height: calc(var(--u) * 16);
     color: hsl(0, 0%, 68%);
     background-color: hsl(0, 0%, 25%);
-}
+}   
+    #schieber {
+    width: calc(var(--u) * 72);
+    color: hsl(345, 85%, 47%);
+    appearance: none;
+    }
+    #schieber::-webkit-slider-runnable-track{
+        background: hsl(0, 0%, 18%);
+        height: calc(var(--u) * 1.6);
+    }
+    #schieber::-webkit-slider-thumb{
+        -webkit-appearance: none;
+        width: calc(var(--u) * 2.5);
+        height: calc(var(--u) * 5);
+        background-color: hsl(345, 85%, 47%);
+        margin-top: calc(var(--u) * -1.8);
+    }
+
+
+
 .players_wrapper {
     display: flex;
     align-items: center;
@@ -146,6 +183,9 @@ html, body {
         color: hsl(0, 73%, 19%);
         background-color: hsl(345, 85%, 47%);
     }
+
+
+
 .startingplayer_wrapper {
     display: flex;
     align-items: center;
@@ -173,6 +213,9 @@ html, body {
         color: hsl(0, 0%, 68%);
         background-color: hsl(0, 0%, 25%);
     }
+
+
+
 .startgame_box {
     display: flex;
     align-items: center;
@@ -181,41 +224,12 @@ html, body {
     color: hsl(0, 73%, 19%);
     background-color: hsl(345, 85%, 47%);
 }
-#schieber {
-    width: calc(var(--u) * 72);
-    color: hsl(345, 85%, 47%);
-    appearance: none;
-}
-#schieber::-webkit-slider-runnable-track{
-    background: hsl(0, 0%, 18%);
-    height: calc(var(--u) * 1.6);
-}
-#schieber::-webkit-slider-thumb{
-    -webkit-appearance: none;
-    width: calc(var(--u) * 2.5);
-    height: calc(var(--u) * 5);
-    background-color: hsl(345, 85%, 47%);
-    margin-top: calc(var(--u) * -1.8);
-}
-
-#startgame_button {
-    border: none;
-    flex-grow: 1;
-    height: calc(var(--u) * 16);
-    color: hsl(0, 73%, 19%);
-    background-color: hsl(345, 85%, 47%);
-    font-size: calc(var(--u) * 6);
-    font-weight: 600;
-}
-
-.legs_button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(var(--u) * 16);
-    width: calc(var(--u) * 11);
-    font-size: calc(var(--u) * 6);
-    color: hsl(0, 0%, 68%);
-    background: none;
-    border: none;
-}
+    #startgame_button {
+        border: none;
+        flex-grow: 1;
+        height: calc(var(--u) * 16);
+        color: hsl(0, 73%, 19%);
+        background-color: hsl(345, 85%, 47%);
+        font-size: calc(var(--u) * 6);
+        font-weight: 600;
+    }
