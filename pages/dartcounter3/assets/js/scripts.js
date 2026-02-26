@@ -10,7 +10,6 @@ const player4_name_selector = document.querySelector("#player_4");
 const numberofplayers_selector = document.getElementById("schieber");
 const startgame_selector = document.querySelector("#startgame_button");
 const legs_display = document.getElementById("legs_display");
-
 // Variables:
 let firstto = 1;
 let player_1_name = "Player 1";
@@ -19,12 +18,10 @@ let player_3_name = "Player 3";
 let player_4_name = "Player 4";
 let numberofplayers = numberofplayers_selector.value;
 numberofplayers = Number(numberofplayers);
-
 // Startup:
 updatePlayerNames();
 updateNumberOfScoreboards();
 updateFirstTo();
-
 // Functions:
 function updateFirstTo() {
     const legs_display = document.getElementById("legs_display");
@@ -40,22 +37,6 @@ function updatePlayerNames () {
     const select_player_4_name = document.querySelector("#player_4");
     select_player_4_name.innerText = player_4_name;
 }
-function startGame() {
-    const gamemode_value = document.getElementById("gamemode_selector");
-    const startingplayer = document.getElementById("startingplayer");
-    // const numberofplayers = 4;
-
-    // gamemode
-    sessionStorage.setItem("gamemode", gamemode_value.value);
-    // legs
-    sessionStorage.setItem("firstto", firstto);
-    // numberofplayers
-    sessionStorage.setItem("numberofplayers", numberofplayers);
-    // startingplayer
-    sessionStorage.setItem("startingplayer", startingplayer.value);
-
-    window.location.href = "pages/x01/x01.html";
-}
 function updateNumberOfScoreboards () {
     const scoreboards = document.querySelectorAll(".players_box");
 
@@ -63,9 +44,27 @@ function updateNumberOfScoreboards () {
     el.style.display = index < numberofplayers ? "flex" : "none";
     });
 }
+function startGame() {
+    const gamemode_value = document.getElementById("gamemode_selector");
+    const startingplayermode = document.getElementById("startingplayer");
+
+    sessionStorage.setItem("gamemode", gamemode_value.value);
+    sessionStorage.setItem("firstto", firstto);
+    sessionStorage.setItem("numberofplayers", numberofplayers);
+    sessionStorage.setItem("startingplayer", startingplayermode.value);
+    sessionStorage.setItem("player_1_name", player_1_name);
+    sessionStorage.setItem("player_2_name", player_2_name);
+    sessionStorage.setItem("player_3_name", player_3_name);
+    sessionStorage.setItem("player_4_name", player_4_name);
+
+
+    window.location.href = "pages/x01/x01.html";
+}
 // Event Listeners:
 legs_minus_selector.addEventListener("click", () => {
-    firstto = firstto - 1;
+    if (firstto > 1) {
+        firstto = firstto - 1;
+    } 
     updateFirstTo();
 })
 legs_plus_selector.addEventListener("click", () => {

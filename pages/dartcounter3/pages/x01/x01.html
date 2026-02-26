@@ -6,9 +6,99 @@
         <link rel="stylesheet" href="x01_styles.css">
     </head>
     <body>
-        <p>hello world</p>
+        <div class="wrapper">                       <!--container full size-->
+            <div class="frame">                     <!--rectangle which contains everything-->
+                <div class="overlay_display" id="overlay_message"></div>
+
+                <div id="popup" class="popup">
+                    <div class="popup_content">
+                        <h2>Throw for the Bull!</h2>
+                        <button onclick="bullPopupWinner(1)">Option 1</button>
+                        <button onclick="bullPopupWinner(2)">Option 1</button>
+                        <button onclick="bullPopupWinner(3)">Option 1</button>
+                        <button onclick="bullPopupWinner(4)">Option 1</button>
+                    </div>
+                </div>
+
+                <div class="header">
+                    <div class="x_button">
+                        <a href="../../index.html" rel="noreferrer" class="x_button dark_button">X</a>
+                    </div>
+                    <div class="recommended_box">finish 1</div>
+                    <div class="recommended_box">finish 2</div>
+                    <div class="recommended_box">finish 3</div>
+                </div>
 
 
+                <div class="scoreboard">
+                    <div class="playerbox passive" id="player_1">
+                        <div class="player_name_wrapper">
+                            <div class="player_settings">set</div>
+                            <div class="player_name"></div>
+                            <div class="player_legs passive"></div>
+                        </div>
+                        <div class="player_score"></div>
+                        <div class="player_average player_stats passive">Average: /</div>
+                        <div class="player_lastscore player_stats passive">Last score: 42</div>
+                    </div>
+
+
+                    <div class="playerbox" id="player_2">
+                        <div class="player_name_wrapper">
+                            <div class="player_settings">set</div>
+                            <div class="player_name"></div>
+                            <div class="player_legs passive"></div>
+                        </div>
+                        <div class="player_score"></div>
+                        <div class="player_average player_stats passive">Average: /</div>
+                        <div class="player_lastscore player_stats passive">Last score: 42</div>
+                    </div>
+
+                    <div class="playerbox" id="player_3">
+                        <div class="player_name_wrapper">
+                            <div class="player_settings">set</div>
+                            <div class="player_name"></div>
+                            <div class="player_legs passive"></div>
+                        </div>
+                        <div class="player_score"></div>
+                        <div class="player_average player_stats passive">Average: /</div>
+                        <div class="player_lastscore player_stats passive">Last score: 42</div>
+                    </div>
+
+                    <div class="playerbox" id="player_4">
+                        <div class="player_name_wrapper">
+                            <div class="player_settings">set</div>
+                            <div class="player_name"></div>
+                            <div class="player_legs passive"></div>
+                        </div>
+                        <div class="player_score"></div>
+                        <div class="player_average player_stats passive">Average: /</div>
+                        <div class="player_lastscore player_stats passive">Last score: 42</div>
+                    </div>
+                </div>
+
+
+                <div class="inputline">
+                    <div class="mistake_button" id="command_z">Z</div>
+                    <div class="inputdisplay" id="inputdisplay"></div>
+                    <div class="mistake_button" id="plate_delete">X</div>
+                </div>
+                <div class="numberplate">
+                    <div class="plate dark_button" id="plate_1">1</div>
+                    <div class="plate dark_button" id="plate_2">2</div>
+                    <div class="plate dark_button" id="plate_3">3</div>
+                    <div class="plate dark_button" id="plate_4">4</div>
+                    <div class="plate dark_button" id="plate_5">5</div>
+                    <div class="plate dark_button" id="plate_6">6</div>
+                    <div class="plate dark_button" id="plate_7">7</div>
+                    <div class="plate dark_button" id="plate_8">8</div>
+                    <div class="plate dark_button" id="plate_9">9</div>
+                    <div class="plate dark_button" id="plate_plus">+</div>
+                    <div class="plate dark_button" id="plate_0">0</div>
+                    <div class="plate plate_score" id="plate_score">SCORE</div>
+                </div>
+            </div>        
+        </div>
         <script src="x01_scripts.js"></script>
     </body>
 </html>

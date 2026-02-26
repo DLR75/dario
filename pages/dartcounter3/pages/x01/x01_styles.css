@@ -1,0 +1,297 @@
+@font-face {
+    font-family: "Roboto";
+    src: url("../../assets/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf")
+        format("truetype");
+    font-weight: 100 900;
+    font-stretch: 75% 125%;
+    font-style: normal;
+    font-display: swap;
+}
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", system-ui, sans-serif;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+.wrapper {
+    height: 100%;
+    background-color: hsl(0, 0%, 55%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.frame {
+    aspect-ratio: 1/1.386;                      
+    width: min(100vw, 72.15vh);                 /*adjusts to screensize*/
+    background-color: hsl(0, 0%, 18%);
+    
+    --u: calc(min(100vw, 72.15vh) / 100);       /*creates css-variable with 1% width of the screen*/
+    
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--u) * 2.5);
+    gap: calc(var(--u) * 2.5);
+}
+
+
+h4 {
+    color: hsl(345, 85%, 47%);
+    color: hsl(0, 73%, 19%);
+    color: hsl(163, 85%, 42%); /*plate score*/
+    color: rgb(255, 255, 255); /*overlay*/
+
+    color: hsl(0, 0%, 95%); /*plate text*/
+    color: hsl(0, 0%, 68%); /*passive light*/
+    color: hsl(0, 0%, 44%); /*passive dark*/
+
+    color: hsl(0, 0%, 25%); /*normal box background*/
+    color: hsl(0, 0%, 18%); /*framecolor*/
+    color: hsl(0, 0%, 13%); /*plate background*/
+    
+}
+
+.dark_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: hsl(0, 0%, 95%);
+    background-color: hsl(0, 0%, 13%);
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+    background-color: hsl(0, 0%, 18%);
+}
+.popup_content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: calc(var(--u) * 8);
+    gap: calc(var(--u) * 2.5);
+}
+    .x_button {
+        display: flex;
+        width: calc(var(--u) * 8);
+        font-size: calc(var(--u) * 5);
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .recommended_box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        width: calc(var(--u) * 10);
+        color: hsl(0, 0%, 44%);
+        background-color: hsl(0, 0%, 25%);
+    }
+
+
+
+.scoreboard {
+    display: flex;
+    height: calc(var(--u) * 38);
+    gap: calc(var(--u) * 2.5);
+}   
+    .playerbox {
+        flex: 1 1 0;
+        /* display: none; */ /*WICHTIG!! WIRD DAS SPÄTER VON JS EINZELN ANGESCHALTET?*/
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+    }
+    .active {
+        background-color: hsl(345, 85%, 47%);
+        color: hsl(0, 73%, 19%);
+    }
+    .passive {
+        background-color: hsl(0, 0%, 25%);
+        color: hsl(0, 0%, 68%);
+    }
+        .player_name_wrapper {
+            display: flex;
+            align-self: stretch;
+            justify-content: space-between;
+            flex: 1 1 0;
+        }
+            .player_settings {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: calc(var(--u) * 7.5);
+                width: calc(var(--u) * 7.5);
+                font-size: calc(var(--u) * 1.5);
+            }
+            .player_name {
+                display: flex;
+                align-items: center;
+                white-space: nowrap;
+                overflow: hidden;
+                height: calc(var(--u) * 7.5);
+                font-size: calc(var(--u) * 6);
+                /* font-size: clamp(calc(var(--u) * 1), calc(var(--u) * 6), calc(var(--u) * 8)); */
+            }
+            .player_legs {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: calc(var(--u) * 7.5);
+                width: calc(var(--u) * 7.5);
+                font-size: calc(var(--u) * 6);
+            }
+            .player_legs.active {
+                background-color: hsl(345, 88%, 16%);
+                color: hsl(345, 85%, 47%);
+            }
+            .player_legs.passive {
+                background-color: hsl(0, 0%, 13%);
+                color: hsl(0, 0%, 44%);
+            }
+        .player_score {
+            display: flex;
+            align-items: center;
+            height: calc(var(--u) * 15.5);
+            font-size: calc(var(--u) * 12);
+            font-weight: 600;
+        }
+        .player_stats {
+            display: flex;
+            align-items: center;
+            height: calc(var(--u) * 7.5);
+            font-size: calc(var(--u) * 4.5);
+        }
+        .player_stats.active {
+            color: hsl(345, 80%, 33%);
+        }
+        .player_stats.passive {
+            color: hsl(0, 0%, 44%);
+        }
+
+
+
+.inputline {
+    display: flex;
+    justify-content: space-between;
+    height: calc(var(--u) * 8);
+}
+    .mistake_button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: calc(var(--u) * 10);
+        border-radius: calc(var(--u) * 4);
+        color: hsl(0, 0%, 95%);
+        background-color: hsl(0, 0%, 13%);
+    }
+    .inputdisplay {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: calc(var(--u) * 50);
+        border-radius: calc(var(--u) * 4);
+        font-size: calc(var(--u) * 8);
+        font-weight: 500;
+        color: hsl(0, 0%, 13%);
+        background-color: hsl(0, 0%, 95%);
+    }
+
+
+
+.numberplate {
+    display: flex;
+    flex-wrap: wrap;
+    height: calc(var(--u) * 72.1);
+    gap: calc(var(--u) * 1.25);
+}
+    .plate {
+        min-width: calc(var(--u) * 30);
+        flex: 1 1 0;
+        border-radius: calc(var(--u) * 2.5);
+        font-size: calc(var(--u) * 8);
+        font-weight: lighter;
+    }
+    .plate_score {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: calc(var(--u) * 5);
+        color: hsl(0, 0%, 95%);
+        background-color: hsl(163, 85%, 42%);
+    }
+
+
+
+
+
+/*Fun and Games*/
+.overlay_display {
+    /* aspect-ratio: 1/1.386;                      
+    width: min(100vw, 72.15vh);
+    background-color: hsl(0, 0%, 18%, 0.8); */
+
+    position: absolute;                     
+    top: 50%;                             
+    left: 50%;                            
+    transform: translate(-50%, -50%) scale(1);      
+
+    z-index: 9999;                          /*in front*/
+
+    /* text-align: center; */
+    color: rgb(255, 255, 255);
+    font-size: 200px;
+    font-weight: 700;
+
+    display: inline-block;
+    transition: transform 0.5s ease-in;
+    transform-origin: top;
+} .grow {
+    transform: translate(-50%, -50%) scale(2);
+} .sixtynine {
+    animation: rainbow 5s linear forwards;
+} @keyframes rainbow {
+    0% {color: hsl(0, 100%, 50%);}
+    10% {color: hsl(36, 100%, 50%);}
+    20% {color: hsl(72, 100%, 50%);}
+    30% {color: hsl(108, 100%, 50%);}
+    40% {color: hsl(144, 100%, 50%);}
+    50% {color: hsl(180, 100%, 50%);}
+    60% {color: hsl(216, 100%, 50%);}
+    70% {color: hsl(252, 100%, 50%);}
+    80% {color: hsl(288, 100%, 50%);}
+    90% {color: hsl(324, 100%, 50%);}
+    100% {color: hsl(360, 100%, 50%);}
+} .fortytwo {
+    transform: translate(-50%, -50%) scale(2);
+} .onehundredplus {
+    transform: translate(-50%, -50%) scale(2);
+    animation: breathe 5s linear forwards;
+} @keyframes breathe {
+    0% {font-weight: 700;}
+    10% {font-weight: 900;}
+    20% {font-weight: 700;}
+    30% {font-weight: 900;}
+    40% {font-weight: 700;}
+    50% {font-weight: 900;}
+    60% {font-weight: 700;}
+    70% {font-weight: 900;}
+    80% {font-weight: 700;}
+    90% {font-weight: 900;}
+    100% {font-weight: 700;}
+} 

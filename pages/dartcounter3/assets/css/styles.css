@@ -131,6 +131,7 @@ html, body {
     height: calc(var(--u) * 16);
     width: calc(var(--u) * 11);
     font-size: calc(var(--u) * 6);
+    font-weight: 600;
     color: hsl(0, 0%, 68%);
     background: none;
     border: none;
@@ -179,9 +180,12 @@ html, body {
         align-items: center;
         justify-content: center;
         flex-grow: 1;
+        min-width: 0;
         height: calc(var(--u) * 16);
         color: hsl(0, 73%, 19%);
         background-color: hsl(345, 85%, 47%);
+        font-size: calc(var(--u) * 4);
+        font-weight: 400;
     }
 
 
