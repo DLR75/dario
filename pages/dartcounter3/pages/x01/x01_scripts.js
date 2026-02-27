@@ -618,16 +618,6 @@ function checkCheckOutPossibility (remainingscore) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 function displayCheckout(remainingscore) {
     const weg = getCheckout(remainingscore);
     console.log(weg);
@@ -641,8 +631,6 @@ function displayCheckout(remainingscore) {
 } function getCheckout (remainingscore) {
     return checkoutsdoubledario[remainingscore] || null;
 }
-
-
 
 
 function displayRecommended1(message) {
@@ -708,6 +696,43 @@ function displayScore () {
     showMessage();
 }
 
+function buildScorestring (input) {
+    input = String(input);
+    if (scorestring === undefined) {
+        scorestring = input;
+    } else {
+        scorestring = scorestring + input;
+    }
+    get_input_display.innerText = scorestring;
+    preScore(scorestring);
+}
+function preScore (scorestring) {
+    const prescore = convertScorestringToNumber(scorestring);
+    const activeplayer = determineActivePlayer();
+    const preremaining = activeplayer.remaining - prescore;
+    // displayPrescore (preremaining);
+    checkCheckOutPossibility(preremaining);
+}
+function convertScorestringToNumber (scorestring) {
+    if (scorestring === undefined) {
+        scorestring = "0";
+    }
+    score = scorestring;
+    score = score.split("+");
+    score = score.map(Number);
+    score = score.reduce((a,b) => a + b, 0);
+
+    return score;
+}
+function scoreScore () {
+    input = undefined;
+    input_display = undefined;
+    get_input_display.innerText = "";
+    scorestring = undefined;
+    checkScore();
+}
+
+
 
 //Event Listeners:
 plate_1.addEventListener("click", () => {
@@ -751,38 +776,22 @@ plate_1.addEventListener("click", () => {
     calculateGoBackInTime();
 });
 
-function buildScorestring (input) {
-    input = String(input);
-    if (scorestring === undefined) {
-        scorestring = input;
-    } else {
-        scorestring = scorestring + input;
-    }
-    get_input_display.innerText = scorestring;
-    preScore(scorestring);
-}
-function preScore (scorestring) {
-    const prescore = convertScorestringToNumber(scorestring);
-    const activeplayer = determineActivePlayer();
-    const preremaining = activeplayer.remaining - prescore;
-    // displayPrescore (preremaining);
-    checkCheckOutPossibility(preremaining);
-}
-function convertScorestringToNumber (scorestring) {
-    if (scorestring === undefined) {
-        scorestring = "0";
-    }
-    score = scorestring;
-    score = score.split("+");
-    score = score.map(Number);
-    score = score.reduce((a,b) => a + b, 0);
-
-    return score;
-}
-function scoreScore () {
-    input = undefined;
-    input_display = undefined;
-    get_input_display.innerText = "";
-    scorestring = undefined;
-    checkScore();
-}
+document.getElementById("player_settings_1").addEventListener("click", function() {
+    document.querySelector(".settings_popup").style.display = "flex";
+    document.getElementById("settings_popup_playername").innerText = p1.name + "'s settings";
+});
+document.getElementById("player_settings_2").addEventListener("click", function() {
+    document.querySelector(".settings_popup").style.display = "flex";
+    document.getElementById("settings_popup_playername").innerText = p2.name + "'s settings";
+});
+document.getElementById("player_settings_3").addEventListener("click", function() {
+    document.querySelector(".settings_popup").style.display = "flex";
+    document.getElementById("settings_popup_playername").innerText = p3.name + "'s settings";
+});
+document.getElementById("player_settings_4").addEventListener("click", function() {
+    document.querySelector(".settings_popup").style.display = "flex";
+    document.getElementById("settings_popup_playername").innerText = p4.name + "'s settings";
+});
+document.getElementById("close_settings_button").addEventListener("click", function() {
+    document.querySelector(".settings_popup").style.display = "none";
+});
