@@ -594,6 +594,9 @@ function convertScorestringToNumber (scorestring) {
     return score;
 }
 function scoreScore () {
+    if (scorestring === undefined) {
+        score = 0;
+    }
     input = undefined;
     input_display = undefined;
     get_input_display.innerText = "";
