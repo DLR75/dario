@@ -305,7 +305,7 @@ function deactivate(player) {
 }
 
 
-
+    // Updates.
 function updatePlayerNames () {
     const select_player_1_name = document.querySelector("#player_1 .player_name");
     select_player_1_name.innerText = p1.name;
@@ -358,20 +358,8 @@ function updatePlayerLastscore () {
     sp4.innerText = `Last: ${p4.lastscore}`;
 }
 
-function deleteInputs () {
-    scorestring = scorestring.slice(0, -1);
-    get_input_display.innerText = scorestring;
-    preScore(scorestring);
-}
 
-function checkScore () {
-    if (score > 180) {
-        alert("impossible");
-    } else {
-        const activeplayer = determineActivePlayer();
-        applyScore(activeplayer);
-    }
-}   function determineActivePlayer () {
+function determineActivePlayer () {
     let activeplayer
     if (p1.active === true) {
         activeplayer = p1;
@@ -383,62 +371,6 @@ function checkScore () {
         activeplayer = p4;
     }
     return activeplayer;
-}   function applyScore (activeplayer) {
-    activeplayer.thrown = activeplayer.thrown + 3;
-    let newscore = activeplayer.remaining-score;
-    if (newscore > 1) {
-        activeplayer.remaining = activeplayer.remaining-score;
-        updatePlayerRemainingScore(activeplayer);
-        calculateAverage(activeplayer);
-        calculateLastScore(activeplayer);
-        switchActivePlayerNext(activeplayer);
-    } else if (newscore === 1) {
-        if (gamerules.gamemode === 1 || 3) {
-            alert("score busted");
-            score = 0;
-            calculateAverage(activeplayer);
-            calculateLastScore(activeplayer);
-            switchActivePlayerNext(activeplayer);
-        } else if (gamerules.gamemode === 2 || 4) {
-            activeplayer.remaining = activeplayer.remaining-score;
-            updatePlayerRemainingScore(activeplayer);
-            calculateAverage(activeplayer);
-            calculateLastScore(activeplayer);
-            switchActivePlayerNext(activeplayer);
-        }
-    } else if (newscore  === 0) {
-        if (gamerules.gamemode === 1 || 3) {
-            if (activeplayer.remaining === 180 || activeplayer.remaining === 169 ||
-                 activeplayer.remaining === 168 || activeplayer.remaining === 166 ||
-                  activeplayer.remaining === 165 || activeplayer.remaining === 163 ||
-                   activeplayer.remaining === 159) {
-                alert("score busted, bogeynumber");
-                score = 0;
-                calculateAverage(activeplayer);
-                calculateLastScore(activeplayer);
-                switchActivePlayerNext(activeplayer);
-            } else {
-                activeplayer.remaining = activeplayer.remaining-score;
-                updatePlayerRemainingScore(activeplayer);
-                calculateAverage(activeplayer);
-                calculateLastScore(activeplayer);
-                addLeg(activeplayer);
-            }
-        } else if (gamerules.gamemode === 2 || 4) {
-            activeplayer.remaining = activeplayer.remaining-score;
-            updatePlayerRemainingScore(activeplayer);
-            calculateAverage(activeplayer);
-            calculateLastScore(activeplayer);
-            addLeg(activeplayer);
-        }
-    } else {
-        alert("score busted");
-        score = 0;
-        calculateAverage(activeplayer);
-        calculateLastScore(activeplayer);
-        switchActivePlayerNext(activeplayer);
-    }
-    displayScore();
 }
 function calculateAverage (activeplayer) {
     activeplayer.sum = activeplayer.sum + score;
@@ -449,6 +381,13 @@ function calculateLastScore (activeplayer) {
     activeplayer.lastscore = score;
     updatePlayerLastscore();
 }
+
+function deleteInputs () {
+    scorestring = scorestring.slice(0, -1);
+    get_input_display.innerText = scorestring;
+    preScore(scorestring);
+}
+
 function switchActivePlayerNext (activeplayer) {
     if (gamerules.numberofplayers === 1) {
 
@@ -560,6 +499,7 @@ function switchActivePlayerStart () {
     checkActivity(p3);
     checkActivity(p4);
 }
+
 function startNewLeg () {
     p1.remaining = gamerules.target;
     p1.lastscore = 0;
@@ -586,76 +526,6 @@ function addLeg (activeplayer) {
 function matchWon (activeplayer) {
     console.log(activeplayer.name, "won the match!")
 }
-function checkCheckOutPossibility (remainingscore) {
-    if (gamerules.gamemode === 1 || 3) {
-        if (remainingscore > 170) {
-            console.log("no checkout");
-            displayRecommended1("");
-            displayRecommended2("");
-            displayRecommended3("");
-        } else if (remainingscore === 169 || remainingscore === 168 ||
-             remainingscore === 166 || remainingscore === 165 ||
-              remainingscore === 163 || remainingscore === 159) {
-            console.log("no checkout, bogeynumber");
-            displayRecommended1("");
-            displayRecommended2("");
-            displayRecommended3("");
-        } else {
-            console.log("checkout possible");
-            displayCheckout(remainingscore);
-        }
-    } else if (gamerules.gamemode === 2 || 4) {
-        if (remainingscore > 180) {
-            console.log("no checkout");
-            displayRecommended1("");
-            displayRecommended2("");
-            displayRecommended3("");
-        } else {
-            console.log("checkout possible");
-            displayCheckout(remainingscore);
-        }
-    } 
-}
-
-
-function displayCheckout(remainingscore) {
-    const weg = getCheckout(remainingscore);
-    console.log(weg);
-    const check1 = weg [0];
-    const check2 = weg [1];
-    const check3 = weg [2];
-
-    displayRecommended1(check1);
-    displayRecommended2(check2);
-    displayRecommended3(check3);
-} function getCheckout (remainingscore) {
-    return checkoutsdoubledario[remainingscore] || null;
-}
-
-
-function displayRecommended1(message) {
-    if (message === undefined) {
-        message = "";
-    }
-    const selector = document.getElementById("recommended_1");
-    selector.innerText = message;
-}
-function displayRecommended2(message) {
-    if (message === undefined) {
-        message = "";
-    }
-    const selector = document.getElementById("recommended_2");
-    selector.innerText = message;
-}
-function displayRecommended3(message) {
-    if (message === undefined) {
-        message = "";
-    }
-    const selector = document.getElementById("recommended_3");
-    selector.innerText = message;
-}
-
-
 function displayScore () {
     const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -695,7 +565,6 @@ function displayScore () {
 
     showMessage();
 }
-
 function buildScorestring (input) {
     input = String(input);
     if (scorestring === undefined) {
@@ -731,8 +600,138 @@ function scoreScore () {
     scorestring = undefined;
     checkScore();
 }
+function checkScore () {
+    if (score > 180) {
+        alert("impossible");
+    } else {
+        const activeplayer = determineActivePlayer();
+        applyScore(activeplayer);
+    }
+}
+function applyScore (activeplayer) {
+    activeplayer.thrown = activeplayer.thrown + 3;
+    let newscore = activeplayer.remaining-score;
+    if (newscore > 1) {
+        activeplayer.remaining = activeplayer.remaining-score;
+        updatePlayerRemainingScore(activeplayer);
+        calculateAverage(activeplayer);
+        calculateLastScore(activeplayer);
+        switchActivePlayerNext(activeplayer);
+    } else if (newscore === 1) {
+        if (gamerules.gamemode === 1 || 3) {
+            alert("score busted");
+            score = 0;
+            calculateAverage(activeplayer);
+            calculateLastScore(activeplayer);
+            switchActivePlayerNext(activeplayer);
+        } else if (gamerules.gamemode === 2 || 4) {
+            activeplayer.remaining = activeplayer.remaining-score;
+            updatePlayerRemainingScore(activeplayer);
+            calculateAverage(activeplayer);
+            calculateLastScore(activeplayer);
+            switchActivePlayerNext(activeplayer);
+        }
+    } else if (newscore  === 0) {
+        if (gamerules.gamemode === 1 || 3) {
+            if (activeplayer.remaining === 180 || activeplayer.remaining === 169 ||
+                 activeplayer.remaining === 168 || activeplayer.remaining === 166 ||
+                  activeplayer.remaining === 165 || activeplayer.remaining === 163 ||
+                   activeplayer.remaining === 159) {
+                alert("score busted, bogeynumber");
+                score = 0;
+                calculateAverage(activeplayer);
+                calculateLastScore(activeplayer);
+                switchActivePlayerNext(activeplayer);
+            } else {
+                activeplayer.remaining = activeplayer.remaining-score;
+                updatePlayerRemainingScore(activeplayer);
+                calculateAverage(activeplayer);
+                calculateLastScore(activeplayer);
+                addLeg(activeplayer);
+            }
+        } else if (gamerules.gamemode === 2 || 4) {
+            activeplayer.remaining = activeplayer.remaining-score;
+            updatePlayerRemainingScore(activeplayer);
+            calculateAverage(activeplayer);
+            calculateLastScore(activeplayer);
+            addLeg(activeplayer);
+        }
+    } else {
+        alert("score busted");
+        score = 0;
+        calculateAverage(activeplayer);
+        calculateLastScore(activeplayer);
+        switchActivePlayerNext(activeplayer);
+    }
+    displayScore();
+}
 
+    //Checkout
+function checkCheckOutPossibility (remainingscore) {
+    if (gamerules.gamemode === 1 || 3) {
+        if (remainingscore > 170) {
+            console.log("no checkout");
+            displayRecommended1("");
+            displayRecommended2("");
+            displayRecommended3("");
+        } else if (remainingscore === 169 || remainingscore === 168 ||
+             remainingscore === 166 || remainingscore === 165 ||
+              remainingscore === 163 || remainingscore === 159) {
+            console.log("no checkout, bogeynumber");
+            displayRecommended1("");
+            displayRecommended2("");
+            displayRecommended3("");
+        } else {
+            console.log("checkout possible");
+            displayCheckout(remainingscore);
+        }
+    } else if (gamerules.gamemode === 2 || 4) {
+        if (remainingscore > 180) {
+            console.log("no checkout");
+            displayRecommended1("");
+            displayRecommended2("");
+            displayRecommended3("");
+        } else {
+            console.log("checkout possible");
+            displayCheckout(remainingscore);
+        }
+    } 
+}
+function displayCheckout(remainingscore) {
+    const weg = getCheckout(remainingscore);
+    console.log(weg);
+    const check1 = weg [0];
+    const check2 = weg [1];
+    const check3 = weg [2];
 
+    displayRecommended1(check1);
+    displayRecommended2(check2);
+    displayRecommended3(check3);
+}
+function getCheckout (remainingscore) {
+    return checkoutsdoubledario[remainingscore] || null;
+}
+function displayRecommended1(message) {
+    if (message === undefined) {
+        message = "";
+    }
+    const selector = document.getElementById("recommended_1");
+    selector.innerText = message;
+}
+function displayRecommended2(message) {
+    if (message === undefined) {
+        message = "";
+    }
+    const selector = document.getElementById("recommended_2");
+    selector.innerText = message;
+}
+function displayRecommended3(message) {
+    if (message === undefined) {
+        message = "";
+    }
+    const selector = document.getElementById("recommended_3");
+    selector.innerText = message;
+}
 
 //Event Listeners:
 plate_1.addEventListener("click", () => {
