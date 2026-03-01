@@ -46,6 +46,7 @@ let p1 = {
     thrown: 0,
     sum: 0,
     active: false,
+    prescore: "",
 }
 let p2 = {
     name: "",
@@ -56,6 +57,7 @@ let p2 = {
     thrown: 0,
     sum: 0,
     active: false,
+    prescore: "",
 }
 let p3 = {
     name: "",
@@ -66,6 +68,7 @@ let p3 = {
     thrown: 0,
     sum: 0,
     active: false,
+    prescore: "",
 }
 let p4 = {
     name: "",
@@ -76,6 +79,7 @@ let p4 = {
     thrown: 0,
     sum: 0,
     active: false,
+    prescore: "",
 }
 let gamerules = {
     gamemode: 1,
@@ -526,45 +530,7 @@ function addLeg (activeplayer) {
 function matchWon (activeplayer) {
     console.log(activeplayer.name, "won the match!")
 }
-function displayScore () {
-    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-    async function showMessage() {
-        const overlay_message = document.getElementById("overlay_message");
-        overlay_message.textContent = score;
-
-        if (score === 69) {
-            document.getElementById("overlay_message").classList.add("grow");
-            document.getElementById("overlay_message").classList.add("sixtynine");
-            await sleep(5000);
-            overlay_message.textContent = "";
-            document.getElementById("overlay_message").classList.remove("grow");
-            document.getElementById("overlay_message").classList.remove("sixtynine");
-        } else if (score === 42) {
-            document.getElementById("overlay_message").classList.add("grow");
-            document.getElementById("overlay_message").classList.add("fortytwo");
-            await sleep(5000);
-            overlay_message.textContent = "";
-            document.getElementById("overlay_message").classList.remove("grow");
-            document.getElementById("overlay_message").classList.remove("fortytwo");
-        } else if (score >= 100) {
-            document.getElementById("overlay_message").classList.add("grow");
-            document.getElementById("overlay_message").classList.add("onehundredplus");
-            await sleep(5000);
-            overlay_message.textContent = "";
-            document.getElementById("overlay_message").classList.remove("grow");
-            document.getElementById("overlay_message").classList.remove("onehundredplus");
-        } else {
-            document.getElementById("overlay_message").classList.add("grow");
-            await sleep(2000);
-            overlay_message.textContent = "";
-            document.getElementById("overlay_message").classList.remove("grow");
-        }
-        
-    }
-
-    showMessage();
-}
 function buildScorestring (input) {
     input = String(input);
     if (scorestring === undefined) {
@@ -579,7 +545,7 @@ function preScore (scorestring) {
     const prescore = convertScorestringToNumber(scorestring);
     const activeplayer = determineActivePlayer();
     const preremaining = activeplayer.remaining - prescore;
-    // displayPrescore (preremaining);
+    displayPrescore (preremaining);
     checkCheckOutPossibility(preremaining);
 }
 function convertScorestringToNumber (scorestring) {
@@ -734,6 +700,75 @@ function displayRecommended3(message) {
     }
     const selector = document.getElementById("recommended_3");
     selector.innerText = message;
+}
+function displayScore () {
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    async function showMessage() {
+        const overlay_message = document.getElementById("overlay_message");
+        overlay_message.textContent = score;
+
+        if (score === 69) {
+            document.getElementById("overlay_message").classList.add("grow");
+            document.getElementById("overlay_message").classList.add("sixtynine");
+            await sleep(5000);
+            overlay_message.textContent = "";
+            document.getElementById("overlay_message").classList.remove("grow");
+            document.getElementById("overlay_message").classList.remove("sixtynine");
+        } else if (score === 42) {
+            document.getElementById("overlay_message").classList.add("grow");
+            document.getElementById("overlay_message").classList.add("fortytwo");
+            await sleep(5000);
+            overlay_message.textContent = "";
+            document.getElementById("overlay_message").classList.remove("grow");
+            document.getElementById("overlay_message").classList.remove("fortytwo");
+        } else if (score >= 100) {
+            document.getElementById("overlay_message").classList.add("grow");
+            document.getElementById("overlay_message").classList.add("onehundredplus");
+            await sleep(5000);
+            overlay_message.textContent = "";
+            document.getElementById("overlay_message").classList.remove("grow");
+            document.getElementById("overlay_message").classList.remove("onehundredplus");
+        } else {
+            document.getElementById("overlay_message").classList.add("grow");
+            await sleep(2000);
+            overlay_message.textContent = "";
+            document.getElementById("overlay_message").classList.remove("grow");
+        }
+        
+    }
+
+    showMessage();
+}
+function displayPrescore(preremainng) {
+    const activeplayer = determineActivePlayer();
+    let a = activeplayer.remaining;
+    a = a.toString();
+    let b = preremainng.toString();
+    let string = a + "(" + b + ")";
+
+
+    // activeplayer.remaining = string;
+    // updatePlayerRemainingScore();
+
+    activeplayer.prescore = string;
+    updatePlayerPrescore (activeplayer);
+
+}
+function updatePlayerPrescore (activeplayer) {
+    if (activeplayer === p1) {
+        const player_1_remaining_score = document.querySelector("#player_1 .player_score")
+        player_1_remaining_score.innerText = p1.prescore;
+    } else if (activeplayer === p2) {
+        const player_2_remaining_score = document.querySelector("#player_2 .player_score")
+        player_2_remaining_score.innerText = p2.prescore;
+    } else if (activeplayer === p3) {
+        const player_3_remaining_score = document.querySelector("#player_3 .player_score")
+        player_3_remaining_score.innerText = p3.prescore;
+    } else if (activeplayer === p4) {
+        const player_4_remaining_score = document.querySelector("#player_4 .player_score")
+        player_4_remaining_score.innerText = p4.prescore;
+    }
 }
 
 //Event Listeners:
