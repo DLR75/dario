@@ -335,4 +335,7 @@ h4 {
     80% {font-weight: 700;}
     90% {font-weight: 900;}
     100% {font-weight: 700;}
-} 
+} .legwon {
+    font-size: 80px;
+    font-weight: 700;
+}

@@ -524,11 +524,36 @@ function addLeg (activeplayer) {
     if (activeplayer.legs === gamerules.firstto) {
         matchWon(activeplayer);
     } else {
+        const message = "+1 leg"
+        const mode = 1;
+        displaySomething(message, mode);
         startNewLeg();
     }
 }
 function matchWon (activeplayer) {
     console.log(activeplayer.name, "won the match!")
+    const message = activeplayer.name;
+    const mode = 2;
+    displaySomething(message, mode);
+}
+function displaySomething(message, mode) {
+    const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+    async function showMessage() {
+        const overlay_message = document.getElementById("overlay_message");
+        overlay_message.textContent = message;
+
+        document.getElementById("overlay_message").classList.add("grow");
+        document.getElementById("overlay_message").classList.add("legwon");
+        if (mode === 1) {
+            await sleep(2000);
+            overlay_message.textContent = "";
+            document.getElementById("overlay_message").classList.remove("grow");
+            document.getElementById("overlay_message").classList.remove("legwon");
+        }
+        
+    }
+    showMessage();
 }
 
 function buildScorestring (input) {
@@ -586,6 +611,7 @@ function applyScore (activeplayer) {
         calculateAverage(activeplayer);
         calculateLastScore(activeplayer);
         switchActivePlayerNext(activeplayer);
+        displayScore();
     } else if (newscore === 1) {
         if (gamerules.gamemode === 1 || 3) {
             alert("score busted");
@@ -593,12 +619,14 @@ function applyScore (activeplayer) {
             calculateAverage(activeplayer);
             calculateLastScore(activeplayer);
             switchActivePlayerNext(activeplayer);
+            displayScore();
         } else if (gamerules.gamemode === 2 || 4) {
             activeplayer.remaining = activeplayer.remaining-score;
             updatePlayerRemainingScore(activeplayer);
             calculateAverage(activeplayer);
             calculateLastScore(activeplayer);
             switchActivePlayerNext(activeplayer);
+            displayScore();
         }
     } else if (newscore  === 0) {
         if (gamerules.gamemode === 1 || 3) {
@@ -611,6 +639,7 @@ function applyScore (activeplayer) {
                 calculateAverage(activeplayer);
                 calculateLastScore(activeplayer);
                 switchActivePlayerNext(activeplayer);
+                displayScore();
             } else {
                 activeplayer.remaining = activeplayer.remaining-score;
                 updatePlayerRemainingScore(activeplayer);
@@ -631,8 +660,8 @@ function applyScore (activeplayer) {
         calculateAverage(activeplayer);
         calculateLastScore(activeplayer);
         switchActivePlayerNext(activeplayer);
+        displayScore();
     }
-    displayScore();
 }
 
     //Checkout
@@ -746,11 +775,6 @@ function displayPrescore(preremainng) {
     a = a.toString();
     let b = preremainng.toString();
     let string = a + "(" + b + ")";
-
-
-    // activeplayer.remaining = string;
-    // updatePlayerRemainingScore();
-
     activeplayer.prescore = string;
     updatePlayerPrescore (activeplayer);
 
