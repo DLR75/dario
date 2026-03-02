@@ -525,18 +525,32 @@ function addLeg (activeplayer) {
         matchWon(activeplayer);
     } else {
         const message = "+1 leg"
-        const mode = 1;
-        displaySomething(message, mode);
+        displaySomething(message);
         startNewLeg();
     }
 }
 function matchWon (activeplayer) {
     console.log(activeplayer.name, "won the match!")
-    const message = activeplayer.name;
-    const mode = 2;
-    displaySomething(message, mode);
+
+    document.querySelector(".gameshot_popup").style.display = "flex";
+    document.getElementById("gameshot_player").innerText = activeplayer.name;
+
+    // confetti({
+    // particleCount: 150,
+    // spread: 70,
+    // origin: { y: 0.6 }
+    // });
+    setInterval(() => {
+        confetti({
+            particleCount: 50,
+            spread: 120,
+            origin: { x: Math.random(), y: 0 },
+            ticks: 500,
+            gravity: 0.9
+        });
+    }, 200);
 }
-function displaySomething(message, mode) {
+function displaySomething(message) {
     const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
     async function showMessage() {
@@ -545,12 +559,11 @@ function displaySomething(message, mode) {
 
         document.getElementById("overlay_message").classList.add("grow");
         document.getElementById("overlay_message").classList.add("legwon");
-        if (mode === 1) {
-            await sleep(2000);
-            overlay_message.textContent = "";
-            document.getElementById("overlay_message").classList.remove("grow");
-            document.getElementById("overlay_message").classList.remove("legwon");
-        }
+        await sleep(2000);
+        overlay_message.textContent = "";
+        document.getElementById("overlay_message").classList.remove("grow");
+        document.getElementById("overlay_message").classList.remove("legwon");
+        
         
     }
     showMessage();

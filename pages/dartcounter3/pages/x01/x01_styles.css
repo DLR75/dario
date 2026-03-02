@@ -117,6 +117,34 @@ h4 {
 
     /* border: 1px solid black; */
 }
+.gameshot_popup {
+    /* display: flex; */
+    display: none;
+    position: fixed;
+    aspect-ratio: 1/1.386;                      
+    width: min(100vw, 72.15vh);
+    margin: calc(var(--u) * -2.5);
+    background-color: hsl(0, 0%, 18%);
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: calc(var(--u) * 2.5);
+} .gameshot_popup_title {
+    color: hsl(0, 0%, 95%);
+    font-size: calc(var(--u) * 10);
+    font-weight: 700;
+} .gameshot_popup_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(var(--u) * 30);
+    height: calc(var(--u) * 10);
+    font-size: calc(var(--u) * 4.5);
+    font-weight: 500;
+    color: hsl(0, 73%, 19%);
+    background-color: hsl(345, 85%, 47%);
+}
 
 
 
@@ -339,3 +367,4 @@ h4 {
     font-size: 80px;
     font-weight: 700;
 }
+
