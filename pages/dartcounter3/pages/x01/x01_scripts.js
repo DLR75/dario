@@ -392,57 +392,85 @@ function deleteInputs () {
     preScore(scorestring);
 }
 
-function switchActivePlayerNext (activeplayer) {
-    if (gamerules.numberofplayers === 1) {
+// function switchActivePlayerNext (activeplayer) {
+//     if (gamerules.numberofplayers === 1) {
 
-    } else if (gamerules.numberofplayers === 2) {
-        if (activeplayer === p1) {
-            p1.active = false;
-            p2.active = true;
-            activeplayer = p2;
-        } else if (activeplayer === p2) {
-            p2.active = false;
-            p1.active = true;
-            activeplayer = p1;
-        }
-    } else if (gamerules.numberofplayers === 3) {
-        if (activeplayer === p1) {
-            p1.active = false;
-            p2.active = true;
-            activeplayer = p2;
-        } else if (activeplayer === p2) {
-            p2.active = false;
-            p3.active = true;
-            activeplayer = p3;
-        } else if (activeplayer === p3) {
-            p3.active = false;
-            p1.active = true;
-            activeplayer = p1;
-        }
-    } else if (gamerules.numberofplayers === 4) {
-        if (activeplayer === p1) {
-            p1.active = false;
-            p2.active = true;
-            activeplayer = p2;
-        } else if (activeplayer === p2) {
-            p2.active = false;
-            p3.active = true;
-            activeplayer = p3;
-        } else if (activeplayer === p3) {
-            p3.active = false;
-            p4.active = true;
-            activeplayer = p4;
-        } else if (activeplayer === p4) {
-            p4.active = false;
-            p1.active = true;
-            activeplayer = p1;
-        }
-    }
-    checkActivity(p1);
-    checkActivity(p2);
-    checkActivity(p3);
-    checkActivity(p4);
+//     } else if (gamerules.numberofplayers === 2) {
+//         if (activeplayer === p1) {
+//             p1.active = false;
+//             p2.active = true;
+//             activeplayer = p2;
+//         } else if (activeplayer === p2) {
+//             p2.active = false;
+//             p1.active = true;
+//             activeplayer = p1;
+//         }
+//     } else if (gamerules.numberofplayers === 3) {
+//         if (activeplayer === p1) {
+//             p1.active = false;
+//             p2.active = true;
+//             activeplayer = p2;
+//         } else if (activeplayer === p2) {
+//             p2.active = false;
+//             p3.active = true;
+//             activeplayer = p3;
+//         } else if (activeplayer === p3) {
+//             p3.active = false;
+//             p1.active = true;
+//             activeplayer = p1;
+//         }
+//     } else if (gamerules.numberofplayers === 4) {
+//         if (activeplayer === p1) {
+//             p1.active = false;
+//             p2.active = true;
+//             activeplayer = p2;
+//         } else if (activeplayer === p2) {
+//             p2.active = false;
+//             p3.active = true;
+//             activeplayer = p3;
+//         } else if (activeplayer === p3) {
+//             p3.active = false;
+//             p4.active = true;
+//             activeplayer = p4;
+//         } else if (activeplayer === p4) {
+//             p4.active = false;
+//             p1.active = true;
+//             activeplayer = p1;
+//         }
+//     }
+//     checkActivity(p1);
+//     checkActivity(p2);
+//     checkActivity(p3);
+//     checkActivity(p4);
+// }
+
+function switchActivePlayerNext (activeplayer) {
+    const playerlist = [p1, p2, p3, p4].slice(0, gamerules.numberofplayers); //list of all players cut to length
+
+    let currentplayerIndex = playerlist.indexOf(activeplayer); //position of activeplayer in playerlist
+    let nextplayerIndex = (currentplayerIndex + 1) % playerlist.length; //position of next activeplayer
+
+    playerlist[currentplayerIndex].active = false; //change activity
+    playerlist[nextplayerIndex].active = true; //change activity
+
+    activeplayer = playerlist[nextplayerIndex]; //determine new activeplayer
+
+    playerlist.forEach(player => checkActivity(player)); //run functions to check activity
 }
+function switchActivePlayerPrevious (activeplayer) {
+    const playerlist = [p1, p2, p3, p4].slice(0, gamerules.numberofplayers); //list of all players cut to length
+
+    let currentplayerIndex = playerlist.indexOf(activeplayer); //position of activeplayer in playerlist
+    let previousplayerIndex = (currentplayerIndex - 1 + playerlist.length) % playerlist.length; //position of next activeplayer
+
+    playerlist[currentplayerIndex].active = false; //change activity
+    playerlist[previousplayerIndex].active = true; //change activity
+
+    activeplayer = playerlist[previousplayerIndex]; //determine new activeplayer
+
+    playerlist.forEach(player => checkActivity(player)); //run functions to check activity
+}
+
 function switchActivePlayerStart () {
     if (gamerules.numberofplayers === 1) {
 
@@ -806,6 +834,50 @@ function updatePlayerPrescore (activeplayer) {
         const player_4_remaining_score = document.querySelector("#player_4 .player_score")
         player_4_remaining_score.innerText = p4.prescore;
     }
+}
+
+// Lists
+let p1_scores = [
+    {score: 140, darts: 3},
+]
+let p2_scores = []
+let p3_scores = []
+let p4_scores = []
+
+let p1_legaverages = [
+    {average: 42, darts: 12},
+]
+let p2_legaverages = []
+let p3_legaverages = []
+let p4_legaverages = []
+
+function addScoreToList (activeplayer, newscore, newdarts) {
+    if (activeplayer === p1) {
+        p1_scores.push({score: newscore, darts: newdarts});
+    } else if (activeplayer === p2) {
+        p2_scores.push({score: newscore, darts: newdarts});
+    } else if (activeplayer === p3) {
+        p3_scores.push({score: newscore, darts: newdarts});
+    } else if (activeplayer === p4) {
+        p4_scores.push({score: newscore, darts: newdarts});
+    }
+    calculateAverage(activeplayer);
+    calculateLastScore(activeplayer);
+}
+function removePreviousScoreFromList (activeplayer) {
+    switchActivePlayerPrevious(activeplayer);
+    // vorherigen Spieler wählen(activeplayer -1)
+
+    if (activeplayer === p1) {
+        p1_scores.pop();
+    } else if (activeplayer === p2) {
+        p2_scores.pop();
+    } else if (activeplayer === p3) {
+        p3_scores.pop();
+    } else if (activeplayer === p4) {
+        p4_scores.pop();
+    }
+    
 }
 
 //Event Listeners:
