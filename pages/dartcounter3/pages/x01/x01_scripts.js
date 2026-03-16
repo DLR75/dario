@@ -48,6 +48,8 @@ let p1 = {
     sum: 0,
     active: false,
     prescore: "",
+    scores:[],
+    legaverages:[],
 }
 let p2 = {
     name: "",
@@ -59,6 +61,8 @@ let p2 = {
     sum: 0,
     active: false,
     prescore: "",
+    scores:[],
+    legaverages:[],
 }
 let p3 = {
     name: "",
@@ -70,6 +74,8 @@ let p3 = {
     sum: 0,
     active: false,
     prescore: "",
+    scores:[],
+    legaverages:[],
 }
 let p4 = {
     name: "",
@@ -81,6 +87,8 @@ let p4 = {
     sum: 0,
     active: false,
     prescore: "",
+    scores:[],
+    legaverages:[],
 }
 let gamerules = {
     gamemode: 1,
@@ -375,15 +383,15 @@ function determineActivePlayer () {
         activeplayer = p4;
     }
 }
-function calculateAverage () {
-    activeplayer.sum = activeplayer.sum + score;
-    activeplayer.average = activeplayer.sum * 3 / activeplayer.thrown;
-    updatePlayerAverage();
-}
-function calculateLastScore () {
-    activeplayer.lastscore = score;
-    updatePlayerLastscore();
-}
+// function calculateAverage () {
+//     activeplayer.sum = activeplayer.sum + score;
+//     activeplayer.average = activeplayer.sum * 3 / activeplayer.thrown;
+//     updatePlayerAverage();
+// }
+// function calculateLastScore () {
+//     activeplayer.lastscore = score;
+//     updatePlayerLastscore();
+// }
 
 function deleteInputs () {
     scorestring = scorestring.slice(0, -1);
@@ -831,59 +839,37 @@ function calculateGoBackInTime () {
 }
 
 // Lists
-let p1_scores = [
-    // {score: 140, darts: 3},
-]
-let p2_scores = []
-let p3_scores = []
-let p4_scores = []
-
-let p1_legaverages = [
-    // {average: 42, darts: 12},
-]
-let p2_legaverages = []
-let p3_legaverages = []
-let p4_legaverages = []
 
 function addScoreToList (newscore, newdarts) {
-    if (activeplayer === p1) {
-        p1_scores.push({score: newscore, darts: newdarts});
-    } else if (activeplayer === p2) {
-        p2_scores.push({score: newscore, darts: newdarts});
-    } else if (activeplayer === p3) {
-        p3_scores.push({score: newscore, darts: newdarts});
-    } else if (activeplayer === p4) {
-        p4_scores.push({score: newscore, darts: newdarts});
-    }
+    activeplayer.scores.push({score: newscore, darts: newdarts});
     calculateAverage();
     calculateLastScore();
-    
-    p1_scores.forEach(a => {
-        console.log("P1:","Score:",a.score,"Darts:",a.darts)
-    });
-    p2_scores.forEach(a => {
-        console.log("P2:","Score:",a.score,"Darts:",a.darts)
-    });
-    p3_scores.forEach(a => {
-        console.log("P3:","Score:",a.score,"Darts:",a.darts)
-    });
-    p4_scores.forEach(a => {
-        console.log("P4:","Score:",a.score,"Darts:",a.darts)
+
+
+    activeplayer.scores.forEach(a => {
+        console.log(activeplayer.name,"Score:",a.score,"Darts:",a.darts)
     });
 }
 function removePreviousScoreFromList () {
-    if (activeplayer === p1) {
-        p1_scores.pop();
-    } else if (activeplayer === p2) {
-        p2_scores.pop();
-    } else if (activeplayer === p3) {
-        p3_scores.pop();
-    } else if (activeplayer === p4) {
-        p4_scores.pop();
-    }
+    activeplayer.scores.pop();
     
     calculateAverage();
     calculateLastScore();
+}
+
+function calculateAverage () {
+
+
+
+
+
+    activeplayer.sum = activeplayer.sum + score;
+    activeplayer.average = activeplayer.sum * 3 / activeplayer.thrown;
+    updatePlayerAverage();
+}
+function calculateLastScore () {
+    activeplayer.lastscore = score;
+    updatePlayerLastscore();
 }
 
 //Event Listeners:
