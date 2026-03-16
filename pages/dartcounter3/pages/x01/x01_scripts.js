@@ -556,6 +556,9 @@ function startNewLeg () {
 function addLeg () {
     activeplayer.legs = activeplayer.legs + 1;
     updatePlayerLegs();
+
+    addAveragesToAverageList();
+
     if (activeplayer.legs === gamerules.firstto) {
         matchWon();
     } else {
@@ -564,6 +567,11 @@ function addLeg () {
         startNewLeg();
     }
 }
+function addAveragesToAverageList () {
+    activeplayer.legaverages.push({average: activeplayer.average, darts: activeplayer.thrown});
+    console.log(activeplayer.legaverages);
+}
+
 function matchWon () {
     console.log(activeplayer.name, "won the match!")
 
@@ -857,19 +865,14 @@ function removePreviousScoreFromList () {
 
 function calculateAverage () {
     let scoresum = activeplayer.scores.reduce((sum, s) => sum + s.score, 0);
-    console.log("scoresum:",scoresum);
-    
     let dartssum = activeplayer.scores.reduce((sum, d) => sum + d.darts, 0);
-    console.log("dartssum:",dartssum);
-
+    activeplayer.thrown = dartssum;
     let x = dartssum / 3;
     activeplayer.average = scoresum / x;
-    
     updatePlayerAverage();
 }
 function calculateLastScore () {
     let lastScore = activeplayer.scores[activeplayer.scores.length - 1].score;
-
     activeplayer.lastscore = lastScore;
     updatePlayerLastscore();
 }
