@@ -646,23 +646,20 @@ function applyScore () {
     if (newscore > 1) {
         activeplayer.remaining = activeplayer.remaining-score;
         updatePlayerRemainingScore();
-        calculateAverage();
-        calculateLastScore();
+        addScoreToList (score, 3);
         switchActivePlayerNext();
         displayScore();
     } else if (newscore === 1) {
         if (gamerules.gamemode === 1 || 3) {
             alert("score busted");
             score = 0;
-            calculateAverage();
-            calculateLastScore();
+            addScoreToList (score, 3);
             switchActivePlayerNext();
             displayScore();
         } else if (gamerules.gamemode === 2 || 4) {
             activeplayer.remaining = activeplayer.remaining-score;
-            updatePlayerRemainingScore(activeplayer);
-            calculateAverage();
-            calculateLastScore();
+            updatePlayerRemainingScore();
+            addScoreToList (score, 3);
             switchActivePlayerNext();
             displayScore();
         }
@@ -674,29 +671,25 @@ function applyScore () {
                    activeplayer.remaining === 159) {
                 alert("score busted, bogeynumber");
                 score = 0;
-                calculateAverage();
-                calculateLastScore();
+                addScoreToList (score, 3);
                 switchActivePlayerNext();
                 displayScore();
             } else {
                 activeplayer.remaining = activeplayer.remaining-score;
                 updatePlayerRemainingScore();
-                calculateAverage();
-                calculateLastScore();
+                addScoreToList (score, 3);
                 addLeg();
             }
         } else if (gamerules.gamemode === 2 || 4) {
             activeplayer.remaining = activeplayer.remaining-score;
             updatePlayerRemainingScore();
-            calculateAverage();
-            calculateLastScore();
+            addScoreToList (score, 3);
             addLeg();
         }
     } else {
         alert("score busted");
         score = 0;
-        calculateAverage();
-        calculateLastScore();
+        addScoreToList (score, 3);
         switchActivePlayerNext();
         displayScore();
     }
@@ -839,14 +832,14 @@ function calculateGoBackInTime () {
 
 // Lists
 let p1_scores = [
-    {score: 140, darts: 3},
+    // {score: 140, darts: 3},
 ]
 let p2_scores = []
 let p3_scores = []
 let p4_scores = []
 
 let p1_legaverages = [
-    {average: 42, darts: 12},
+    // {average: 42, darts: 12},
 ]
 let p2_legaverages = []
 let p3_legaverages = []
