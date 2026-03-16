@@ -36,6 +36,7 @@ const plate_command_z = document.getElementById("command_z");
 let startingplayer;
 let score;
 let scorestring;
+let activeplayer;
 
 let p1 = {
     name: "",
@@ -270,7 +271,7 @@ function activate(player) {
     z.classList.remove("passive");
     z.classList.add("active");
 
-    const activeplayer = determineActivePlayer();
+    determineActivePlayer();
     const checkOut = activeplayer.remaining;
     checkCheckOutPossibility(checkOut);
 }
@@ -364,7 +365,6 @@ function updatePlayerLastscore () {
 
 
 function determineActivePlayer () {
-    let activeplayer
     if (p1.active === true) {
         activeplayer = p1;
     } else if (p2.active === true) {
@@ -374,14 +374,13 @@ function determineActivePlayer () {
     } else if (p4.active === true) {
         activeplayer = p4;
     }
-    return activeplayer;
 }
-function calculateAverage (activeplayer) {
+function calculateAverage () {
     activeplayer.sum = activeplayer.sum + score;
     activeplayer.average = activeplayer.sum * 3 / activeplayer.thrown;
     updatePlayerAverage();
 }
-function calculateLastScore (activeplayer) {
+function calculateLastScore () {
     activeplayer.lastscore = score;
     updatePlayerLastscore();
 }
@@ -444,7 +443,7 @@ function deleteInputs () {
 //     checkActivity(p4);
 // }
 
-function switchActivePlayerNext (activeplayer) {
+function switchActivePlayerNext () {
     const playerlist = [p1, p2, p3, p4].slice(0, gamerules.numberofplayers); //list of all players cut to length
 
     let currentplayerIndex = playerlist.indexOf(activeplayer); //position of activeplayer in playerlist
@@ -457,7 +456,7 @@ function switchActivePlayerNext (activeplayer) {
 
     playerlist.forEach(player => checkActivity(player)); //run functions to check activity
 }
-function switchActivePlayerPrevious (activeplayer) {
+function switchActivePlayerPrevious () {
     const playerlist = [p1, p2, p3, p4].slice(0, gamerules.numberofplayers); //list of all players cut to length
 
     let currentplayerIndex = playerlist.indexOf(activeplayer); //position of activeplayer in playerlist
@@ -546,18 +545,18 @@ function startNewLeg () {
     updatePlayerLastscore();
     switchActivePlayerStart();
 }
-function addLeg (activeplayer) {
+function addLeg () {
     activeplayer.legs = activeplayer.legs + 1;
     updatePlayerLegs();
     if (activeplayer.legs === gamerules.firstto) {
-        matchWon(activeplayer);
+        matchWon();
     } else {
         const message = "+1 leg"
         displaySomething(message);
         startNewLeg();
     }
 }
-function matchWon (activeplayer) {
+function matchWon () {
     console.log(activeplayer.name, "won the match!")
 
     document.querySelector(".gameshot_popup").style.display = "flex";
@@ -609,7 +608,6 @@ function buildScorestring (input) {
 }
 function preScore (scorestring) {
     const prescore = convertScorestringToNumber(scorestring);
-    const activeplayer = determineActivePlayer();
     const preremaining = activeplayer.remaining - prescore;
     displayPrescore (preremaining);
     checkCheckOutPossibility(preremaining);
@@ -639,34 +637,33 @@ function checkScore () {
     if (score > 180) {
         alert("impossible");
     } else {
-        const activeplayer = determineActivePlayer();
-        applyScore(activeplayer);
+        applyScore();
     }
 }
-function applyScore (activeplayer) {
+function applyScore () {
     activeplayer.thrown = activeplayer.thrown + 3;
     let newscore = activeplayer.remaining-score;
     if (newscore > 1) {
         activeplayer.remaining = activeplayer.remaining-score;
-        updatePlayerRemainingScore(activeplayer);
-        calculateAverage(activeplayer);
-        calculateLastScore(activeplayer);
-        switchActivePlayerNext(activeplayer);
+        updatePlayerRemainingScore();
+        calculateAverage();
+        calculateLastScore();
+        switchActivePlayerNext();
         displayScore();
     } else if (newscore === 1) {
         if (gamerules.gamemode === 1 || 3) {
             alert("score busted");
             score = 0;
-            calculateAverage(activeplayer);
-            calculateLastScore(activeplayer);
-            switchActivePlayerNext(activeplayer);
+            calculateAverage();
+            calculateLastScore();
+            switchActivePlayerNext();
             displayScore();
         } else if (gamerules.gamemode === 2 || 4) {
             activeplayer.remaining = activeplayer.remaining-score;
             updatePlayerRemainingScore(activeplayer);
-            calculateAverage(activeplayer);
-            calculateLastScore(activeplayer);
-            switchActivePlayerNext(activeplayer);
+            calculateAverage();
+            calculateLastScore();
+            switchActivePlayerNext();
             displayScore();
         }
     } else if (newscore  === 0) {
@@ -677,30 +674,30 @@ function applyScore (activeplayer) {
                    activeplayer.remaining === 159) {
                 alert("score busted, bogeynumber");
                 score = 0;
-                calculateAverage(activeplayer);
-                calculateLastScore(activeplayer);
-                switchActivePlayerNext(activeplayer);
+                calculateAverage();
+                calculateLastScore();
+                switchActivePlayerNext();
                 displayScore();
             } else {
                 activeplayer.remaining = activeplayer.remaining-score;
-                updatePlayerRemainingScore(activeplayer);
-                calculateAverage(activeplayer);
-                calculateLastScore(activeplayer);
-                addLeg(activeplayer);
+                updatePlayerRemainingScore();
+                calculateAverage();
+                calculateLastScore();
+                addLeg();
             }
         } else if (gamerules.gamemode === 2 || 4) {
             activeplayer.remaining = activeplayer.remaining-score;
-            updatePlayerRemainingScore(activeplayer);
-            calculateAverage(activeplayer);
-            calculateLastScore(activeplayer);
-            addLeg(activeplayer);
+            updatePlayerRemainingScore();
+            calculateAverage();
+            calculateLastScore();
+            addLeg();
         }
     } else {
         alert("score busted");
         score = 0;
-        calculateAverage(activeplayer);
-        calculateLastScore(activeplayer);
-        switchActivePlayerNext(activeplayer);
+        calculateAverage();
+        calculateLastScore();
+        switchActivePlayerNext();
         displayScore();
     }
 }
@@ -811,16 +808,15 @@ function displayScore () {
     showMessage();
 }
 function displayPrescore(preremainng) {
-    const activeplayer = determineActivePlayer();
     let a = activeplayer.remaining;
     a = a.toString();
     let b = preremainng.toString();
     let string = a + "(" + b + ")";
     activeplayer.prescore = string;
-    updatePlayerPrescore (activeplayer);
+    updatePlayerPrescore ();
 
 }
-function updatePlayerPrescore (activeplayer) {
+function updatePlayerPrescore () {
     if (activeplayer === p1) {
         const player_1_remaining_score = document.querySelector("#player_1 .player_score")
         player_1_remaining_score.innerText = p1.prescore;
@@ -851,7 +847,7 @@ let p2_legaverages = []
 let p3_legaverages = []
 let p4_legaverages = []
 
-function addScoreToList (activeplayer, newscore, newdarts) {
+function addScoreToList (newscore, newdarts) {
     if (activeplayer === p1) {
         p1_scores.push({score: newscore, darts: newdarts});
     } else if (activeplayer === p2) {
@@ -861,11 +857,11 @@ function addScoreToList (activeplayer, newscore, newdarts) {
     } else if (activeplayer === p4) {
         p4_scores.push({score: newscore, darts: newdarts});
     }
-    calculateAverage(activeplayer);
-    calculateLastScore(activeplayer);
+    calculateAverage();
+    calculateLastScore();
 }
-function removePreviousScoreFromList (activeplayer) {
-    switchActivePlayerPrevious(activeplayer);
+function removePreviousScoreFromList () {
+    switchActivePlayerPrevious();
     // vorherigen Spieler wählen(activeplayer -1)
 
     if (activeplayer === p1) {
