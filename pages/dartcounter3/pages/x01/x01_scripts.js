@@ -845,30 +845,32 @@ function addScoreToList (newscore, newdarts) {
     calculateAverage();
     calculateLastScore();
 
-
     activeplayer.scores.forEach(a => {
         console.log(activeplayer.name,"Score:",a.score,"Darts:",a.darts)
     });
 }
 function removePreviousScoreFromList () {
     activeplayer.scores.pop();
-    
     calculateAverage();
     calculateLastScore();
 }
 
 function calculateAverage () {
+    let scoresum = activeplayer.scores.reduce((sum, s) => sum + s.score, 0);
+    console.log("scoresum:",scoresum);
+    
+    let dartssum = activeplayer.scores.reduce((sum, d) => sum + d.darts, 0);
+    console.log("dartssum:",dartssum);
 
-
-
-
-
-    activeplayer.sum = activeplayer.sum + score;
-    activeplayer.average = activeplayer.sum * 3 / activeplayer.thrown;
+    let x = dartssum / 3;
+    activeplayer.average = scoresum / x;
+    
     updatePlayerAverage();
 }
 function calculateLastScore () {
-    activeplayer.lastscore = score;
+    let lastScore = activeplayer.scores[activeplayer.scores.length - 1].score;
+
+    activeplayer.lastscore = lastScore;
     updatePlayerLastscore();
 }
 
