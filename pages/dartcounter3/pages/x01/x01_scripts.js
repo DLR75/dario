@@ -832,6 +832,11 @@ function updatePlayerPrescore () {
     }
 }
 
+function calculateGoBackInTime () {
+    switchActivePlayerPrevious();
+    removePreviousScoreFromList();
+}
+
 // Lists
 let p1_scores = [
     {score: 140, darts: 3},
@@ -861,9 +866,6 @@ function addScoreToList (newscore, newdarts) {
     calculateLastScore();
 }
 function removePreviousScoreFromList () {
-    switchActivePlayerPrevious();
-    // vorherigen Spieler wählen(activeplayer -1)
-
     if (activeplayer === p1) {
         p1_scores.pop();
     } else if (activeplayer === p2) {
@@ -873,7 +875,7 @@ function removePreviousScoreFromList () {
     } else if (activeplayer === p4) {
         p4_scores.pop();
     }
-    
+    console.log("run removePreviousScoreFromList");
 }
 
 //Event Listeners:
