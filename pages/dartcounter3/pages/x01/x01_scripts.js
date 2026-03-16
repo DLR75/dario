@@ -857,6 +857,19 @@ function addScoreToList (newscore, newdarts) {
     }
     calculateAverage();
     calculateLastScore();
+    
+    p1_scores.forEach(a => {
+        console.log("P1:","Score:",a.score,"Darts:",a.darts)
+    });
+    p2_scores.forEach(a => {
+        console.log("P2:","Score:",a.score,"Darts:",a.darts)
+    });
+    p3_scores.forEach(a => {
+        console.log("P3:","Score:",a.score,"Darts:",a.darts)
+    });
+    p4_scores.forEach(a => {
+        console.log("P4:","Score:",a.score,"Darts:",a.darts)
+    });
 }
 function removePreviousScoreFromList () {
     if (activeplayer === p1) {
@@ -868,7 +881,9 @@ function removePreviousScoreFromList () {
     } else if (activeplayer === p4) {
         p4_scores.pop();
     }
-    console.log("run removePreviousScoreFromList");
+    
+    calculateAverage();
+    calculateLastScore();
 }
 
 //Event Listeners:
