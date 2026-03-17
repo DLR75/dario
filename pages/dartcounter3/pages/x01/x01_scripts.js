@@ -49,7 +49,8 @@ let p1 = {
     active: false,
     prescore: "",
     scores:[],
-    legaverages:[],
+    averageslegs:[],
+    scoresumcurrentleg: 0,
 }
 let p2 = {
     name: "",
@@ -62,7 +63,8 @@ let p2 = {
     active: false,
     prescore: "",
     scores:[],
-    legaverages:[],
+    averageslegs:[],
+    scoresumcurrentleg: 0,
 }
 let p3 = {
     name: "",
@@ -75,7 +77,8 @@ let p3 = {
     active: false,
     prescore: "",
     scores:[],
-    legaverages:[],
+    averageslegs:[],
+    scoresumcurrentleg: 0,
 }
 let p4 = {
     name: "",
@@ -88,7 +91,8 @@ let p4 = {
     active: false,
     prescore: "",
     scores:[],
-    legaverages:[],
+    averageslegs:[],
+    scoresumcurrentleg: 0,
 }
 let gamerules = {
     gamemode: 1,
@@ -558,6 +562,7 @@ function addLeg () {
     updatePlayerLegs();
 
     addAveragesToAverageList();
+    resetScoreLists();
 
     if (activeplayer.legs === gamerules.firstto) {
         matchWon();
@@ -568,8 +573,22 @@ function addLeg () {
     }
 }
 function addAveragesToAverageList () {
-    activeplayer.legaverages.push({average: activeplayer.average, darts: activeplayer.thrown});
-    console.log(activeplayer.legaverages);
+    activeplayer.averageslegs.push({scoresum: activeplayer.scoresumcurrentleg, darts: activeplayer.thrown});
+    console.log(activeplayer.averageslegs);
+}
+function resetScoreLists() {
+    p1.scores.length = 0;
+    p2.scores.length = 0;
+    p3.scores.length = 0;
+    p4.scores.length = 0;
+    p1.thrown = 0;
+    p2.thrown = 0;
+    p3.thrown = 0;
+    p4.thrown = 0;
+    p1.lastscore = 0;
+    p2.lastscore = 0;
+    p3.lastscore = 0;
+    p4.lastscore = 0;
 }
 
 function matchWon () {
@@ -853,9 +872,9 @@ function addScoreToList (newscore, newdarts) {
     calculateAverage();
     calculateLastScore();
 
-    activeplayer.scores.forEach(a => {
-        console.log(activeplayer.name,"Score:",a.score,"Darts:",a.darts)
-    });
+    // activeplayer.scores.forEach(a => {
+    //     console.log(activeplayer.name,"Score:",a.score,"Darts:",a.darts)
+    // });
 }
 function removePreviousScoreFromList () {
     activeplayer.scores.pop();
@@ -864,11 +883,23 @@ function removePreviousScoreFromList () {
 }
 
 function calculateAverage () {
-    let scoresum = activeplayer.scores.reduce((sum, s) => sum + s.score, 0);
-    let dartssum = activeplayer.scores.reduce((sum, d) => sum + d.darts, 0);
+    let scoresum = activeplayer.scores.reduce((sum, s) => sum + s.score, 0); //current
+    let dartssum = activeplayer.scores.reduce((sum, d) => sum + d.darts, 0); //current
+    activeplayer.scoresumcurrentleg = scoresum;
     activeplayer.thrown = dartssum;
-    let x = dartssum / 3;
-    activeplayer.average = scoresum / x;
+
+    let prevlegsscoresum = activeplayer.averageslegs.reduce((sum, s) => sum + s.scoresum, 0); //prev
+    let prevlegsdarts = activeplayer.averageslegs.reduce((sum, d) => sum + d.darts, 0);         //prev
+
+    let scoresumcomplete = scoresum + prevlegsscoresum; //current + prev
+    let darts = dartssum + prevlegsdarts;               //current + prev
+
+    let turns = darts / 3;
+
+    activeplayer.average = scoresumcomplete / turns;
+
+    
+    
     updatePlayerAverage();
 }
 function calculateLastScore () {
