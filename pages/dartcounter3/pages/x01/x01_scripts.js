@@ -51,6 +51,7 @@ let p1 = {
     scores:[],
     averageslegs:[],
     scoresumcurrentleg: 0,
+    count_180: 0,
 }
 let p2 = {
     name: "",
@@ -65,6 +66,7 @@ let p2 = {
     scores:[],
     averageslegs:[],
     scoresumcurrentleg: 0,
+    count_180: 0,
 }
 let p3 = {
     name: "",
@@ -79,6 +81,7 @@ let p3 = {
     scores:[],
     averageslegs:[],
     scoresumcurrentleg: 0,
+    count_180: 0,
 }
 let p4 = {
     name: "",
@@ -93,6 +96,7 @@ let p4 = {
     scores:[],
     averageslegs:[],
     scoresumcurrentleg: 0,
+    count_180: 0,
 }
 let gamerules = {
     gamemode: 1,
@@ -686,6 +690,10 @@ function scoreScore () {
 function checkScore () {
     if (score > 180) {
         alert("impossible");
+    } else if (score === 180) {
+        activeplayer.count_180 = activeplayer.count_180 + 1;
+        console.log("count_180:",activeplayer.count_180);
+        applyScore();
     } else {
         applyScore();
     }
@@ -944,10 +952,8 @@ async function sendStatsToSupabase () {
                     stat_average: legaverage,
                     stat_count_darts: leg.darts,
                     stat_score_sum: leg.scoresum,
-                    stat_count_180: 0,
+                    stat_count_180: player.count_180,
                     stat_opponent_id: 0,
-                    stat_legs_won: 0,
-                    stat_legs_lost: 0,
                     stat_checkout_rate: 0,
                 }]);
             if (error) {console.log("supabase error:", error)};
@@ -969,6 +975,10 @@ async function sendStatsToSupabase () {
             }
         }
     }
+    p1.count_180 = 0;
+    p2.count_180 = 0;
+    p3.count_180 = 0;
+    p4.count_180 = 0;
     console.log("finished");
 }
 
