@@ -573,8 +573,21 @@ function addLeg () {
     }
 }
 function addAveragesToAverageList () {
-    activeplayer.averageslegs.push({scoresum: activeplayer.scoresumcurrentleg, darts: activeplayer.thrown});
-    console.log(activeplayer.averageslegs);
+    function addToList (player) {
+        player.averageslegs.push({scoresum: player.scoresumcurrentleg, darts: player.thrown});
+        console.log(player.averageslegs);
+    }
+    
+    addToList(p1);
+    if (gamerules.numberofplayers === 2) {
+        addToList(p2);
+        if (gamerules.numberofplayers === 3) {
+            addToList(p3);
+            if (gamerules.numberofplayers === 4) {
+                addToList(p4);
+            }
+        }
+    }
 }
 function resetScoreLists() {
     p1.scores.length = 0;
@@ -912,10 +925,51 @@ function calculateLastScore () {
 
 //supabase /backend
 
-function sendStatsToSupabase () {
+async function sendStatsToSupabase () {
+    console.log(gamerules.numberofplayers);
+
     const supabaseUrl = "https://tretfgmkwrwkurncitma.supabase.co";
     const supabaseKey = "sb_publishable_e-fhuxHuNeIUVNIJId9lDQ_lk7ccsgb";
     const db = supabase.createClient(supabaseUrl, supabaseKey);
+
+    async function sendsupabase (player) {
+        for (const leg of player.averageslegs) {
+            let legaverage = (leg.scoresum/leg.darts) * 3;
+            legaverage = Number(legaverage.toFixed(2));
+
+            const {data, error } = await db
+                .from("games501")
+                .insert ([{
+                    stat_player_id: player.name,
+                    stat_average: legaverage,
+                    stat_count_darts: leg.darts,
+                    stat_score_sum: leg.scoresum,
+                    stat_count_180: 0,
+                    stat_opponent_id: 0,
+                    stat_legs_won: 0,
+                    stat_legs_lost: 0,
+                    stat_checkout_rate: 0,
+                }]);
+            if (error) {console.log("supabase error:", error)};
+            console.log("legsaved");
+        }
+    }
+    
+    console.log("Start p1");
+    await sendsupabase(p1);
+    if (gamerules.numberofplayers === 2) {
+        console.log("Start p2");
+        await sendsupabase(p2);
+        if (gamerules.numberofplayers === 3) {
+            console.log("Start p3");
+            await sendsupabase(p3);
+            if (gamerules.numberofplayers === 4) {
+                console.log("Start p4");
+                await sendsupabase(p4);
+            }
+        }
+    }
+    console.log("finished");
 }
 
 //Event Listeners:
