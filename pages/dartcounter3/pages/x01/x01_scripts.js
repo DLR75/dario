@@ -597,6 +597,8 @@ function matchWon () {
     document.querySelector(".gameshot_popup").style.display = "flex";
     document.getElementById("gameshot_player").innerText = activeplayer.name;
 
+    sendStatsToSupabase ();
+
     // confetti({
     // particleCount: 150,
     // spread: 70,
@@ -906,6 +908,14 @@ function calculateLastScore () {
     let lastScore = activeplayer.scores[activeplayer.scores.length - 1].score;
     activeplayer.lastscore = lastScore;
     updatePlayerLastscore();
+}
+
+//supabase /backend
+
+function sendStatsToSupabase () {
+    const supabaseUrl = "https://tretfgmkwrwkurncitma.supabase.co";
+    const supabaseKey = "sb_publishable_e-fhuxHuNeIUVNIJId9lDQ_lk7ccsgb";
+    const db = supabase.createClient(supabaseUrl, supabaseKey);
 }
 
 //Event Listeners:
