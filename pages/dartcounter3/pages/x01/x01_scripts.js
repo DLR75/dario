@@ -900,6 +900,10 @@ function addScoreToList (newscore, newdarts) {
     // });
 }
 function removePreviousScoreFromList () {
+
+    activeplayer.remaining = activeplayer.remaining + activeplayer.scores[activeplayer.scores.length - 1].score;
+    updatePlayerRemainingScore();
+
     activeplayer.scores.pop();
     calculateAverage();
     calculateLastScore();
