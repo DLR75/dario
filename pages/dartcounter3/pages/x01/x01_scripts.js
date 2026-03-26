@@ -622,6 +622,14 @@ function matchWon () {
     document.getElementById("gameshot_p2_legs").innerText = p2.legs + " legs";
     document.getElementById("gameshot_p2_avg").innerText = p2.average + " avg";
 
+    document.getElementById("gameshot_p3_name").innerText = p3.name;
+    document.getElementById("gameshot_p3_legs").innerText = p3.legs + " legs";
+    document.getElementById("gameshot_p3_avg").innerText = p3.average + " avg";
+
+    document.getElementById("gameshot_p4_name").innerText = p4.name;
+    document.getElementById("gameshot_p4_legs").innerText = p4.legs + " legs";
+    document.getElementById("gameshot_p4_avg").innerText = p4.average + " avg";
+
     gameShotfigureOutNumberofPlayers();
     //
 
