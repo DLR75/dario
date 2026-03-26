@@ -613,6 +613,17 @@ function matchWon () {
 
     document.querySelector(".gameshot_popup").style.display = "flex";
     document.getElementById("gameshot_player").innerText = activeplayer.name;
+    //loadstats
+    document.getElementById("gameshot_p1_name").innerText = p1.name;
+    document.getElementById("gameshot_p1_legs").innerText = p1.legs + " legs";
+    document.getElementById("gameshot_p1_avg").innerText = p1.average + " avg";
+
+    document.getElementById("gameshot_p2_name").innerText = p2.name;
+    document.getElementById("gameshot_p2_legs").innerText = p2.legs + " legs";
+    document.getElementById("gameshot_p2_avg").innerText = p2.average + " avg";
+
+    gameShotfigureOutNumberofPlayers();
+    //
 
     if (gamerules.gamemode === 1) {
         sendStatsToSupabase ();
@@ -1083,3 +1094,13 @@ document.getElementById("howmanydarts_3").addEventListener("click", function() {
 document.getElementById("rematch_button").addEventListener("click", function() {
     location.reload();
 });
+
+
+
+function gameShotfigureOutNumberofPlayers () {
+    const scoreboards = document.querySelectorAll(".gameshot_playerbox");
+
+    scoreboards.forEach((el, index) => {
+    el.style.display = index < gamerules.numberofplayers ? "flex" : "none";
+    });
+}

@@ -147,6 +147,28 @@ h4 {
     text-decoration: none;
 }
 
+.gameshot_stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(var(--u) * 95);
+    /* height: calc(var(--u) * 30); */
+    gap: calc(var(--u) * 2.5);
+    margin-top: calc(var(--u) * 7.5);
+} .gameshot_playerbox {
+    display: flex;
+    flex: auto;
+    gap: calc(var(--u) * 2.5);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(var(--u) * 4.5);
+    font-weight: 500;
+    color: hsl(0, 0%, 95%);
+} .gameshot_item {
+    display: flex;
+}
+
 /* how many darts */
 .howmanydarts_popup {
     /* display: flex; */
