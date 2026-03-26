@@ -792,7 +792,7 @@ function applyHowManyDarts (darts) {
 function checkCheckOutPossibility (remainingscore) {
     if (gamerules.gamemode === 1 || 3) {
         if (remainingscore > 170) {
-            console.log("no checkout");
+            // console.log("no checkout");
             displayRecommended1("");
             displayRecommended2("");
             displayRecommended3("");
@@ -804,7 +804,7 @@ function checkCheckOutPossibility (remainingscore) {
             displayRecommended2("");
             displayRecommended3("");
         } else {
-            console.log("checkout possible");
+            // console.log("checkout possible");
             displayCheckout(remainingscore);
         }
     } else if (gamerules.gamemode === 2 || 4) {
@@ -814,18 +814,24 @@ function checkCheckOutPossibility (remainingscore) {
             displayRecommended2("");
             displayRecommended3("");
         } else {
-            console.log("checkout possible");
+            // console.log("checkout possible");
             displayCheckout(remainingscore);
         }
     } 
 }
 function displayCheckout(remainingscore) {
-    const weg = getCheckout(remainingscore);
-    console.log(weg);
-    const check1 = weg [0];
-    const check2 = weg [1];
-    const check3 = weg [2];
+    let check1;
+    let check2;
+    let check3;
+    if (remainingscore === 0) {
 
+    } else {
+        const weg = getCheckout(remainingscore);
+        // console.log(weg);
+        check1 = weg [0];
+        check2 = weg [1];
+        check3 = weg [2];
+    }
     displayRecommended1(check1);
     displayRecommended2(check2);
     displayRecommended3(check3);
