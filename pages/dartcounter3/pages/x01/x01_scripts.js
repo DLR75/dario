@@ -735,14 +735,18 @@ function applyScore () {
             } else {
                 activeplayer.remaining = activeplayer.remaining-score;
                 updatePlayerRemainingScore();
-                addScoreToList (score, 3);
-                addLeg();
+                //check how many darts return darts
+                let darts = askHowManyDarts();
+                // addScoreToList (score, darts);
+                // addLeg();
             }
         } else if (gamerules.gamemode === 2 || 4) {
             activeplayer.remaining = activeplayer.remaining-score;
             updatePlayerRemainingScore();
-            addScoreToList (score, 3);
-            addLeg();
+            //check how many darts return darts
+            let darts = askHowManyDarts();
+            // addScoreToList (score, darts);
+            // addLeg();
         }
     } else {
         alert("score busted");
@@ -752,6 +756,15 @@ function applyScore () {
         displayScore();
     }
 }
+//Check number of darts
+function askHowManyDarts () {
+    document.querySelector(".howmanydarts_popup").style.display = "flex";
+}
+function applyHowManyDarts (darts) {
+    addScoreToList (score, darts);
+    addLeg();
+}
+
 
     //Checkout
 function checkCheckOutPossibility (remainingscore) {
@@ -1046,4 +1059,19 @@ document.getElementById("player_settings_4").addEventListener("click", function(
 });
 document.getElementById("close_settings_button").addEventListener("click", function() {
     document.querySelector(".settings_popup").style.display = "none";
+});
+
+
+
+document.getElementById("howmanydarts_1").addEventListener("click", function() {
+    document.querySelector(".howmanydarts_popup").style.display = "none";
+    applyHowManyDarts(1);
+});
+document.getElementById("howmanydarts_2").addEventListener("click", function() {
+    document.querySelector(".howmanydarts_popup").style.display = "none";
+    applyHowManyDarts(2);
+});
+document.getElementById("howmanydarts_3").addEventListener("click", function() {
+    document.querySelector(".howmanydarts_popup").style.display = "none";
+    applyHowManyDarts(3);
 });

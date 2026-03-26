@@ -147,6 +147,53 @@ h4 {
     text-decoration: none;
 }
 
+/* how many darts */
+.howmanydarts_popup {
+    /* display: flex; */
+    display: none;
+    position: fixed;
+    width: calc(var(--u) * 95);
+    height: calc(var(--u) * 133.6);
+    background-color: hsla(0, 0%, 18%, 0.795);
+    align-items: center;
+    justify-content: center;
+} .howmanydarts_popup_window {
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--u) * 2.5);
+    gap: calc(var(--u) * 5);
+    width: calc(var(--u) * 90);
+    /* height: calc(var(--u) * 40); */
+    background-color: hsl(0, 0%, 25%);
+}  .howmanydarts_popup_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(var(--u) * 8);
+    font-size: calc(var(--u) * 4.5);
+    font-weight: 500;
+    color: hsl(0, 0%, 95%);
+}   .howmanydarts_button_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: calc(var(--u) * 5);
+    margin: calc(var(--u) * 0) calc(var(--u) * 0) calc(var(--u) * 5) calc(var(--u) * 0);
+}   .howmanydarts_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(var(--u) * 30);
+    height: calc(var(--u) * 12);
+    font-size: calc(var(--u) * 4.5);
+    font-weight: 500;
+    color: hsl(0, 73%, 19%);
+    background-color: hsl(345, 85%, 47%);
+    text-decoration: none;
+}
+
+/*  */
 
 
 .header {
