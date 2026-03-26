@@ -1078,3 +1078,8 @@ document.getElementById("howmanydarts_3").addEventListener("click", function() {
     document.querySelector(".howmanydarts_popup").style.display = "none";
     applyHowManyDarts(3);
 });
+
+
+document.getElementById("rematch_button").addEventListener("click", function() {
+    location.reload();
+});
