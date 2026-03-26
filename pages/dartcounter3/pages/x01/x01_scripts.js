@@ -614,7 +614,10 @@ function matchWon () {
     document.querySelector(".gameshot_popup").style.display = "flex";
     document.getElementById("gameshot_player").innerText = activeplayer.name;
 
-    sendStatsToSupabase ();
+    if (gamerules.gamemode === 1) {
+        sendStatsToSupabase ();
+    }
+    
 
     // confetti({
     // particleCount: 150,
