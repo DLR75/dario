@@ -3,47 +3,165 @@ const supabaseUrl = "https://tretfgmkwrwkurncitma.supabase.co";
 const supabaseKey = "sb_publishable_e-fhuxHuNeIUVNIJId9lDQ_lk7ccsgb";
 const db = supabase.createClient(supabaseUrl, supabaseKey);
 
-//data
-let data = [
-    {x: 0, y: 5},
-    {x: 1, y: 3},
-    {x: 2, y: 6},
-    {x: 3, y: 7},
-    {x: 4, y: 3},
-    {x: 5, y: 2},
-    {x: 6, y: 3},
-    {x: 7, y: 5},
-    {x: 8, y: 3},
-    {x: 9, y: 6},
-    {x: 10, y: 7},
-    {x: 11, y: 3},
-    {x: 12, y: 2},
-    {x: 13, y: 3},
-    {x: 14, y: 5},
-    {x: 15, y: 3},
-    {x: 16, y: 6},
-    {x: 17, y: 7},
-    {x: 18, y: 3},
-    {x: 19, y: 2},
-    {x: 20, y: 3},
-    {x: 21, y: 5},
-    {x: 22, y: 3},
-    {x: 23, y: 6},
-    {x: 24, y: 7},
-    {x: 25, y: 3},
-    {x: 26, y: 2},
-    {x: 27, y: 3},
-];
+//variables
 const playername = "Player 1";
-start(playername);
+const dates = [];
+let filteredsupabasedata;
+const grouped = [];
+const grouped_countdarts = [];
+const grouped_scoresum = [];
+let chartData;
+let converteddata;
 
-async function start (player) {
-    const supabasedata = await getData(player);
+
+//create Timeframe
+async function createTimeframeDays () {
+    const today = new Date();
+    const days = 24;
     
-    const converteddata = convertData(supabasedata);
+    for (let i = days - 1; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(today.getDate() - i)
+
+        const iso = d.toISOString().split("T")[0];
+        dates.push(iso);
+    }
+    console.log("dates:", dates);
+}
+//filter for matches
+async function filterDataForMatchingDates (player) {
+    const supabasedata = await getData(player);
+
+    //cut of time
+    const supabasedatacleaned = supabasedata.map(entry => {
+        return {
+            ...entry,
+            date: entry.created_at.slice(0,10)
+        };
+    });
+    console.log("cleaneddates", supabasedatacleaned);
+    //filter matches
+    filteredsupabasedata = supabasedatacleaned.filter(entry => {
+        return dates.includes(entry.date);
+    });
+    console.log("filteredmatches", filteredsupabasedata);
+}
+//group (combine all values of the day to one sum)
+async function group() {
+    filteredsupabasedata.forEach(entry => {
+        // console.log("before entry.date:", grouped[entry.date]);
+        if (!grouped[entry.date]) {
+            grouped[entry.date] = 0;
+        }
+        grouped[entry.date] += entry.stat_average;
+        // console.log("after entry.date:", grouped[entry.date]);
+    });
+    console.log("grouped_average:", grouped);
+}
+
+async function groupCountdarts() {
+    filteredsupabasedata.forEach(entry => {
+        // console.log("before entry.date:", grouped_countdarts[entry.date]);
+        if (!grouped_countdarts[entry.date]) {
+            grouped_countdarts[entry.date] = 0;
+        }
+        grouped_countdarts[entry.date] += entry.stat_count_darts;
+        // console.log("after entry.date:", grouped_countdarts[entry.date]);
+    });
+    console.log("grouped_countdarts:", grouped_countdarts);
+}
+
+async function groupScoresum() {
+    filteredsupabasedata.forEach(entry => {
+        // console.log("before entry.date:", grouped_scoresum[entry.date]);
+        if (!grouped_scoresum[entry.date]) {
+            grouped_scoresum[entry.date] = 0;
+        }
+        grouped_scoresum[entry.date] += entry.stat_score_sum;
+        // console.log("after entry.date:", grouped_scoresum[entry.date]);
+    });
+    console.log("grouped_scoresum:", grouped_scoresum);
+}
+
+//combine + fill gaps
+async function fillGaps() {
+    chartData = dates.map(date => {
+        return {
+            date: date,
+            average: grouped_scoresum[date] / grouped_countdarts[date] * 3 || 0,
+            averagesum: grouped[date] || 0,
+            countdarts: grouped_countdarts[date] || 0,
+            scoresum: grouped_scoresum[date] || 0,
+        };
+    })
+    console.log("combine + fill gaps", chartData);
+}
+
+//
+async function convertData (data) {
+    converteddata = data.map((item, i) => ({
+        // x: new Date(item.created_at).toLocaleTimeString(),
+        x: i,
+        y: item.average,
+    }));
     console.log("converteddata:", converteddata);
+}
+
+//run
+async function run () {
+    await createTimeframeDays();
+    await filterDataForMatchingDates(playername);
+    await group();
+    await groupCountdarts();
+    await groupScoresum();
+    await fillGaps();
+    await convertData(chartData);
     drawCanvas(converteddata, 24, 10, 10);
 }
+
+run();
+
+//data
+// let testdata = [
+//     {x: 0, y: 5},
+//     {x: 1, y: 3},
+//     {x: 2, y: 6},
+//     {x: 3, y: 7},
+//     {x: 4, y: 3},
+//     {x: 5, y: 2},
+//     {x: 6, y: 3},
+//     {x: 7, y: 5},
+//     {x: 8, y: 3},
+//     {x: 9, y: 6},
+//     {x: 10, y: 7},
+//     {x: 11, y: 3},
+//     {x: 12, y: 2},
+//     {x: 13, y: 3},
+//     {x: 14, y: 5},
+//     {x: 15, y: 3},
+//     {x: 16, y: 6},
+//     {x: 17, y: 7},
+//     {x: 18, y: 3},
+//     {x: 19, y: 2},
+//     {x: 20, y: 3},
+//     {x: 21, y: 5},
+//     {x: 22, y: 3},
+//     {x: 23, y: 6},
+//     {x: 24, y: 7},
+//     {x: 25, y: 3},
+//     {x: 26, y: 2},
+//     {x: 27, y: 3},
+// ];
+
+// start(playername);
+
+// async function start (player) {
+//     const supabasedata = await getData(player);
+    
+//     const converteddata = convertData(supabasedata);
+//     console.log("converteddata:", converteddata);
+//     drawCanvas(converteddata, 24, 10, 10);
+// }
 
 async function getData(player) {
     const {data, error} = await db
@@ -59,13 +177,13 @@ async function getData(player) {
     return data;
 }
 
-function convertData (data) {
-    return data.map((item, i) => ({
-        // x: new Date(item.created_at).toLocaleTimeString(),
-        x: i,
-        y: item.stat_average
-    }));
-}
+// function convertData (data) {
+//     return data.map((item, i) => ({
+//         // x: new Date(item.created_at).toLocaleTimeString(),
+//         x: i,
+//         y: item.stat_average
+//     }));
+// }
 
 
 
@@ -148,4 +266,3 @@ function drawCanvas (dataset, x, y, y_scale) {
         c.stroke();
     }
 }
-
