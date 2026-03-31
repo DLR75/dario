@@ -4,14 +4,25 @@ const supabaseKey = "sb_publishable_e-fhuxHuNeIUVNIJId9lDQ_lk7ccsgb";
 const db = supabase.createClient(supabaseUrl, supabaseKey);
 
 //variables
-const playername = "Player 1";
-const dates = [];
-let filteredsupabasedata;
-const grouped = [];
-const grouped_countdarts = [];
-const grouped_scoresum = [];
-let chartData;
-let converteddata;
+let playername = "Player 1";
+let dates = [];
+let filteredsupabasedata = [];
+let grouped = [];
+let grouped_countdarts = [];
+let grouped_scoresum = [];
+let chartData = [];
+let converteddata = [];
+
+//cleanup
+async function cleanUp() {
+    dates = [];
+    filteredsupabasedata = [];
+    grouped = [];
+    grouped_countdarts = [];
+    grouped_scoresum = [];
+    chartData = [];
+    converteddata = [];
+}
 
 
 //create Timeframe
@@ -97,7 +108,7 @@ async function fillGaps() {
     console.log("combine + fill gaps", chartData);
 }
 
-//
+// convert data
 async function convertData (data) {
     converteddata = data.map((item, i) => ({
         // x: new Date(item.created_at).toLocaleTimeString(),
@@ -107,62 +118,7 @@ async function convertData (data) {
     console.log("converteddata:", converteddata);
 }
 
-//run
-async function run () {
-    await createTimeframeDays();
-    await filterDataForMatchingDates(playername);
-    await group();
-    await groupCountdarts();
-    await groupScoresum();
-    await fillGaps();
-    await convertData(chartData);
-    drawCanvas(converteddata, 24, 10, 10);
-}
-
-run();
-
-//data
-// let testdata = [
-//     {x: 0, y: 5},
-//     {x: 1, y: 3},
-//     {x: 2, y: 6},
-//     {x: 3, y: 7},
-//     {x: 4, y: 3},
-//     {x: 5, y: 2},
-//     {x: 6, y: 3},
-//     {x: 7, y: 5},
-//     {x: 8, y: 3},
-//     {x: 9, y: 6},
-//     {x: 10, y: 7},
-//     {x: 11, y: 3},
-//     {x: 12, y: 2},
-//     {x: 13, y: 3},
-//     {x: 14, y: 5},
-//     {x: 15, y: 3},
-//     {x: 16, y: 6},
-//     {x: 17, y: 7},
-//     {x: 18, y: 3},
-//     {x: 19, y: 2},
-//     {x: 20, y: 3},
-//     {x: 21, y: 5},
-//     {x: 22, y: 3},
-//     {x: 23, y: 6},
-//     {x: 24, y: 7},
-//     {x: 25, y: 3},
-//     {x: 26, y: 2},
-//     {x: 27, y: 3},
-// ];
-
-// start(playername);
-
-// async function start (player) {
-//     const supabasedata = await getData(player);
-    
-//     const converteddata = convertData(supabasedata);
-//     console.log("converteddata:", converteddata);
-//     drawCanvas(converteddata, 24, 10, 10);
-// }
-
+//get data
 async function getData(player) {
     const {data, error} = await db
         .from("games501")
@@ -177,15 +133,19 @@ async function getData(player) {
     return data;
 }
 
-// function convertData (data) {
-//     return data.map((item, i) => ({
-//         // x: new Date(item.created_at).toLocaleTimeString(),
-//         x: i,
-//         y: item.stat_average
-//     }));
-// }
-
-
+//run
+async function run () {
+    await cleanUp();
+    await createTimeframeDays();
+    await filterDataForMatchingDates(playername);
+    await group();
+    await groupCountdarts();
+    await groupScoresum();
+    await fillGaps();
+    await convertData(chartData);
+    drawCanvas(converteddata, 24, 10, 10);
+}
+run();
 
 
 //canvas function
@@ -273,3 +233,15 @@ function drawCanvas (dataset, xsize, ysize, y_scale) {
         c.stroke();
     }
 }
+
+//select player
+const input_name_selector = document.getElementById("input_name");
+const title = document.getElementById("title");
+
+title.innerText =`${playername} stats`;
+
+input_name_selector.addEventListener("change", () => {
+    playername = input_name_selector.value;
+    title.innerText =`${playername} stats`;
+    run();
+})
