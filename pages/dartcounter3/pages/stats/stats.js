@@ -189,12 +189,12 @@ async function getData(player) {
 
 
 //canvas function
-function drawCanvas (dataset, x, y, y_scale) {
+function drawCanvas (dataset, xsize, ysize, y_scale) {
     //canvas
     let canvas = document.querySelector("canvas");
 
-    let diagram_size_x = x + 2;
-    let diagram_size_y = y + 2;
+    let diagram_size_x = xsize + 2;
+    let diagram_size_y = ysize + 2;
 
     let e = (window.innerWidth - 100) / diagram_size_x; //-100 for padding of box
 
@@ -244,20 +244,27 @@ function drawCanvas (dataset, x, y, y_scale) {
         }
     //draw graph points
     for (i = 0; i < dataset.length; i++) {
-        let x = dataset[i].x;
-        let y = dataset[i].y/y_scale;
+        if (dataset[i].y != 0) {
+            let x = dataset[i].x;
+            let y = dataset[i].y/y_scale;
 
-        c.beginPath();
-        c.arc(x0 + e * x, y0 - e * y, e / 8, 0, Math.PI * 2, false);
-        c.strokeStyle = "red";
-        c.stroke();
+            c.beginPath();
+            c.arc(x0 + e * x, y0 - e * y, e / 8, 0, Math.PI * 2, false);
+            c.strokeStyle = "red";
+            c.stroke();
+        }
+        
     }
     //draw graph line
-    for (i = 0; i < dataset.length - 1; i++) {
-        let x = dataset[i].x;
-        let y = dataset[i].y/y_scale;
-        let x2 = dataset[i + 1].x;
-        let y2 = dataset[i + 1].y/y_scale;
+
+    const dataset_no_y0 = dataset.filter(item => item.y !== 0);
+    console.log(dataset_no_y0);
+
+    for (i = 0; i < dataset_no_y0.length - 1; i++) {
+        let x = dataset_no_y0[i].x;
+        let y = dataset_no_y0[i].y/y_scale;
+        let x2 = dataset_no_y0[i + 1].x;
+        let y2 = dataset_no_y0[i + 1].y/y_scale;
 
         c.beginPath();
         c.moveTo(x0 + e * x, y0 - e * y);
