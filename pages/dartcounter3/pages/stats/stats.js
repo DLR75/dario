@@ -4,7 +4,7 @@ const supabaseKey = "sb_publishable_e-fhuxHuNeIUVNIJId9lDQ_lk7ccsgb";
 const db = supabase.createClient(supabaseUrl, supabaseKey);
 
 //variables
-let playername = "Player 1";
+let playername = "Dario";
 let dates = [];
 let filteredsupabasedata = [];
 let grouped = [];
@@ -112,6 +112,7 @@ async function fillGaps() {
 async function convertData (data) {
     converteddata = data.map((item, i) => ({
         // x: new Date(item.created_at).toLocaleTimeString(),
+        date: item.date,
         x: i,
         y: item.average,
     }));
@@ -171,14 +172,14 @@ function drawCanvas (dataset, xsize, ysize, y_scale) {
         c.beginPath();
         c.moveTo(e, e + e * i);
         c.lineTo(e * diagram_size_x - e, e + e * i);
-        c.strokeStyle = "lightgrey"; 
+        c.strokeStyle = "hsl(0, 0%, 18%)"; 
         c.stroke();
     }
     for (let i = 0; i < (diagram_size_x + 1); i++) {
         c.beginPath();
         c.moveTo(e + e * i, e);
         c.lineTo(e + e * i,e * diagram_size_y - e);
-        c.strokeStyle = "lightgrey";
+        c.strokeStyle = "hsl(0, 0%, 18%)";
         c.stroke();
     }
     //draw legend
@@ -186,13 +187,18 @@ function drawCanvas (dataset, xsize, ysize, y_scale) {
     c.moveTo(x0, y0 - (e * diagram_size_y - e * 2));
     c.lineTo(x0, y0);
     c.lineTo(x0 + e * diagram_size_x - e * 2, y0);
-    c.strokeStyle = "black";
+    c.lineWidth = 3;
+    c.lineCap = "round";
+    c.lineJoin = "round";
+    c.strokeStyle = "hsl(0, 0%, 18%)";
     c.stroke();
         //draw y numbers
         for (i = 0; i < diagram_size_y - 1; i++) {
             let y = y0 - e * i;
             c.textAlign = "center";
             c.textBaseline = "middle";
+            c.fillStyle = "hsl(0, 0%, 68%)";
+            c.font = "10px Arial";
             c.fillText(i*y_scale, e/2, y)
         }
             //draw x numbers
@@ -200,7 +206,10 @@ function drawCanvas (dataset, xsize, ysize, y_scale) {
             let x = x0 + e * i;
             c.textAlign = "center";
             c.textBaseline = "middle";
-            c.fillText(i, x, y0 + e / 2)
+            // c.fillText(dataset[i].date, x, y0 + e / 2)
+            c.fillStyle = "hsl(0, 0%, 68%)";
+            c.font = "10px Arial";
+            c.fillText(i, x, y0 + e / 2);
         }
     //draw graph points
     for (i = 0; i < dataset.length; i++) {
@@ -210,7 +219,7 @@ function drawCanvas (dataset, xsize, ysize, y_scale) {
 
             c.beginPath();
             c.arc(x0 + e * x, y0 - e * y, e / 8, 0, Math.PI * 2, false);
-            c.strokeStyle = "red";
+            c.strokeStyle = "hsl(345, 85%, 47%)";
             c.stroke();
         }
         
@@ -229,7 +238,10 @@ function drawCanvas (dataset, xsize, ysize, y_scale) {
         c.beginPath();
         c.moveTo(x0 + e * x, y0 - e * y);
         c.lineTo(x0 + e * x2, y0 - e * y2);
-        c.strokeStyle = "black";
+        c.lineWidth = 3;
+        c.lineCap = "round";
+        c.lineJoin = "round";
+        c.strokeStyle = "hsl(345, 85%, 47%)";
         c.stroke();
     }
 }
@@ -238,10 +250,11 @@ function drawCanvas (dataset, xsize, ysize, y_scale) {
 const input_name_selector = document.getElementById("input_name");
 const title = document.getElementById("title");
 
-title.innerText =`${playername} stats`;
+title.innerText = playername + "´s stats";
 
 input_name_selector.addEventListener("change", () => {
     playername = input_name_selector.value;
-    title.innerText =`${playername} stats`;
+    title.innerText = playername + "´s stats";
     run();
 })
+

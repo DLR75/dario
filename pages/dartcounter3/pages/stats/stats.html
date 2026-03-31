@@ -6,18 +6,47 @@
         <link rel="stylesheet" href="stats.css">
     </head>
     <body>
-        <a href="../../index.html" rel="noreferrer">menu</a>
-        <div>
-            <input id="input_name" type="text">
-            <div id="title">´s stats</div>
-        </div>
-        <div class="wrapper_canvas">
-            <canvas></canvas>
-        </div>
-        <div>
-            <button>24 month</button>
-            <button>24 weeks</button>
-            <button>24 days</button>
+        <div class="wrapper">
+            <div class="frame">
+                <a href="../../index.html" rel="noreferrer">menu</a>
+                <div>
+                    <input id="input_name" type="text">
+                    <div id="title">´s stats</div>
+                </div>
+                <div class="wrapper_canvas">
+                    <canvas></canvas>
+                </div>
+                <div class="navigator_wrapper">
+                    <div class="navigator_item"><-</div>
+                    <select name="Timeframe" class="navigator_item" id="timeframe_selector">
+                        <option value="1">24 days</option>
+                        <option value="2">24 weeks</option>
+                        <option value="3">24 month</option>
+                        <option value="4">24 legs</option>
+                    </select>
+                    <div class="navigator_item">-></div>
+                </div>
+                <div class="checkbox_wrapper">
+                    <div class="checkbox_legend_wrapper">
+                        <div class="legend_box"><div class="legend_average"></div></div>
+                        <div class="legend_box"><div class="legend_darts"></div></div>
+                        <div class="legend_box"><div class="legend_checkout"></div></div>
+                        <div class="legend_box"><div class="legend_180">180</div></div>
+                    </div>
+                    <div class="checkbox_text_wrapper">
+                        <div class="checkbox_text">501 Average</div>
+                        <div class="checkbox_text">Darts</div>
+                        <div class="checkbox_text">Checkout %</div>
+                        <div class="checkbox_text">180s</div>
+                    </div>
+                    <div class="checkbox_box_wrapper">
+                        <div class="checkbox_box">x</div>
+                        <div class="checkbox_box">x</div>
+                        <div class="checkbox_box">x</div>
+                        <div class="checkbox_box">x</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>

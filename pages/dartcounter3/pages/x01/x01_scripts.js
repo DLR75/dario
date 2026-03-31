@@ -616,19 +616,19 @@ function matchWon () {
     //loadstats
     document.getElementById("gameshot_p1_name").innerText = p1.name;
     document.getElementById("gameshot_p1_legs").innerText = p1.legs + " legs";
-    document.getElementById("gameshot_p1_avg").innerText = p1.average + " avg";
+    document.getElementById("gameshot_p1_avg").innerText = Number(p1.average.toFixed(2)) + " avg";
 
     document.getElementById("gameshot_p2_name").innerText = p2.name;
     document.getElementById("gameshot_p2_legs").innerText = p2.legs + " legs";
-    document.getElementById("gameshot_p2_avg").innerText = p2.average + " avg";
+    document.getElementById("gameshot_p2_avg").innerText = Number(p2.average.toFixed(2)) + " avg";
 
     document.getElementById("gameshot_p3_name").innerText = p3.name;
     document.getElementById("gameshot_p3_legs").innerText = p3.legs + " legs";
-    document.getElementById("gameshot_p3_avg").innerText = p3.average + " avg";
+    document.getElementById("gameshot_p3_avg").innerText = Number(p3.average.toFixed(2)) + " avg";
 
     document.getElementById("gameshot_p4_name").innerText = p4.name;
     document.getElementById("gameshot_p4_legs").innerText = p4.legs + " legs";
-    document.getElementById("gameshot_p4_avg").innerText = p4.average + " avg";
+    document.getElementById("gameshot_p4_avg").innerText = Number(p4.average.toFixed(2)) + " avg";
 
     gameShotfigureOutNumberofPlayers();
     //
