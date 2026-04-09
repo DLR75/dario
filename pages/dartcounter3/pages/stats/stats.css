@@ -48,12 +48,43 @@ canvas {
     width: calc(var(--u) * 95);
 }
 
+.row_wrapper {
+    display: flex;
+    gap: calc(var(--u) * 2.5);
+}
+
+/* header */
+.header {
+    height: calc(var(--u) * 8);
+    justify-content: space-between;
+    font-size: calc(var(--u) * 5);
+    font-weight: 600;
+    color: hsl(0, 0%, 68%);
+}
+.x_button {
+    display: flex;
+    width: calc(var(--u) * 8);
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    background-color: hsl(0, 0%, 13%);
+}
+#title {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: hsl(0, 0%, 13%);
+}
+
+/* canvas */
 .wrapper_canvas {
     display: flex;
     /* padding: 50px; */
     /* border: 1px solid black; */
 }
 
+/* navigator */
 .navigator_wrapper {
     display: flex;
     justify-content: center;
@@ -71,41 +102,64 @@ canvas {
     color: hsl(0, 73%, 19%);
 }
 
-.checkbox_wrapper {
+/* bottom 3 dark boxes */
+.stats_wrapper, .right_wrapper {
     display: flex;
-    justify-content: center;
-    justify-content: space-between;
     gap: calc(var(--u) * 2.5);
-    width: calc(var(--u) * 95);
-    /* border: 1px solid white; */
+}
+.stats_wrapper, .legend_wrapper, .recent_wrapper {
+    display: flex;
+    flex-grow: 1;
+    background-color: hsl(0, 0%, 13%);
+    padding: calc(var(--u) * 2.5);
 }
 
+.stats_wrapper {
+    display: flex;
+    background-color: hsl(0, 0%, 13%);
+}
+.right_wrapper {
+    flex-direction: column;
+    width: calc(var(--u) * 32);
+}
+.legend_wrapper {
+    background-color: hsl(0, 0%, 13%);
+}
+.recent_wrapper {
+    background-color: hsl(0, 0%, 13%);
+}
+
+/* legend */
 .checkbox_legend_wrapper {
     display: flex;
     flex-direction: column; 
     width: calc(var(--u) * 8);
     gap: calc(var(--u) * 2.5);
+    /* border: 1px solid yellow; */
 }
-
 .checkbox_text_wrapper {
     display: flex;
     flex-direction: column; 
     flex-grow: 1;
     gap: calc(var(--u) * 2.5);
+    /* border: 1px solid white; */
 }
-
 .checkbox_box_wrapper {
     display: flex;
     flex-direction: column;
     gap: calc(var(--u) * 2.5);
     /* width: calc(var(--u) * 20); */
+    /* border: 1px solid blue; */
 }
+
+
 
 .legend_box {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(var(--u) * 8);
+    height: calc(var(--u) * 6);
+    /* border: 1px solid purple; */
 }
 
 .legend_average, .legend_darts, .legend_checkout {
@@ -122,31 +176,20 @@ canvas {
 .legend_checkout {
     background-color: hsl(217, 85%, 47%);
 }
-.legend_180 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: hsl(43, 85%, 47%);
-    width: calc(var(--u) * 3);
-    height: calc(var(--u) * 3);
-    border-radius: 50%;
-    font-size: calc(var(--u) * 1.5);
-}
 
 .checkbox_text {
     display: flex;
-    flex-grow: 1;
     justify-content: center;
     align-items: center;
-    font-size: calc(var(--u) * 2);
-    height: calc(var(--u) * 8);
+    height: calc(var(--u) * 6);
     /* background-color: hsl(0, 0%, 44%); */
-    font-size: calc(var(--u) * 5);
+    font-size: calc(var(--u) * 2);
     color: hsl(0, 0%, 68%);
+    /* border: 1px solid pink; */
 }
 
 .checkbox_box {
-    height: calc(var(--u) * 8);
-    width: calc(var(--u) * 8);
+    height: calc(var(--u) * 6);
+    width: calc(var(--u) * 6);
     background-color: hsl(0, 0%, 44%);
 }

@@ -250,11 +250,10 @@ function drawCanvas (dataset, xsize, ysize, y_scale) {
 const input_name_selector = document.getElementById("input_name");
 const title = document.getElementById("title");
 
-title.innerText = playername + "´s stats";
+title.innerText = playername;
 
-input_name_selector.addEventListener("change", () => {
-    playername = input_name_selector.value;
-    title.innerText = playername + "´s stats";
+document.getElementById("title").addEventListener("click", function() {
+    playername = prompt("Please enter a Playername");
+    title.innerText = playername;
     run();
-})
-
+});

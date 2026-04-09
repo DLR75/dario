@@ -8,10 +8,10 @@
     <body>
         <div class="wrapper">
             <div class="frame">
-                <a href="../../index.html" rel="noreferrer">menu</a>
-                <div>
-                    <input id="input_name" type="text">
-                    <div id="title">´s stats</div>
+                <div class="row_wrapper header">
+                    <a href="../../index.html" rel="noreferrer" class="x_button">X</a>
+                    <div id="title"></div>
+                    <div class="x_button">r</div>
                 </div>
                 <div class="wrapper_canvas">
                     <canvas></canvas>
@@ -26,24 +26,29 @@
                     </select>
                     <div class="navigator_item">-></div>
                 </div>
-                <div class="checkbox_wrapper">
-                    <div class="checkbox_legend_wrapper">
-                        <div class="legend_box"><div class="legend_average"></div></div>
-                        <div class="legend_box"><div class="legend_darts"></div></div>
-                        <div class="legend_box"><div class="legend_checkout"></div></div>
-                        <div class="legend_box"><div class="legend_180">180</div></div>
+                <div class="row_wrapper">
+                    <div class="stats_wrapper">
+                        stats
                     </div>
-                    <div class="checkbox_text_wrapper">
-                        <div class="checkbox_text">501 Average</div>
-                        <div class="checkbox_text">Darts</div>
-                        <div class="checkbox_text">Checkout %</div>
-                        <div class="checkbox_text">180s</div>
-                    </div>
-                    <div class="checkbox_box_wrapper">
-                        <div class="checkbox_box">x</div>
-                        <div class="checkbox_box">x</div>
-                        <div class="checkbox_box">x</div>
-                        <div class="checkbox_box">x</div>
+                    <div class="right_wrapper">
+                        <div class="legend_wrapper">
+                            <div class="checkbox_legend_wrapper">
+                                <div class="legend_box"><div class="legend_average"></div></div>
+                                <div class="legend_box"><div class="legend_darts"></div></div>
+                                <div class="legend_box"><div class="legend_checkout"></div></div>
+                            </div>
+                            <div class="checkbox_text_wrapper">
+                                <div class="checkbox_text">501 Average</div>
+                                <div class="checkbox_text">Darts Thrown</div>
+                                <div class="checkbox_text">Checkout %</div>
+                            </div>
+                            <div class="checkbox_box_wrapper">
+                                <div class="checkbox_box">x</div>
+                                <div class="checkbox_box">x</div>
+                                <div class="checkbox_box">x</div>
+                            </div>
+                        </div>
+                        <div class="recent_wrapper">recent</div>
                     </div>
                 </div>
             </div>
