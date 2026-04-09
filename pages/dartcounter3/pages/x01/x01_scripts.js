@@ -43,6 +43,8 @@ let x;
 let y;
 let z;
 
+let input;
+
 let p1 = {
     name: "",
     remaining: 999,
@@ -711,7 +713,7 @@ function scoreScore () {
         score = 0;
     }
     input = undefined;
-    input_display = undefined;
+    // input_display = undefined;
     get_input_display.innerText = "";
     scorestring = undefined;
     checkScore();
