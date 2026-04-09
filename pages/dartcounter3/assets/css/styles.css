@@ -191,6 +191,7 @@ select {
     color: hsl(0, 0%, 32%);
     font-size: calc(var(--u) * 1.75);
     bottom: calc(var(--u) * 0.25);
-    right: calc(var(--u) * 14.5);
+    align-self: center;
+    justify-self: center;
     display: flex;
 }
