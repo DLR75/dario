@@ -11,6 +11,9 @@ const numberofplayers_selector = document.getElementById("schieber");
 const startgame_selector = document.querySelector("#startgame_button");
 const legs_display = document.getElementById("legs_display");
 
+const gamemode_value = document.getElementById("gamemode_selector");
+const startingplayermode = document.getElementById("startingplayer");
+
 const addbot_selector = document.getElementById("addbot");
 // Variables:
 let firstto = 1;
@@ -20,6 +23,11 @@ let player_3_name = "Player 3";
 let player_4_name = "Player 4";
 let numberofplayers = numberofplayers_selector.value;
 numberofplayers = Number(numberofplayers);
+let bot = {
+    present: false,
+    average: 42,
+    player: "p1",
+};
 // Startup:
 updatePlayerNames();
 updateNumberOfScoreboards();
@@ -47,8 +55,7 @@ function updateNumberOfScoreboards () {
     });
 }
 function startGame() {
-    const gamemode_value = document.getElementById("gamemode_selector");
-    const startingplayermode = document.getElementById("startingplayer");
+    
 
     sessionStorage.setItem("gamemode", gamemode_value.value);
     sessionStorage.setItem("firstto", firstto);
@@ -58,6 +65,9 @@ function startGame() {
     sessionStorage.setItem("player_2_name", player_2_name);
     sessionStorage.setItem("player_3_name", player_3_name);
     sessionStorage.setItem("player_4_name", player_4_name);
+    sessionStorage.setItem("botpresent", bot.present);
+    sessionStorage.setItem("botaverage", bot.average);
+    sessionStorage.setItem("botplayer", bot.player);
 
 
     window.location.href = "pages/x01/x01.html";
@@ -98,5 +108,26 @@ startgame_selector.addEventListener("click", () => {
     startGame();
 })
 addbot_selector.addEventListener("click", () => {
-    console.log("addbot")
+    console.log("addbot");
+    if (numberofplayers_selector.value < 4 && bot.present === false && gamemode_value.value == 1) {
+        bot.average = prompt("Please enter the bots average");
+        bot.present = true;
+        numberofplayers = numberofplayers_selector.value;
+        numberofplayers = Number(numberofplayers);
+        numberofplayers = numberofplayers + 1;
+        if (numberofplayers === 4) {
+            player_4_name = `Bot ${bot.average}`;
+            bot.player = "p4";
+        } else if (numberofplayers === 3) {
+            player_3_name = `Bot ${bot.average}`;
+            bot.player = "p3";
+        } else if (numberofplayers === 2) {
+            player_2_name = `Bot ${bot.average}`;
+            bot.player = "p2";
+        }
+        updatePlayerNames();
+        updateNumberOfScoreboards();
+    } else {
+        alert("allready 4 players / bot present / not 501 do")
+    }
 })

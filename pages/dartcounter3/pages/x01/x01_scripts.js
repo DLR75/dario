@@ -112,6 +112,14 @@ let gamerules = {
     numberofplayers: 4,
     startingplayermode: 1,
 }
+let bot = {
+    present: false,
+    average: 100,
+    player: p4,
+    legscores: [],
+    turnnumber: 0,
+    legnumber: 0,
+};
 
 const checkoutsdoubledario = {
   1: ["to much"], 2: ["D1"], 3: ["1", "D1"], 4: ["D2"], 5: ["1", "D2"], 6: ["D3"], 7: ["3", "D2"], 8: ["D4"], 9: ["1", "D4"], 10: ["D5"],
@@ -155,6 +163,22 @@ function importSessionStorage () {
     gamerules.gamemode = Number(gamerules.gamemode);
     gamerules.firstto = Number(gamerules.firstto);
     gamerules.numberofplayers = Number(gamerules.numberofplayers);
+    bot.present = sessionStorage.getItem("botpresent");
+    if (bot.present === "true") {
+        bot.present = true;
+    } else {
+        bot.present = false;
+    }
+    bot.average = sessionStorage.getItem("botaverage");
+    bot.average = Number(bot.average);
+    bot.player = sessionStorage.getItem("botplayer");
+    if (bot.player === "p4") {
+        bot.player = p4;
+    } else if (bot.player === "p3") {
+        bot.player = p3;
+    } else if (bot.player === "p2") {
+        bot.player = p2;
+    }
 
     // logSessionStorage();
     figureOut();
@@ -167,6 +191,7 @@ function importSessionStorage () {
     console.log("Player 2:", p2.name);
     console.log("Player 3:", p3.name);
     console.log("Player 4:", p4.name);
+    console.log("bot:", bot);
 }
 function figureOut () {
     figureOutNumberofPlayers();
@@ -399,6 +424,10 @@ function determineActivePlayer () {
     } else if (p4.active === true) {
         activeplayer = p4;
     }
+    if (bot.present === true) {
+        checkBotActive();
+    }
+    
 }
 // function calculateAverage () {
 //     activeplayer.sum = activeplayer.sum + score;
@@ -583,6 +612,10 @@ function addLeg () {
         const message = "+1 leg"
         displaySomething(message);
         startNewLeg();
+    }
+    if (bot.present === true) {
+        bot.legnumber = bot.legnumber + 1;
+        bot.turnnumber = 0;
     }
 }
 function addAveragesToAverageList () {
@@ -1129,11 +1162,26 @@ function gameShotfigureOutNumberofPlayers () {
 }
 
 // bot
-let botaverage = 35;
+console.log("bot:", bot);
 import { generateLeg } from "./external_functions/bot.js";
-const botleg1 = generateLeg(botaverage, gamerules.target);
-const botleg2 = generateLeg(botaverage, gamerules.target);
-const botleg3 = generateLeg(botaverage, gamerules.target);
-console.log(botleg1);
-console.log(botleg2);
-console.log(botleg3);
+if (bot.present === true) {
+    for (let i = 0; i < gamerules.firstto * 2 - 1; i++) {
+        bot.legscores.push(generateLeg(bot.average, gamerules.target))
+    }
+    console.log("botlegs:", bot.legscores)
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+async function checkBotActive() {
+    if (activeplayer === bot.player) {
+        await delay(6100);
+        buildScorestring(bot.legscores[bot.legnumber][bot.turnnumber]);
+        bot.turnnumber = bot.turnnumber + 1;
+        scoreScore();
+    } else {
+    }
+}
