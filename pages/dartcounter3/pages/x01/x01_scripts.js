@@ -38,6 +38,11 @@ let score;
 let scorestring;
 let activeplayer;
 
+let w;
+let x;
+let y;
+let z;
+
 let p1 = {
     name: "",
     remaining: 999,
@@ -254,8 +259,10 @@ function checkActivity (n) {
         deactivate(n);
     }
 }
+
 function activate(player) {
     // console.log("run activate", player);
+    
     if (player === p1) {
         w = player1_selector;
         x = player1_legs_selector;
@@ -1118,3 +1125,13 @@ function gameShotfigureOutNumberofPlayers () {
     el.style.display = index < gamerules.numberofplayers ? "flex" : "none";
     });
 }
+
+// bot
+let botaverage = 35;
+import { generateLeg } from "./external_functions/bot.js";
+const botleg1 = generateLeg(botaverage, gamerules.target);
+const botleg2 = generateLeg(botaverage, gamerules.target);
+const botleg3 = generateLeg(botaverage, gamerules.target);
+console.log(botleg1);
+console.log(botleg2);
+console.log(botleg3);
