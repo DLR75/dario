@@ -1178,7 +1178,7 @@ function delay(ms) {
 
 async function checkBotActive() {
     if (activeplayer === bot.player) {
-        await delay(1200);
+        await delay(1500);
         buildScorestring(bot.legscores[bot.legnumber][bot.turnnumber]);
         bot.turnnumber = bot.turnnumber + 1;
         scoreScore();
