@@ -12,9 +12,9 @@
                 <div class="header_box">
                     <h1>Dartcounter</h1>
                 </div>
-                <div class="gamemode_wrapper">
-                    <div class="gamemode_box"><h2>Gamemode:</h2></div>
-                    <div class="gamemode_selector_box">
+                <div class="row_wrapper">
+                    <div class="row_bigbox"><h2>Gamemode:</h2></div>
+                    <div class="row_smallbox">
                         <select name="gamemode_selector" class="selector" id="gamemode_selector">
                             <option value="1">501 do</option>
                             <option value="2">501 so</option>
@@ -24,29 +24,35 @@
                         </select>
                     </div>
                 </div>
-                <div class="firstto_wrapper">
-                    <div class="firstto_box"><h2>First to:</h2></div>
-                    <div class="firstto_legs_box">
+                <div class="row_wrapper">
+                    <div class="row_bigbox"><h2>First to:</h2></div>
+                    <div class="row_smallbox">
                         <button class="legs_button" id="legs_minus">-</button>
                         <div class="legs_button" id="legs_display">1</div>
                         <button class="legs_button" id="legs_plus">+</button>
                     </div>
                 </div>
-                <div class="numberofplayers_wrapper">
-                    <h2 class="numberofplayers_box">Number of Players:</h2>
-                    <input type="range" min="1" max="4" step="1" value="2" id="schieber">
+                <div class="row_wrapper">
+                    <div class="numberofplayers_wrapper">
+                        <h2 class="numberofplayers_box">Number of Players:</h2>
+                        <input type="range" min="1" max="4" step="1" value="2" id="schieber">
+                    </div>
+                    <div class="row_smallbox">
+                        <div id="addbot">add bot</div>
+                    </div>
                 </div>
-                <div class="players_wrapper">
+                    
+                <div class="row_wrapper">
                     <div id="player_1" class="players_box"></div>
                     <div id="player_2" class="players_box"></div>
                     <div id="player_3" class="players_box"></div>
                     <div id="player_4" class="players_box"></div>
                 </div>
-                <div class="startingplayer_wrapper">
-                    <h2 class="startingplayer_box">Starting Player:</h2>
-                    <div class="startingplayer_selector_box">
+                <div class="row_wrapper">
+                    <h2 class="row_bigbox">Starting Player:</h2>
+                    <div class="row_smallbox">
                         <select name="startingplayer_selector" class="selector" id="startingplayer">
-                            <option value="Random" class="option">Random</option>
+                            <option value="Random">Random</option>
                             <option value="Bull">Bull</option>
                             <option value="P1">P1</option>
                             <option value="P2">P2</option>

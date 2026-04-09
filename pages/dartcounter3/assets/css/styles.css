@@ -24,6 +24,10 @@ html, body {
     height: 100%;
     margin: 0;
 }
+select {
+    text-align: center;
+    text-align-last: center;
+}
 .wrapper {
     height: 100%;
     background-color: hsl(0, 0%, 55%);
@@ -55,33 +59,37 @@ html, body {
     align-items: center;
 }
 
-
-
-.gamemode_wrapper {
-    height: calc(var(--u) * 16);
+.row_wrapper {
     display: flex;
-    gap: calc(var(--u) * 2.5);
-    align-items: center;
     flex-direction: row;
+    height: calc(var(--u) * 16);
+    gap: calc(var(--u) * 2.5);
 }
-    .gamemode_box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-grow: 1;
-        height: calc(var(--u) * 16);
-        color: hsl(0, 0%, 68%);
-        background-color: hsl(0, 0%, 25%);
-    }
-    .gamemode_selector_box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: calc(var(--u) * 16);
-        width: calc(var(--u) * 32);
-        color: hsl(0, 0%, 68%);
-        background-color: hsl(0, 0%, 25%);
-    }
+.row_bigbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    height: calc(var(--u) * 16);
+    color: hsl(0, 0%, 68%);
+    background-color: hsl(0, 0%, 25%);
+}
+.row_smallbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(var(--u) * 16);
+    width: calc(var(--u) * 32);
+    color: hsl(0, 0%, 68%);
+    background-color: hsl(0, 0%, 25%);
+
+    font-size: calc(var(--u) * 6);
+    font-weight: 600;
+}
+
+
+
+/* gamemode */
     .selector {
         height: calc(var(--u) * 16);
         width: calc(var(--u) * 32);
@@ -100,30 +108,7 @@ html, body {
 
 
 
-.firstto_wrapper {
-    height: calc(var(--u) * 16);
-    display: flex;
-    flex-direction: row;
-    gap: calc(var(--u) * 2.5);
-}
-    .firstto_box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-grow: 1;
-        height: calc(var(--u) * 16);
-        color: hsl(0, 0%, 68%);
-        background-color: hsl(0, 0%, 25%);
-    }
-    .firstto_legs_box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: calc(var(--u) * 16);
-        width: calc(var(--u) * 32);
-        color: hsl(0, 0%, 68%);
-        background-color: hsl(0, 0%, 25%);
-    }
+/* first to */
     .legs_button {
     display: flex;
     justify-content: center;
@@ -144,13 +129,14 @@ html, body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    flex-grow: 1;
     gap: calc(var(--u) * 2.5);
     height: calc(var(--u) * 16);
     color: hsl(0, 0%, 68%);
     background-color: hsl(0, 0%, 25%);
 }   
     #schieber {
-    width: calc(var(--u) * 72);
+    width: calc(var(--u) * 50);
     color: hsl(345, 85%, 47%);
     appearance: none;
     }
@@ -168,13 +154,7 @@ html, body {
 
 
 
-.players_wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: calc(var(--u) * 16);
-    gap: calc(var(--u) * 2.5);
-}
+/* players */
     .players_box {
         display: flex;
         align-items: center;
@@ -187,41 +167,6 @@ html, body {
         font-size: calc(var(--u) * 4);
         font-weight: 400;
     }
-
-
-
-.startingplayer_wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: calc(var(--u) * 16);
-    display: flex;
-    flex-direction: row;
-    gap: calc(var(--u) * 2.5);
-}
-    .startingplayer_box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-grow: 1;
-        height: calc(var(--u) * 16);
-        color: hsl(0, 0%, 68%);
-        background-color: hsl(0, 0%, 25%);
-    }
-    .startingplayer_selector_box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: calc(var(--u) * 16);
-        width: calc(var(--u) * 32);
-        color: hsl(0, 0%, 68%);
-        background-color: hsl(0, 0%, 25%);
-    }
-    select {
-        text-align: center;
-        text-align-last: center;
-    }
-
 
 .startgame_box {
     display: flex;

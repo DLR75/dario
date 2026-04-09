@@ -10,6 +10,8 @@ const player4_name_selector = document.querySelector("#player_4");
 const numberofplayers_selector = document.getElementById("schieber");
 const startgame_selector = document.querySelector("#startgame_button");
 const legs_display = document.getElementById("legs_display");
+
+const addbot_selector = document.getElementById("addbot");
 // Variables:
 let firstto = 1;
 let player_1_name = "Player 1";
@@ -94,4 +96,7 @@ player4_name_selector.addEventListener("click", () => {
 })
 startgame_selector.addEventListener("click", () => {
     startGame();
+})
+addbot_selector.addEventListener("click", () => {
+    console.log("addbot")
 })
