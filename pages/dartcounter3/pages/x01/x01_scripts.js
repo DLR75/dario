@@ -912,27 +912,27 @@ function displayScore () {
         if (score === 69) {
             document.getElementById("overlay_message").classList.add("grow");
             document.getElementById("overlay_message").classList.add("sixtynine");
-            await sleep(5000);
+            await sleep(900);
             overlay_message.textContent = "";
             document.getElementById("overlay_message").classList.remove("grow");
             document.getElementById("overlay_message").classList.remove("sixtynine");
         } else if (score === 42) {
             document.getElementById("overlay_message").classList.add("grow");
             document.getElementById("overlay_message").classList.add("fortytwo");
-            await sleep(5000);
+            await sleep(900);
             overlay_message.textContent = "";
             document.getElementById("overlay_message").classList.remove("grow");
             document.getElementById("overlay_message").classList.remove("fortytwo");
         } else if (score >= 100) {
             document.getElementById("overlay_message").classList.add("grow");
             document.getElementById("overlay_message").classList.add("onehundredplus");
-            await sleep(5000);
+            await sleep(900);
             overlay_message.textContent = "";
             document.getElementById("overlay_message").classList.remove("grow");
             document.getElementById("overlay_message").classList.remove("onehundredplus");
         } else {
             document.getElementById("overlay_message").classList.add("grow");
-            await sleep(2000);
+            await sleep(900);
             overlay_message.textContent = "";
             document.getElementById("overlay_message").classList.remove("grow");
         }
@@ -1178,7 +1178,7 @@ function delay(ms) {
 
 async function checkBotActive() {
     if (activeplayer === bot.player) {
-        await delay(6100);
+        await delay(1200);
         buildScorestring(bot.legscores[bot.legnumber][bot.turnnumber]);
         bot.turnnumber = bot.turnnumber + 1;
         scoreScore();
