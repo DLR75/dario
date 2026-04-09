@@ -188,10 +188,9 @@ select {
 
 .version {
     position: fixed;
+    display: flex;
     color: hsl(0, 0%, 32%);
     font-size: calc(var(--u) * 1.75);
     bottom: calc(var(--u) * 0.25);
     align-self: center;
-    justify-self: center;
-    display: flex;
 }

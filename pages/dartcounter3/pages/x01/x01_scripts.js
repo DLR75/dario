@@ -822,7 +822,11 @@ function applyScore () {
 }
 //Check number of darts
 function askHowManyDarts () {
-    document.querySelector(".howmanydarts_popup").style.display = "flex";
+    if (activeplayer === bot.player) {
+        applyHowManyDarts(3);
+    } else {
+        document.querySelector(".howmanydarts_popup").style.display = "flex";
+    }
 }
 function applyHowManyDarts (darts) {
     addScoreToList (score, darts);
