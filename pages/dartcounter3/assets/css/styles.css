@@ -57,6 +57,9 @@ select {
     background-color: hsl(345, 85%, 47%);
     justify-content: center;
     align-items: center;
+    font-size: calc(var(--u) * 10);
+    text-decoration: none;
+    font-weight: 600;
 }
 
 .row_wrapper {
