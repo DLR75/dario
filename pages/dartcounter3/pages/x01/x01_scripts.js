@@ -849,6 +849,16 @@ function checkCheckOutPossibility (remainingscore) {
             displayRecommended1("");
             displayRecommended2("");
             displayRecommended3("");
+        } else if (Number.isNaN(remainingscore)) {
+            console.log("no checkout, remainingscore is not a number");
+            displayRecommended1("");
+            displayRecommended2("");
+            displayRecommended3("");
+        } else if (remainingscore === null || remainingscore === undefined || remainingscore === NaN) {
+            console.log("no checkout, remainingscore = null / undefined");
+            displayRecommended1("");
+            displayRecommended2("");
+            displayRecommended3("");
         } else {
             // console.log("checkout possible");
             displayCheckout(remainingscore);
@@ -1108,7 +1118,11 @@ plate_1.addEventListener("click", () => {
     input = "0";
     buildScorestring (input);
 }); plate_score.addEventListener("click", () => {
-    scoreScore();
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        scoreScore();
+    }
 }); plate_delete.addEventListener("click", () => {
     deleteInputs();
 }); plate_command_z.addEventListener("click", () => {
