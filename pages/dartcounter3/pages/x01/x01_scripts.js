@@ -599,16 +599,17 @@ function startNewLeg () {
     updatePlayerLastscore();
     switchActivePlayerStart();
 }
-function addLeg () {
+async function addLeg () {
     activeplayer.legs = activeplayer.legs + 1;
     updatePlayerLegs();
 
     addAveragesToAverageList();
-    resetScoreLists();
 
     if (activeplayer.legs === gamerules.firstto) {
-        matchWon();
+        await matchWon();
+        resetScoreLists();
     } else {
+        resetScoreLists();
         const message = "+1 leg"
         displaySomething(message);
         startNewLeg();
@@ -650,7 +651,7 @@ function resetScoreLists() {
     p4.lastscore = 0;
 }
 
-function matchWon () {
+async function matchWon () {
     console.log(activeplayer.name, "won the match!")
 
     document.querySelector(".gameshot_popup").style.display = "flex";
@@ -1056,6 +1057,7 @@ async function sendStatsToSupabase () {
                     stat_count_180: player.count_180,
                     stat_opponent_id: 0,
                     stat_checkout_rate: 0,
+                    stat_checkout: player.lastscore,
                 }]);
             if (error) {console.log("supabase error:", error)};
             console.log("legsaved");

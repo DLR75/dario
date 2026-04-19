@@ -227,7 +227,7 @@ function drawCanvas (dataset, xsize, ysize, y_scale) {
     //draw graph line
 
     const dataset_no_y0 = dataset.filter(item => item.y !== 0);
-    console.log(dataset_no_y0);
+    // console.log(dataset_no_y0);
 
     for (i = 0; i < dataset_no_y0.length - 1; i++) {
         let x = dataset_no_y0[i].x;
@@ -257,3 +257,79 @@ document.getElementById("title").addEventListener("click", function() {
     title.innerText = playername;
     run();
 });
+
+// fit Text Recent Matches
+function fitText(text) {
+    let size = 50;
+    text.style.fontSize = size + "px";
+
+    while (text.scrollWidth > text. clientWidth && size > 8) {
+        size = size - 0.25;
+        text.style.fontSize = size + "px";
+    }
+}
+fitText(document.getElementById("match_title"));
+
+// get stats for stats column
+
+let supabasedataforstats;
+
+async function statsgetData(player) {
+    const {data, error} = await db
+        .from("games501")
+        .select("*")
+        .eq("stat_player_id", player);
+    
+    if (error) {
+        console.log("Supabaserror:", error);
+        return;
+    }
+    // console.log("stats supabasedata 1:", data);
+    supabasedataforstats = data;
+}
+
+async function statsCountdarts() {
+    let dartcount = 0;
+    supabasedataforstats.forEach(entry => {
+    dartcount = dartcount + entry.stat_count_darts;
+    });
+    return dartcount;
+}
+
+async function statsScoresum() {
+    let scoresum = 0;
+    supabasedataforstats.forEach(entry => {
+    scoresum = scoresum + entry.stat_score_sum;
+    });
+    return scoresum;
+}
+
+async function statsCount180() {
+    let oneeighty = 0;
+    supabasedataforstats.forEach(entry => {
+    oneeighty = oneeighty + entry.stat_count_180;
+    });
+    return oneeighty;
+}
+
+async function statsrun() {
+    await statsgetData(playername);
+    // console.log("stats supabasedata 2", supabasedataforstats);
+
+    let dartcount = await statsCountdarts();
+    document.getElementById("statsvalue_darts").innerText = "Darts: " + dartcount;
+
+    let scoresum = await statsScoresum();
+
+    let average = scoresum / dartcount * 3;
+    average = Number(average.toFixed(2));
+    document.getElementById("statsvalue_average").innerText = "Average: " + average;
+
+    let oneeighty = await statsCount180();
+    document.getElementById("statsvalue_180").innerText = "180s: " + oneeighty;
+}
+statsrun();
+
+
+
+
