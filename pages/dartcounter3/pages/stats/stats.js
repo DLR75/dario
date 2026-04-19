@@ -256,6 +256,7 @@ document.getElementById("title").addEventListener("click", function() {
     playername = prompt("Please enter a Playername");
     title.innerText = playername;
     run();
+    statsrun();
 });
 
 // fit Text Recent Matches
@@ -271,7 +272,6 @@ function fitText(text) {
 fitText(document.getElementById("match_title"));
 
 // get stats for stats column
-
 let supabasedataforstats;
 
 async function statsgetData(player) {
@@ -291,30 +291,46 @@ async function statsgetData(player) {
 async function statsCountdarts() {
     let dartcount = 0;
     supabasedataforstats.forEach(entry => {
-    dartcount = dartcount + entry.stat_count_darts;
+        dartcount = dartcount + entry.stat_count_darts;
     });
     return dartcount;
 }
 
 async function statsScoresum() {
     let scoresum = 0;
-    supabasedataforstats.forEach(entry => {
-    scoresum = scoresum + entry.stat_score_sum;
+        supabasedataforstats.forEach(entry => {
+        scoresum = scoresum + entry.stat_score_sum;
     });
     return scoresum;
 }
 
 async function statsCount180() {
     let oneeighty = 0;
-    supabasedataforstats.forEach(entry => {
-    oneeighty = oneeighty + entry.stat_count_180;
+        supabasedataforstats.forEach(entry => {
+        oneeighty = oneeighty + entry.stat_count_180;
     });
     return oneeighty;
 }
 
+async function statsGetHighfinishes() {
+    let highfinishes = [];
+    supabasedataforstats.forEach(entry => {
+        if (entry.stat_checkout >= 50 ) {
+            highfinishes.push(entry.stat_checkout);
+        }
+    });
+
+    let text = "Highfinishes: ";
+    highfinishes.forEach(entry => {
+        text = text + entry + ", ";
+    });
+    document.getElementById("statsvalue_highfinishes").innerText = text;
+    console.log("checkcheckcheck")
+}
+
 async function statsrun() {
     await statsgetData(playername);
-    // console.log("stats supabasedata 2", supabasedataforstats);
+    console.log("stats supabasedata 2", supabasedataforstats);
 
     let dartcount = await statsCountdarts();
     document.getElementById("statsvalue_darts").innerText = "Darts: " + dartcount;
@@ -327,6 +343,8 @@ async function statsrun() {
 
     let oneeighty = await statsCount180();
     document.getElementById("statsvalue_180").innerText = "180s: " + oneeighty;
+
+    await statsGetHighfinishes();
 }
 statsrun();
 
