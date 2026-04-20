@@ -6,6 +6,7 @@ const db = supabase.createClient(supabaseUrl, supabaseKey);
 //variables
 let playername = "Dario";
 let dates = [];
+let weeksdates = [];
 let filteredsupabasedata = [];
 let grouped = [];
 let grouped_countdarts = [];
@@ -39,8 +40,28 @@ async function createTimeframeDays () {
     }
     console.log("dates:", dates);
 }
+async function createTimeframeWeeks () {
+    const today = new Date();
+    const weeks = 24;
+    const days = [];
+    
+    for (let i = weeks * 7 - 1; i >= 0; i--) {
+        const d = new Date();
+
+        d.setDate(today.getDate() - i)
+        const iso = d.toISOString().split("T")[0];
+
+        days.push(iso);
+    }
+    // console.log("days:", days);
+
+    for (let i = 0; i < days.length; i += 7) {
+        weeksdates.push(days.slice(i, i + 7));
+    }
+    console.log("weeks:", weeksdates);
+}
 //filter for matches
-async function filterDataForMatchingDates (player) {
+async function filterDataForMatchingDates (player, timeframe) {
     const supabasedata = await getData(player);
 
     //cut of time
@@ -53,7 +74,7 @@ async function filterDataForMatchingDates (player) {
     console.log("cleaneddates", supabasedatacleaned);
     //filter matches
     filteredsupabasedata = supabasedatacleaned.filter(entry => {
-        return dates.includes(entry.date);
+        return timeframe.includes(entry.date);
     });
     console.log("filteredmatches", filteredsupabasedata);
 }
@@ -138,13 +159,14 @@ async function getData(player) {
 async function run () {
     await cleanUp();
     await createTimeframeDays();
-    await filterDataForMatchingDates(playername);
+    await createTimeframeWeeks();
+    await filterDataForMatchingDates(playername, dates);
     await group();
     await groupCountdarts();
     await groupScoresum();
     await fillGaps();
     await convertData(chartData);
-    drawCanvas(converteddata, 24, 10, 10);
+    drawCanvas(converteddata, 23, 10, 10);
 }
 run();
 

@@ -719,7 +719,7 @@ function displaySomething(message) {
     showMessage();
 }
 
-function buildScorestring (input) {
+async function buildScorestring (input) {
     input = String(input);
     if (scorestring === undefined) {
         scorestring = input;
@@ -747,6 +747,7 @@ function convertScorestringToNumber (scorestring) {
     return score;
 }
 function scoreScore () {
+    console.log("scoreScore started");
     if (scorestring === undefined) {
         score = 0;
     }
@@ -754,7 +755,9 @@ function scoreScore () {
     // input_display = undefined;
     get_input_display.innerText = "";
     scorestring = undefined;
+    console.log("scoreScore ran");
     checkScore();
+    console.log("scoreScore finished");
 }
 function checkScore () {
     if (score > 180) {
@@ -1091,38 +1094,82 @@ async function sendStatsToSupabase () {
 
 //Event Listeners:
 plate_1.addEventListener("click", () => {
-    input = "1";
-    buildScorestring (input);
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        input = "1";
+        buildScorestring (input);
+    }
 }); plate_2.addEventListener("click", () => {
-    input = "2";
-    buildScorestring (input);
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        input = "2";
+        buildScorestring (input);
+    }
 }); plate_3.addEventListener("click", () => {
-    input = "3";
-    buildScorestring (input);
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        input = "3";
+        buildScorestring (input);
+    }
 }); plate_4.addEventListener("click", () => {
-    input = "4";
-    buildScorestring (input);
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        input = "4";
+        buildScorestring (input);
+    }
 }); plate_5.addEventListener("click", () => {
-    input = "5";
-    buildScorestring (input);
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        input = "5";
+        buildScorestring (input);
+    }
 }); plate_6.addEventListener("click", () => {
-    input = "6";
-    buildScorestring (input);
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        input = "6";
+        buildScorestring (input);
+    }
 }); plate_7.addEventListener("click", () => {
-    input = "7";
-    buildScorestring (input);
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        input = "7";
+        buildScorestring (input);
+    }
 }); plate_8.addEventListener("click", () => {
-    input = "8";
-    buildScorestring (input);
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        input = "8";
+        buildScorestring (input);
+    }
 }); plate_9.addEventListener("click", () => {
-    input = "9";
-    buildScorestring (input);
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        input = "9";
+        buildScorestring (input);
+    }
 }); plate_plus.addEventListener("click", () => {
-    input = "+";
-    buildScorestring (input);
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        input = "+";
+        buildScorestring (input);
+    }
 }); plate_0.addEventListener("click", () => {
-    input = "0";
-    buildScorestring (input);
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        input = "0";
+        buildScorestring (input);
+    }
 }); plate_score.addEventListener("click", () => {
     if (activeplayer === bot.player) {
         alert("let the computer play!");
@@ -1130,9 +1177,17 @@ plate_1.addEventListener("click", () => {
         scoreScore();
     }
 }); plate_delete.addEventListener("click", () => {
-    deleteInputs();
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        deleteInputs();
+    }
 }); plate_command_z.addEventListener("click", () => {
-    calculateGoBackInTime();
+    if (activeplayer === bot.player) {
+        alert("let the computer play!");
+    } else {
+        calculateGoBackInTime();
+    }
 });
 
 document.getElementById("player_settings_1").addEventListener("click", function() {
@@ -1203,7 +1258,7 @@ function delay(ms) {
 async function checkBotActive() {
     if (activeplayer === bot.player) {
         await delay(1500);
-        buildScorestring(bot.legscores[bot.legnumber][bot.turnnumber]);
+        await buildScorestring(bot.legscores[bot.legnumber][bot.turnnumber]);
         bot.turnnumber = bot.turnnumber + 1;
         scoreScore();
     } else {
