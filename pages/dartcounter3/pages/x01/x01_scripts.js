@@ -621,8 +621,12 @@ async function addLeg () {
 }
 function addAveragesToAverageList () {
     function addToList (player) {
-        player.averageslegs.push({scoresum: player.scoresumcurrentleg, darts: player.thrown});
-        console.log(player.averageslegs);
+        if (player === activeplayer) {
+            player.averageslegs.push({scoresum: player.scoresumcurrentleg, darts: player.thrown, checkout: player.lastscore});
+        } else {
+            player.averageslegs.push({scoresum: player.scoresumcurrentleg, darts: player.thrown, checkout: 0});
+        }
+        console.log("player averageslegs", player.averageslegs);
     }
     
     addToList(p1);
@@ -1057,7 +1061,7 @@ async function sendStatsToSupabase () {
                     stat_count_180: player.count_180,
                     stat_opponent_id: 0,
                     stat_checkout_rate: 0,
-                    stat_checkout: player.lastscore,
+                    stat_checkout: leg.checkout,
                 }]);
             if (error) {console.log("supabase error:", error)};
             console.log("legsaved");
