@@ -358,7 +358,6 @@ h4 {
     flex-wrap: wrap;
     height: calc(var(--u) * 72.1);
     gap: calc(var(--u) * 1.25);
-    touch-action: none;
 }
     .plate {
         min-width: calc(var(--u) * 30);
@@ -366,7 +365,6 @@ h4 {
         border-radius: calc(var(--u) * 2.5);
         font-size: calc(var(--u) * 8);
         font-weight: lighter;
-        touch-action: none;
     }
     .plate_score {
         display: flex;
