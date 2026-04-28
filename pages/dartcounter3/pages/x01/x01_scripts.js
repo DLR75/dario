@@ -1093,21 +1093,21 @@ async function sendStatsToSupabase () {
 }
 
 //Event Listeners:
-plate_1.addEventListener("click", () => {
+plate_1.addEventListener("pointerdown", () => {
     // if (activeplayer === bot.player) {
     //     alert("let the computer play!");
     // } else {
         input = "1";
         buildScorestring (input);
     // }
-}); plate_2.addEventListener("click", () => {
+}); plate_2.addEventListener("pointerdown", () => {
     // if (activeplayer === bot.player) {
     //     alert("let the computer play!");
     // } else {
         input = "2";
         buildScorestring (input);
     // }
-}); plate_3.addEventListener("click", () => {
+}); plate_3.addEventListener("pointerdown", () => {
     // if (activeplayer === bot.player) {
     //     alert("let the computer play!");
     // } else {
