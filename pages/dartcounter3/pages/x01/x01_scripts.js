@@ -1094,100 +1094,100 @@ async function sendStatsToSupabase () {
 
 //Event Listeners:
 plate_1.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         input = "1";
         buildScorestring (input);
-    }
+    // }
 }); plate_2.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         input = "2";
         buildScorestring (input);
-    }
+    // }
 }); plate_3.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         input = "3";
         buildScorestring (input);
-    }
+    // }
 }); plate_4.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         input = "4";
         buildScorestring (input);
-    }
+    // }
 }); plate_5.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         input = "5";
         buildScorestring (input);
-    }
+    // }
 }); plate_6.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         input = "6";
         buildScorestring (input);
-    }
+    // }
 }); plate_7.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         input = "7";
         buildScorestring (input);
-    }
+    // }
 }); plate_8.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         input = "8";
         buildScorestring (input);
-    }
+    // }
 }); plate_9.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         input = "9";
         buildScorestring (input);
-    }
+    // }
 }); plate_plus.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         input = "+";
         buildScorestring (input);
-    }
+    // }
 }); plate_0.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         input = "0";
         buildScorestring (input);
-    }
+    // }
 }); plate_score.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         scoreScore();
-    }
+    // }
 }); plate_delete.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         deleteInputs();
-    }
+    // }
 }); plate_command_z.addEventListener("click", () => {
-    if (activeplayer === bot.player) {
-        alert("let the computer play!");
-    } else {
+    // if (activeplayer === bot.player) {
+    //     alert("let the computer play!");
+    // } else {
         calculateGoBackInTime();
-    }
+    // }
 });
 
 document.getElementById("player_settings_1").addEventListener("click", function() {
