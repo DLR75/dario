@@ -1142,14 +1142,14 @@ plate_1.addEventListener("pointerdown", () => {
         input = "7";
         buildScorestring (input);
     // }
-}); plate_8.addEventListener("pointerdown", () => {
+}); plate_8.addEventListener("click", () => {
     // if (activeplayer === bot.player) {
     //     alert("let the computer play!");
     // } else {
         input = "8";
         buildScorestring (input);
     // }
-}); plate_9.addEventListener("pointerdown", () => {
+}); plate_9.addEventListener("click", () => {
     // if (activeplayer === bot.player) {
     //     alert("let the computer play!");
     // } else {
