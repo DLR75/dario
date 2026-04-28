@@ -852,7 +852,7 @@ function checkCheckOutPossibility (remainingscore) {
             displayRecommended3("");
         } else if (remainingscore === 169 || remainingscore === 168 ||
              remainingscore === 166 || remainingscore === 165 ||
-              remainingscore === 163 || remainingscore === 159) {
+              remainingscore === 163 || remainingscore === 162 || remainingscore === 159) {
             console.log("no checkout, bogeynumber");
             displayRecommended1("");
             displayRecommended2("");
