@@ -10,6 +10,7 @@ let timemode;
 
 let dates = [];
 let weeksdates = [];
+let monthsdates = [];
 let filteredsupabasedata = [];
 let grouped = [];
 let grouped_countdarts = [];
@@ -22,6 +23,7 @@ let converteddata = [];
 async function cleanUp() {
     dates = [];
     weeksdates = [];
+    monthsdates = [];
     filteredsupabasedata = [];
     grouped = [];
     grouped_countdarts = [];
@@ -59,14 +61,26 @@ async function createTimeframeWeeks () {
 
         days.push(iso);
     }
-    // console.log("days:", days);
 
-    // in 24 7er arrays teilen:
-    // for (let i = 0; i < days.length; i += 7) {
-    //     weeksdates.push(days.slice(i, i + 7));
-    // }
     weeksdates = days;
     console.log("weeks:", weeksdates);
+}
+async function createTimeframeMonths () {
+    const today = new Date();
+    const months = 24;
+    const days = [];
+    
+    for (let i = months * 30 - 1; i >= 0; i--) {
+        const d = new Date();
+
+        d.setDate(today.getDate() - i)
+        const iso = d.toISOString().split("T")[0];
+
+        days.push(iso);
+    }
+
+    monthsdates = days;
+    console.log("months:", monthsdates);
 }
 //filter for matches
 async function filterDataForMatchingDates (player, timeframe) {
@@ -140,7 +154,7 @@ async function fillGaps(timeframe) {
 // reduce to 24 arrays // needs data to be dividable by 24
 
 async function reduceTo24(data, reduce) {
-    console.log("reduce data:", data);
+    // console.log("reduce data:", data);
 
     const groupSize = data.length / 24;
     if ((data.length % 24) != 0) {
@@ -205,7 +219,8 @@ async function run (timemode) {
         await createTimeframeWeeks();
         timeframe = weeksdates;
     } else if (timemode === "months") {
-        
+        await createTimeframeMonths();
+        timeframe = monthsdates;
     } else if (timemode === "legs") {
         
     } else {
@@ -434,18 +449,14 @@ async function getTimemode() {
     console.log(timeframevalue);
     if (timeframevalue === "1") {
         timemode = "days";
-        // console.log("change timemode to days", timemode);
     } else if (timeframevalue === "2") {
         timemode = "weeks";
-        // console.log("change timemode to weeks", timemode);
     } else if (timeframevalue === "3") {
         timemode = "months";
     } else if (timeframevalue === "4") {
         timemode = "legs";
     }
-    // console.log(timemode);
-}
-
+};
 
 timeframeselector.addEventListener("change", () => {
     runRun();
