@@ -333,7 +333,7 @@ title.innerText = playername;
 document.getElementById("title").addEventListener("click", function() {
     playername = prompt("Please enter a Playername");
     title.innerText = playername;
-    run();
+    runRun();
     statsrun();
 });
 
