@@ -5,6 +5,9 @@ const db = supabase.createClient(supabaseUrl, supabaseKey);
 
 //variables
 let playername = "Dario";
+let timemode;
+
+
 let dates = [];
 let weeksdates = [];
 let filteredsupabasedata = [];
@@ -12,16 +15,19 @@ let grouped = [];
 let grouped_countdarts = [];
 let grouped_scoresum = [];
 let chartData = [];
+let chartDataReduced = [];
 let converteddata = [];
 
 //cleanup
 async function cleanUp() {
     dates = [];
+    weeksdates = [];
     filteredsupabasedata = [];
     grouped = [];
     grouped_countdarts = [];
     grouped_scoresum = [];
     chartData = [];
+    chartDataReduced = [];
     converteddata = [];
 }
 
@@ -38,7 +44,7 @@ async function createTimeframeDays () {
         const iso = d.toISOString().split("T")[0];
         dates.push(iso);
     }
-    console.log("dates:", dates);
+    // console.log("dates:", dates);
 }
 async function createTimeframeWeeks () {
     const today = new Date();
@@ -55,9 +61,11 @@ async function createTimeframeWeeks () {
     }
     // console.log("days:", days);
 
-    for (let i = 0; i < days.length; i += 7) {
-        weeksdates.push(days.slice(i, i + 7));
-    }
+    // in 24 7er arrays teilen:
+    // for (let i = 0; i < days.length; i += 7) {
+    //     weeksdates.push(days.slice(i, i + 7));
+    // }
+    weeksdates = days;
     console.log("weeks:", weeksdates);
 }
 //filter for matches
@@ -88,7 +96,7 @@ async function group() {
         grouped[entry.date] += entry.stat_average;
         // console.log("after entry.date:", grouped[entry.date]);
     });
-    console.log("grouped_average:", grouped);
+    // console.log("grouped_average:", grouped);
 }
 
 async function groupCountdarts() {
@@ -100,7 +108,7 @@ async function groupCountdarts() {
         grouped_countdarts[entry.date] += entry.stat_count_darts;
         // console.log("after entry.date:", grouped_countdarts[entry.date]);
     });
-    console.log("grouped_countdarts:", grouped_countdarts);
+    // console.log("grouped_countdarts:", grouped_countdarts);
 }
 
 async function groupScoresum() {
@@ -112,12 +120,12 @@ async function groupScoresum() {
         grouped_scoresum[entry.date] += entry.stat_score_sum;
         // console.log("after entry.date:", grouped_scoresum[entry.date]);
     });
-    console.log("grouped_scoresum:", grouped_scoresum);
+    // console.log("grouped_scoresum:", grouped_scoresum);
 }
 
 //combine + fill gaps
-async function fillGaps() {
-    chartData = dates.map(date => {
+async function fillGaps(timeframe) {
+    chartData = timeframe.map(date => {
         return {
             date: date,
             average: grouped_scoresum[date] / grouped_countdarts[date] * 3 || 0,
@@ -127,6 +135,37 @@ async function fillGaps() {
         };
     })
     console.log("combine + fill gaps", chartData);
+}
+
+// reduce to 24 arrays // needs data to be dividable by 24
+
+async function reduceTo24(data, reduce) {
+    console.log("reduce data:", data);
+
+    const groupSize = data.length / 24;
+    if ((data.length % 24) != 0) {
+        alert("reduceTo24 groupSize not dividable by 24");
+    };
+
+    chartDataReduced = Array.from({length: 24}, (_, i) => {
+        const group = data.slice(i * groupSize, (i + 1) * groupSize);
+
+        return group.reduce((sum, obj) => ({
+            average: sum.average + obj.average,
+            averagesum: sum.averagesum + obj.averagesum,
+            countdarts: sum.countdarts + obj.countdarts,
+            date: obj.date,
+            scoresum: sum.scoresum + obj.scoresum,
+        }), {average: 0, averagesum: 0, countdarts: 0, date: 0, scoresum: 0});
+    });
+    
+    chartDataReduced.forEach(entry => {
+        if (entry.average != 0) {
+            entry.average = entry.scoresum / entry.countdarts * 3;
+        }
+    });
+
+    console.log("chartDataReduced:", chartDataReduced);
 }
 
 // convert data
@@ -156,19 +195,36 @@ async function getData(player) {
 }
 
 //run
-async function run () {
+async function run (timemode) {
+    let timeframe;
     await cleanUp();
-    await createTimeframeDays();
-    await createTimeframeWeeks();
-    await filterDataForMatchingDates(playername, dates);
+    if (timemode === "days") {
+        await createTimeframeDays();
+        timeframe = dates;
+    } else if (timemode === "weeks") {
+        await createTimeframeWeeks();
+        timeframe = weeksdates;
+    } else if (timemode === "months") {
+        
+    } else if (timemode === "legs") {
+        
+    } else {
+        alert("run: no timeframe selected");
+    }
+    await filterDataForMatchingDates(playername, timeframe);
     await group();
     await groupCountdarts();
     await groupScoresum();
-    await fillGaps();
-    await convertData(chartData);
+    await fillGaps(timeframe);
+    await reduceTo24(chartData, 24);
+    await convertData(chartDataReduced);
     drawCanvas(converteddata, 23, 10, 10);
 }
-run();
+async function runRun () {
+    await getTimemode();
+    await run(timemode);
+}
+runRun();
 
 
 //canvas function
@@ -347,7 +403,6 @@ async function statsGetHighfinishes() {
         text = text + entry + ", ";
     });
     document.getElementById("statsvalue_highfinishes").innerText = text;
-    console.log("checkcheckcheck")
 }
 
 async function statsrun() {
@@ -372,4 +427,27 @@ statsrun();
 
 
 
+timeframeselector = document.getElementById("timeframe_selector");
+
+async function getTimemode() {
+    let timeframevalue = document.getElementById("timeframe_selector").value;
+    console.log(timeframevalue);
+    if (timeframevalue === "1") {
+        timemode = "days";
+        // console.log("change timemode to days", timemode);
+    } else if (timeframevalue === "2") {
+        timemode = "weeks";
+        // console.log("change timemode to weeks", timemode);
+    } else if (timeframevalue === "3") {
+        timemode = "months";
+    } else if (timeframevalue === "4") {
+        timemode = "legs";
+    }
+    // console.log(timemode);
+}
+
+
+timeframeselector.addEventListener("change", () => {
+    runRun();
+});
 
