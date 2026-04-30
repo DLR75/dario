@@ -91,20 +91,48 @@ numberofplayers_selector.addEventListener("change", () => {
     updateNumberOfScoreboards();
 });
 player1_name_selector.addEventListener("click", () => {
-    player_1_name = prompt("What´s your name?");
+    let newname = prompt("What´s your name?");
+    if (newname.length > 1 && newname.length <= 16 && newname != player_2_name && newname != player_3_name && newname != player_4_name) {
+        player_1_name = newname;
+    } else if (newname.length <= 1 || newname.length > 16) {
+        alert("Name must have 1-16 characterers");
+    } else {
+        alert("Playername allready taken");
+    }
     updatePlayerNames();
 })
 player2_name_selector.addEventListener("click", () => {
-    player_2_name = prompt("What´s your name?");
-    updatePlayerNames();
+    let newname = prompt("What´s your name?");
+    if (newname.length > 1 && newname.length <= 16 && newname != player_1_name && newname != player_3_name && newname != player_4_name) {
+        player_2_name = newname;
+    } else if (newname.length <= 1 || newname.length > 16) {
+        alert("Name must have 1-16 characterers");
+    } else {
+        alert("Playername allready taken");
+    }
+    updatePlayerNames()
 })
 player3_name_selector.addEventListener("click", () => {
-    player_3_name = prompt("What´s your name?");
-    updatePlayerNames();
+    let newname = prompt("What´s your name?");
+    if (newname.length > 1 && newname.length <= 16 && newname != player_1_name && newname != player_2_name && newname != player_4_name) {
+        player_3_name = newname;
+    } else if (newname.length <= 1 || newname.length > 16) {
+        alert("Name must have 1-16 characterers");
+    } else {
+        alert("Playername allready taken");
+    }
+    updatePlayerNames()
 })
 player4_name_selector.addEventListener("click", () => {
-    player_4_name = prompt("What´s your name?");
-    updatePlayerNames();
+    let newname = prompt("What´s your name?");
+    if (newname.length > 1 && newname.length <= 16 && newname != player_1_name && newname != player_2_name && newname != player_3_name) {
+        player_4_name = newname;
+    } else if (newname.length <= 1 || newname.length > 16) {
+        alert("Name must have 1-16 characterers");
+    } else {
+        alert("Playername allready taken");
+    }
+    updatePlayerNames()
 })
 startgame_selector.addEventListener("click", () => {
     startGame();
