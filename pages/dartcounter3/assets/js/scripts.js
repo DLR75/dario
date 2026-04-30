@@ -80,7 +80,9 @@ legs_minus_selector.addEventListener("click", () => {
     updateFirstTo();
 })
 legs_plus_selector.addEventListener("click", () => {
-    firstto = firstto + 1;
+    if (firstto < 51) {
+        firstto = firstto + 1;
+    }
     updateFirstTo();
 })
 numberofplayers_selector.addEventListener("change", () => {
