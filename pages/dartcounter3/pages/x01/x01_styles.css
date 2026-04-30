@@ -329,6 +329,7 @@ h4 {
     display: flex;
     justify-content: space-between;
     height: calc(var(--u) * 8);
+    touch-action: manipulation;
 }
     .mistake_button {
         display: flex;

@@ -88,6 +88,7 @@ select {
 
     font-size: calc(var(--u) * 6);
     font-weight: 600;
+    touch-action: manipulation;
 }
 
 
@@ -142,6 +143,7 @@ select {
     width: calc(var(--u) * 50);
     color: hsl(345, 85%, 47%);
     appearance: none;
+    touch-action: manipulation;
     }
     #schieber::-webkit-slider-runnable-track{
         background: hsl(0, 0%, 18%);
@@ -169,6 +171,7 @@ select {
         background-color: hsl(345, 85%, 47%);
         font-size: calc(var(--u) * 4);
         font-weight: 400;
+        touch-action: manipulation;
     }
 
 .startgame_box {
@@ -187,6 +190,7 @@ select {
         background-color: hsl(345, 85%, 47%);
         font-size: calc(var(--u) * 6);
         font-weight: 600;
+        touch-action: manipulation;
     }
 
 .version {

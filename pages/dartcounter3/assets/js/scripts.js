@@ -80,7 +80,7 @@ legs_minus_selector.addEventListener("click", () => {
     updateFirstTo();
 })
 legs_plus_selector.addEventListener("click", () => {
-    if (firstto < 51) {
+    if (firstto < 50) {
         firstto = firstto + 1;
     }
     updateFirstTo();
