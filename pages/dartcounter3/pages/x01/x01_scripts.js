@@ -779,6 +779,7 @@ function applyScore () {
         addScoreToList (score, 3);
         switchActivePlayerNext();
         displayScore();
+        speakScore(score);
     } else if (newscore === 1) {
         if (gamerules.gamemode === 1 || 3) {
             alert("score busted");
@@ -786,12 +787,14 @@ function applyScore () {
             addScoreToList (score, 3);
             switchActivePlayerNext();
             displayScore();
+            speakScore(score);
         } else if (gamerules.gamemode === 2 || 4) {
             activeplayer.remaining = activeplayer.remaining-score;
             updatePlayerRemainingScore();
             addScoreToList (score, 3);
             switchActivePlayerNext();
             displayScore();
+            speakScore(score);
         }
     } else if (newscore  === 0) {
         if (gamerules.gamemode === 1 || 3) {
@@ -804,6 +807,7 @@ function applyScore () {
                 addScoreToList (score, 3);
                 switchActivePlayerNext();
                 displayScore();
+                speakScore(score);
             } else {
                 activeplayer.remaining = activeplayer.remaining-score;
                 updatePlayerRemainingScore();
@@ -826,6 +830,7 @@ function applyScore () {
         addScoreToList (score, 3);
         switchActivePlayerNext();
         displayScore();
+        speakScore(score);
     }
 }
 //Check number of darts
@@ -960,35 +965,31 @@ function displayScore () {
         }
         
     }
-    function speakScore(score) {
-        let text;
-        if (score === 0) {
-            text = "no score";
-        } else {
-            text = score;
-        }
-        const message = new SpeechSynthesisUtterance(text.toString());
-        message.lang = "en-GB";
-        message.rate = 0.85;
-        message.pitch = 1;
-
-        let voices = speechSynthesis.getVoices();
-        // message.voice = voices.find(v => v.lang === "en-GB" && v.name.toLowerCase().includes("male"));
-
-        const preferredVoice =
-            voices.find(v => v.name.includes("Daniel")) ||
-            voices.find(v => v.lang === "en-GB") ||
-            voices.find(v => v.lang.startsWith("en"));
-
-        if (preferredVoice) {
-            message.voice = preferredVoice;
-        };
-
-        speechSynthesis.cancel();
-        speechSynthesis.speak(message);
-    }
+    
     showMessage();
-    speakScore(score);
+}
+function speakScore(score) {
+    let text;
+    if (score === 0) {
+        text = "no score";
+    } else {
+        text = score;
+    }
+    const message = new SpeechSynthesisUtterance(text.toString());
+    message.lang = "en-GB";
+    message.rate = 0.85;
+    message.pitch = 1;
+    let voices = speechSynthesis.getVoices();
+
+    const preferredVoice =
+        voices.find(v => v.name.includes("Daniel")) ||
+        voices.find(v => v.lang === "en-GB") ||
+        voices.find(v => v.lang.startsWith("en"));
+    if (preferredVoice) {
+        message.voice = preferredVoice;
+    };
+
+    speechSynthesis.speak(message);
 }
 function displayPrescore(preremainng) {
     let a = activeplayer.remaining;
