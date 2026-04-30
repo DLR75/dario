@@ -969,6 +969,8 @@ function displayScore () {
         }
         const message = new SpeechSynthesisUtterance(text.toString());
         message.lang = "en-GB";
+        let voices = speechSynthesis.getVoices();
+        message.voice = voices.find(v => v.lang === "en-US" && v.name.toLowerCase().includes("male"));
         message.rate = 0.85;
         speechSynthesis.speak(message);
     }
