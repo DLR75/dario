@@ -982,8 +982,9 @@ function displayScore () {
 
         if (preferredVoice) {
             message.voice = preferredVoice;
-        }
+        };
 
+        speechSynthesis.cancel();
         speechSynthesis.speak(message);
     }
     showMessage();
