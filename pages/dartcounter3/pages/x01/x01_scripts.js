@@ -323,7 +323,7 @@ function activate(player) {
 
     determineActivePlayer();
     const checkOut = activeplayer.remaining;
-    checkCheckOutPossibility(checkOut);
+    checkCheckOutPossibility(checkOut, "speak");
 }
 function deactivate(player) {
     // console.log("run deactivate", player);
@@ -612,6 +612,7 @@ async function addLeg () {
         resetScoreLists();
         const message = "+1 leg"
         displaySomething(message);
+        speakMessage(`Leg Shot! ${activeplayer.name}`);
         startNewLeg();
     }
     if (bot.present === true) {
@@ -657,6 +658,7 @@ function resetScoreLists() {
 
 async function matchWon () {
     console.log(activeplayer.name, "won the match!")
+    speakMessage(`Game Shot! ${activeplayer.name}`);
 
     document.querySelector(".gameshot_popup").style.display = "flex";
     document.getElementById("gameshot_player").innerText = activeplayer.name;
@@ -733,7 +735,7 @@ function preScore (scorestring) {
     const prescore = convertScorestringToNumber(scorestring);
     const preremaining = activeplayer.remaining - prescore;
     displayPrescore (preremaining);
-    checkCheckOutPossibility(preremaining);
+    checkCheckOutPossibility(preremaining, "nospeak");
 }
 function convertScorestringToNumber (scorestring) {
     if (scorestring === undefined) {
@@ -777,24 +779,24 @@ function applyScore () {
         activeplayer.remaining = activeplayer.remaining-score;
         updatePlayerRemainingScore();
         addScoreToList (score, 3);
+        speakMessage(score);
         switchActivePlayerNext();
         displayScore();
-        speakScore(score);
     } else if (newscore === 1) {
         if (gamerules.gamemode === 1 || 3) {
             alert("score busted");
             score = 0;
             addScoreToList (score, 3);
+            speakMessage(score);
             switchActivePlayerNext();
             displayScore();
-            speakScore(score);
         } else if (gamerules.gamemode === 2 || 4) {
             activeplayer.remaining = activeplayer.remaining-score;
             updatePlayerRemainingScore();
             addScoreToList (score, 3);
+            speakMessage(score);
             switchActivePlayerNext();
             displayScore();
-            speakScore(score);
         }
     } else if (newscore  === 0) {
         if (gamerules.gamemode === 1 || 3) {
@@ -805,9 +807,9 @@ function applyScore () {
                 alert("score busted, bogeynumber");
                 score = 0;
                 addScoreToList (score, 3);
+                speakMessage(score);
                 switchActivePlayerNext();
                 displayScore();
-                speakScore(score);
             } else {
                 activeplayer.remaining = activeplayer.remaining-score;
                 updatePlayerRemainingScore();
@@ -828,9 +830,10 @@ function applyScore () {
         alert("score busted");
         score = 0;
         addScoreToList (score, 3);
+        speakMessage(score);
         switchActivePlayerNext();
         displayScore();
-        speakScore(score);
+        
     }
 }
 //Check number of darts
@@ -848,7 +851,7 @@ function applyHowManyDarts (darts) {
 
 
     //Checkout
-function checkCheckOutPossibility (remainingscore) {
+function checkCheckOutPossibility (remainingscore, speak) {
     if (gamerules.gamemode === 1 || 3) {
         if (remainingscore > 170) {
             // console.log("no checkout");
@@ -875,6 +878,9 @@ function checkCheckOutPossibility (remainingscore) {
         } else {
             // console.log("checkout possible");
             displayCheckout(remainingscore);
+            if (speak === "speak") {
+                speakMessage(`${activeplayer.name} you require ${remainingscore}`);
+            }
         }
     } else if (gamerules.gamemode === 2 || 4) {
         if (remainingscore > 180) {
@@ -885,6 +891,9 @@ function checkCheckOutPossibility (remainingscore) {
         } else {
             // console.log("checkout possible");
             displayCheckout(remainingscore);
+            if (speak === "speak") {
+                speakMessage(`${activeplayer.name} you require ${remainingscore}`);
+            }
         }
     } 
 }
@@ -968,7 +977,7 @@ function displayScore () {
     
     showMessage();
 }
-function speakScore(score) {
+function speakMessage(score) {
     let text;
     if (score === 0) {
         text = "no score";
