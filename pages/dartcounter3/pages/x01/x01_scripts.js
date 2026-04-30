@@ -960,8 +960,20 @@ function displayScore () {
         }
         
     }
-
+    function speakScore(score) {
+        let text;
+        if (score === 0) {
+            text = "no score";
+        } else {
+            text = score;
+        }
+        const message = new SpeechSynthesisUtterance(text.toString());
+        message.lang = "en-GB";
+        message.rate = 1;
+        speechSynthesis.speak(message);
+    }
     showMessage();
+    speakScore(score);
 }
 function displayPrescore(preremainng) {
     let a = activeplayer.remaining;
