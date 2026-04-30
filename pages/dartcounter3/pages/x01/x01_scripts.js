@@ -969,9 +969,21 @@ function displayScore () {
         }
         const message = new SpeechSynthesisUtterance(text.toString());
         message.lang = "en-GB";
-        let voices = speechSynthesis.getVoices();
-        message.voice = voices.find(v => v.lang === "en-US" && v.name.toLowerCase().includes("male"));
         message.rate = 0.85;
+        message.pitch = 1;
+
+        let voices = speechSynthesis.getVoices();
+        // message.voice = voices.find(v => v.lang === "en-GB" && v.name.toLowerCase().includes("male"));
+
+        const preferredVoice =
+            voices.find(v => v.name.includes("Daniel")) ||
+            voices.find(v => v.lang === "en-GB") ||
+            voices.find(v => v.lang.startsWith("en"));
+
+        if (preferredVoice) {
+            message.voice = preferredVoice;
+        }
+
         speechSynthesis.speak(message);
     }
     showMessage();
