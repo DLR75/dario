@@ -969,7 +969,7 @@ function displayScore () {
         }
         const message = new SpeechSynthesisUtterance(text.toString());
         message.lang = "en-GB";
-        message.rate = 1;
+        message.rate = 0.85;
         speechSynthesis.speak(message);
     }
     showMessage();
