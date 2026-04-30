@@ -140,23 +140,30 @@ startgame_selector.addEventListener("click", () => {
 addbot_selector.addEventListener("click", () => {
     console.log("addbot");
     if (numberofplayers_selector.value < 4 && bot.present === false && gamemode_value.value == 1) {
-        bot.average = prompt("Please enter the bots average");
-        bot.present = true;
-        numberofplayers = numberofplayers_selector.value;
-        numberofplayers = Number(numberofplayers);
-        numberofplayers = numberofplayers + 1;
-        if (numberofplayers === 4) {
-            player_4_name = `Bot ${bot.average}`;
-            bot.player = "p4";
-        } else if (numberofplayers === 3) {
-            player_3_name = `Bot ${bot.average}`;
-            bot.player = "p3";
-        } else if (numberofplayers === 2) {
-            player_2_name = `Bot ${bot.average}`;
-            bot.player = "p2";
+        let input = prompt("Please enter the bots average");
+        input = Number(input);
+        console.log(typeof input, "input:", input);
+        if (input >= 5 && input <= 140) {
+            bot.average = input;
+            bot.present = true;
+            numberofplayers = numberofplayers_selector.value;
+            numberofplayers = Number(numberofplayers);
+            numberofplayers = numberofplayers + 1;
+            if (numberofplayers === 4) {
+                player_4_name = `Bot ${bot.average}`;
+                bot.player = "p4";
+            } else if (numberofplayers === 3) {
+                player_3_name = `Bot ${bot.average}`;
+                bot.player = "p3";
+            } else if (numberofplayers === 2) {
+                player_2_name = `Bot ${bot.average}`;
+                bot.player = "p2";
+            }
+            updatePlayerNames();
+            updateNumberOfScoreboards();
+        } else {
+            alert("wrong input - please enter a number between 5 and 140")
         }
-        updatePlayerNames();
-        updateNumberOfScoreboards();
     } else {
         alert("allready 4 players / bot present / not 501 do")
     }
