@@ -209,12 +209,13 @@ canvas {
                         }
                         .match_barbox {
                             display: flex;
+                            background-color: hsl(345, 85%, 47%);
                         }
                                 .match_bar {
                                     display: flex;
                                     background-color: hsl(163, 85%, 42%);
-                                    width: calc(var(--u) * 16);
                                     height: calc(var(--u) * 0.5);
                                 }
+
 
 

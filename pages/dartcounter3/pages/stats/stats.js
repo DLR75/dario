@@ -443,7 +443,6 @@ async function statsRecentMatches() {
         if (!array[entry.stat_match_id]) {
             array[entry.stat_match_id] = [];
         }
-
         array[entry.stat_match_id].push(entry);
         return array;
     }, {});
@@ -464,7 +463,6 @@ async function statsRecentMatches() {
                 break;
             }
         }
-
         return {
             date: legs[0].created_at.slice(0, 16),
             legs: legs,
@@ -473,9 +471,6 @@ async function statsRecentMatches() {
         }
     });
     console.log("renamedMatches:", renamedMatches);
-
-    
-
 
     // sort by date
     const sortedMatches = renamedMatches.sort((a, b) => {
@@ -539,6 +534,15 @@ async function applyRecentMatches() {
     document.getElementById("recent2text").innerText = `${playername} vs ${last4matches[1].opponent}`;
     document.getElementById("recent3text").innerText = `${playername} vs ${last4matches[2].opponent}`;
     document.getElementById("recent4text").innerText = `${playername} vs ${last4matches[3].opponent}`;
+
+    function calculatePercentage(a, b) {
+        const percentage = 100 / (a + b) * a;
+        return percentage
+    }
+    document.getElementById("bar1").style.width = calculatePercentage(recent[0], recent[1]) + "%";
+    document.getElementById("bar2").style.width = calculatePercentage(recent[2], recent[3]) + "%";
+    document.getElementById("bar3").style.width = calculatePercentage(recent[4], recent[5]) + "%";
+    document.getElementById("bar4").style.width = calculatePercentage(recent[6], recent[7]) + "%";
 }
 
 async function statsrun() {
