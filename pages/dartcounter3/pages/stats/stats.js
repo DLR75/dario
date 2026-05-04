@@ -19,7 +19,7 @@ let chartData = [];
 let chartDataReduced = [];
 let converteddata = [];
 let recent = [];
-let last4matches;
+let last4matches = [];
 
 //cleanup
 async function cleanUp() {
@@ -33,6 +33,8 @@ async function cleanUp() {
     chartData = [];
     chartDataReduced = [];
     converteddata = [];
+    recent = [];
+    last4matches = [];
 }
 
 
@@ -218,10 +220,11 @@ async function getDataMatchId(matchid) {
     
     if (error) {
         console.log("Supabaserror:", error);
-        return;
+        return "error";
+    } else {
+        return data;
     }
     // console.log("supabasedata:", data);
-    return data;
 }
 
 //run
@@ -463,6 +466,11 @@ async function statsRecentMatches() {
                 break;
             }
         }
+        // if (opponent === undefined) {
+        //     console.log("opponent undefined");
+        //     opponent = "self";
+        //     console.log("opponent now:", opponent);
+        // }
         return {
             date: legs[0].created_at.slice(0, 16),
             legs: legs,
@@ -480,7 +488,7 @@ async function statsRecentMatches() {
 
     // slice to last 4 matches
     last4matches = sortedMatches.slice(0, 4);
-    // console.log("last4matches:", last4matches);
+    console.log("last4matches:", last4matches);
     
     
     last4matches.forEach(entry => {
@@ -495,17 +503,19 @@ async function statsRecentMatches() {
         })
         recent.push(legswon);
         recent.push(legslost);
-    })
-
-    // find opponent
-    async function findOpponent() {
+    }) 
+}
+async function findOpponent() {
         let dataMatchId;
         for (const entry of last4matches) {
             entryId = entry.match_id;
             let opponent;
             // console.log("matchid:", entryId);
             dataMatchId = await getDataMatchId(entryId);
-            // console.log("dataMatchId:", dataMatchId);
+            if (dataMatchId === "error") {
+                console.log("findOpponent error")
+            }
+            console.log("dataMatchId:", dataMatchId);
 
             // dataMatchId durchgehen bis playerid != player
             for (const dataentry of dataMatchId) {
@@ -513,14 +523,22 @@ async function statsRecentMatches() {
                     // console.log("found", dataentry.stat_player_id)
                     opponent = dataentry.stat_player_id;
                     break;
+                } else {
+                    opponent = "self";
                 }
             }
             entry.opponent = opponent;
         }
+        console.log(last4matches);
     }
-    await findOpponent();
-}
 async function applyRecentMatches() {
+    for (let i = 0; i < 8; i++) {
+        if (recent[i] === undefined) {
+            recent[i] = "";
+        }
+    }
+
+    console.log(recent);
     document.getElementById("recent1won").innerText = recent[0];
     document.getElementById("recent1lost").innerText = recent[1];
     document.getElementById("recent2won").innerText = recent[2];
@@ -530,19 +548,28 @@ async function applyRecentMatches() {
     document.getElementById("recent4won").innerText = recent[6];
     document.getElementById("recent4lost").innerText = recent[7];
 
-    document.getElementById("recent1text").innerText = `${playername} vs ${last4matches[0].opponent}`;
-    document.getElementById("recent2text").innerText = `${playername} vs ${last4matches[1].opponent}`;
-    document.getElementById("recent3text").innerText = `${playername} vs ${last4matches[2].opponent}`;
-    document.getElementById("recent4text").innerText = `${playername} vs ${last4matches[3].opponent}`;
-
+    if (recent[1] != "") {document.getElementById("recent1text").innerText = `${playername} vs ${last4matches[0].opponent}`;}
+    else {document.getElementById("recent1text").innerText = "";}
+    if (recent[3] != "") {document.getElementById("recent2text").innerText = `${playername} vs ${last4matches[1].opponent}`;}
+    else {document.getElementById("recent2text").innerText = "";}
+    if (recent[5] != "") {document.getElementById("recent3text").innerText = `${playername} vs ${last4matches[2].opponent}`;}
+    else {document.getElementById("recent3text").innerText = "";}
+    if (recent[7] != "") {document.getElementById("recent4text").innerText = `${playername} vs ${last4matches[3].opponent}`;}
+    else {document.getElementById("recent4text").innerText = "";}
+    
     function calculatePercentage(a, b) {
         const percentage = 100 / (a + b) * a;
         return percentage
     }
-    document.getElementById("bar1").style.width = calculatePercentage(recent[0], recent[1]) + "%";
-    document.getElementById("bar2").style.width = calculatePercentage(recent[2], recent[3]) + "%";
-    document.getElementById("bar3").style.width = calculatePercentage(recent[4], recent[5]) + "%";
-    document.getElementById("bar4").style.width = calculatePercentage(recent[6], recent[7]) + "%";
+    // document.querySelector(".match_barbox").style.backgroundColor = "grey";
+    if (recent[1] != "") {document.getElementById("bar1").style.width = calculatePercentage(recent[0], recent[1]) + "%";}
+    else {document.getElementById("bar1").style.width = 100 + "%"; document.getElementById("bar1").style.backgroundColor = "hsl(0, 0%, 18%)";}
+    if (recent[3] != "") {document.getElementById("bar2").style.width = calculatePercentage(recent[2], recent[3]) + "%";}
+    else {document.getElementById("bar2").style.width = 100 + "%"; document.getElementById("bar1").style.backgroundColor = "hsl(0, 0%, 18%)";}
+    if (recent[5] != "") {document.getElementById("bar3").style.width = calculatePercentage(recent[4], recent[5]) + "%";}
+    else {document.getElementById("bar3").style.width = 100 + "%"; document.getElementById("bar1").style.backgroundColor = "hsl(0, 0%, 18%)";}
+    if (recent[7] != "") {document.getElementById("bar4").style.width = calculatePercentage(recent[6], recent[7]) + "%";}
+    else {document.getElementById("bar4").style.width = 100 + "%"; document.getElementById("bar1").style.backgroundColor = "hsl(0, 0%, 18%)";}
 }
 
 async function statsrun() {
@@ -564,6 +591,8 @@ async function statsrun() {
     await statsGetHighfinishes();
 
     await statsRecentMatches();
+
+    await findOpponent();
 
     await applyRecentMatches();
 }
