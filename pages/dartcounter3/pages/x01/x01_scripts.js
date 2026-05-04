@@ -1100,6 +1100,8 @@ async function sendStatsToSupabase () {
     const supabaseKey = "sb_publishable_e-fhuxHuNeIUVNIJId9lDQ_lk7ccsgb";
     const db = supabase.createClient(supabaseUrl, supabaseKey);
 
+    const match_id = crypto.randomUUID();
+
     async function sendsupabase (player) {
         for (const leg of player.averageslegs) {
             let legaverage = (leg.scoresum/leg.darts) * 3;
@@ -1116,6 +1118,7 @@ async function sendStatsToSupabase () {
                     stat_opponent_id: 0,
                     stat_checkout_rate: 0,
                     stat_checkout: leg.checkout,
+                    stat_match_id: match_id,
                 }]);
             if (error) {console.log("supabase error:", error)};
             console.log("legsaved");
