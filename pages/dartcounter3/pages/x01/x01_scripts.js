@@ -276,6 +276,8 @@ function selectStartingPlayer (winner) {
     checkActivity(p2);
     checkActivity(p3);
     checkActivity(p4);
+
+    speakMessage("Game - on!");
 }
 function checkActivity (n) {
     if (n.active === true) {
@@ -323,7 +325,12 @@ function activate(player) {
 
     determineActivePlayer();
     const checkOut = activeplayer.remaining;
-    checkCheckOutPossibility(checkOut, "speak");
+
+    if (activeplayer === bot.player) {
+        checkCheckOutPossibility(checkOut, "nospeak");
+    } else {
+        checkCheckOutPossibility(checkOut, "speak");
+    }
 }
 function deactivate(player) {
     // console.log("run deactivate", player);
@@ -980,7 +987,14 @@ function displayScore () {
 function speakMessage(score) {
     let text;
     if (score === 0) {
-        text = "no score";
+        let randomnumber = Math.random();
+        console.log("ramdomnumber", randomnumber);
+        if (randomnumber < 0.05) {
+            text = "oh no, my beautiful wall!";
+        } else {
+            text = "no score";
+        }
+
     } else {
         text = score;
     }
