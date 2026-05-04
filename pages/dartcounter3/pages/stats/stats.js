@@ -420,6 +420,74 @@ async function statsGetHighfinishes() {
     document.getElementById("statsvalue_highfinishes").innerText = text;
 }
 
+async function statsRecentMatches() {
+    // matches by match id sorted by created_at
+    const matches = supabasedataforstats.reduce((array, entry) => {
+        // erstelle eine liste array und für eine neue id ein object
+        if (!array[entry.stat_match_id]) {
+            array[entry.stat_match_id] = [];
+        }
+
+        array[entry.stat_match_id].push(entry);
+        return array;
+    }, {});
+    console.log("matches", matches);
+
+    // convert object to array
+    const matchesArray = Object.entries(matches);
+    console.log("matchesArray", matchesArray);
+
+    // map array 
+    const renamedMatches = matchesArray.map(([match_id, legs]) => {
+        return {
+            date: legs[0].created_at.slice(0, 16),
+            legs: legs,
+            match_id: legs[0].stat_match_id,
+            opponent: "x",
+        }
+    });
+    console.log("renamedMatches:", renamedMatches);
+
+    // sort by date
+    const sortedMatches = renamedMatches.sort((a, b) => {
+        return new Date(b.date) - new Date(a.date);
+    });
+    console.log("sortedMatches", sortedMatches);
+
+    // slice to last 4 matches
+    const last4matches = sortedMatches.slice(0, 4);
+    console.log("last4matches:", last4matches);
+    
+    let recent = [];
+    last4matches.forEach(entry => {
+        let legswon = 0;
+        let legslost = 0;
+        entry.legs.forEach(legentry => {
+            if (legentry.stat_score_sum === 501) {
+                legswon = legswon + 1;
+            } else {
+                legslost = legslost + 1;
+            }
+        })
+        recent.push(legswon);
+        recent.push(legslost);
+    })
+
+    document.getElementById("recent1won").innerText = recent[0];
+    document.getElementById("recent1lost").innerText = recent[1];
+    document.getElementById("recent2won").innerText = recent[2];
+    document.getElementById("recent2lost").innerText = recent[3];
+    document.getElementById("recent3won").innerText = recent[4];
+    document.getElementById("recent3lost").innerText = recent[5];
+    document.getElementById("recent4won").innerText = recent[6];
+    document.getElementById("recent4lost").innerText = recent[7];
+
+    document.getElementById("recent1text").innerText = `${playername} vs ${last4matches[0].opponent}`;
+    document.getElementById("recent2text").innerText = `${playername} vs ${last4matches[1].opponent}`;
+    document.getElementById("recent3text").innerText = `${playername} vs ${last4matches[2].opponent}`;
+    document.getElementById("recent4text").innerText = `${playername} vs ${last4matches[3].opponent}`;
+}
+
 async function statsrun() {
     await statsgetData(playername);
     console.log("stats supabasedata 2", supabasedataforstats);
@@ -437,6 +505,8 @@ async function statsrun() {
     document.getElementById("statsvalue_180").innerText = "180s: " + oneeighty;
 
     await statsGetHighfinishes();
+
+    await statsRecentMatches();
 }
 statsrun();
 
