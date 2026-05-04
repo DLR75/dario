@@ -18,6 +18,8 @@ let grouped_scoresum = [];
 let chartData = [];
 let chartDataReduced = [];
 let converteddata = [];
+let recent = [];
+let last4matches;
 
 //cleanup
 async function cleanUp() {
@@ -205,6 +207,20 @@ async function getData(player) {
         return;
     }
     console.log("supabasedata:", data);
+    return data;
+}
+
+async function getDataMatchId(matchid) {
+    const {data, error} = await db
+        .from("games501")
+        .select("*")
+        .eq("stat_match_id", matchid);
+    
+    if (error) {
+        console.log("Supabaserror:", error);
+        return;
+    }
+    // console.log("supabasedata:", data);
     return data;
 }
 
@@ -439,14 +455,27 @@ async function statsRecentMatches() {
 
     // map array 
     const renamedMatches = matchesArray.map(([match_id, legs]) => {
+        let opponent;
+
+        for (let i = 0; i < filteredsupabasedata.length; i++) {
+            if (filteredsupabasedata[i].stat_match_id === legs[0].stat_match_id && filteredsupabasedata[i].stat_player_id != playername) {
+                console.log("found", filteredsupabasedata[i].stat_player_id);
+                opponent = filteredsupabasedata[i].stat_player_id;
+                break;
+            }
+        }
+
         return {
             date: legs[0].created_at.slice(0, 16),
             legs: legs,
             match_id: legs[0].stat_match_id,
-            opponent: "x",
+            opponent: opponent,
         }
     });
     console.log("renamedMatches:", renamedMatches);
+
+    
+
 
     // sort by date
     const sortedMatches = renamedMatches.sort((a, b) => {
@@ -455,10 +484,10 @@ async function statsRecentMatches() {
     console.log("sortedMatches", sortedMatches);
 
     // slice to last 4 matches
-    const last4matches = sortedMatches.slice(0, 4);
-    console.log("last4matches:", last4matches);
+    last4matches = sortedMatches.slice(0, 4);
+    // console.log("last4matches:", last4matches);
     
-    let recent = [];
+    
     last4matches.forEach(entry => {
         let legswon = 0;
         let legslost = 0;
@@ -473,6 +502,30 @@ async function statsRecentMatches() {
         recent.push(legslost);
     })
 
+    // find opponent
+    async function findOpponent() {
+        let dataMatchId;
+        for (const entry of last4matches) {
+            entryId = entry.match_id;
+            let opponent;
+            // console.log("matchid:", entryId);
+            dataMatchId = await getDataMatchId(entryId);
+            // console.log("dataMatchId:", dataMatchId);
+
+            // dataMatchId durchgehen bis playerid != player
+            for (const dataentry of dataMatchId) {
+                if (dataentry.stat_player_id != playername) {
+                    // console.log("found", dataentry.stat_player_id)
+                    opponent = dataentry.stat_player_id;
+                    break;
+                }
+            }
+            entry.opponent = opponent;
+        }
+    }
+    await findOpponent();
+}
+async function applyRecentMatches() {
     document.getElementById("recent1won").innerText = recent[0];
     document.getElementById("recent1lost").innerText = recent[1];
     document.getElementById("recent2won").innerText = recent[2];
@@ -507,6 +560,8 @@ async function statsrun() {
     await statsGetHighfinishes();
 
     await statsRecentMatches();
+
+    await applyRecentMatches();
 }
 statsrun();
 
@@ -516,7 +571,7 @@ timeframeselector = document.getElementById("timeframe_selector");
 
 async function getTimemode() {
     let timeframevalue = document.getElementById("timeframe_selector").value;
-    console.log(timeframevalue);
+    // console.log(timeframevalue);
     if (timeframevalue === "1") {
         timemode = "days";
     } else if (timeframevalue === "2") {
