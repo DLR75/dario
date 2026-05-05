@@ -528,7 +528,24 @@ function switchActivePlayerPrevious () {
 
     activeplayer = playerlist[previousplayerIndex]; //determine new activeplayer
 
-    playerlist.forEach(player => checkActivity(player)); //run functions to check activity
+    if (activeplayer === bot.player) {
+        console.log("bot present - dont check Activity");
+        // remove botscore
+        removePreviousScoreFromList();
+        bot.turnnumber = bot.turnnumber - 1;
+        // switchactiveplayerprevious
+        let currentplayerIndex = playerlist.indexOf(activeplayer); //position of activeplayer in playerlist
+        let previousplayerIndex = (currentplayerIndex - 1 + playerlist.length) % playerlist.length; //position of next activeplayer
+
+        playerlist[currentplayerIndex].active = false; //change activity
+        playerlist[previousplayerIndex].active = true; //change activity
+
+        activeplayer = playerlist[previousplayerIndex]; //determine new activeplayer
+        // checkActivitys
+        playerlist.forEach(player => checkActivity(player)); //run functions to check activity
+    } else {
+        playerlist.forEach(player => checkActivity(player)); //run functions to check activity
+    }
 }
 
 function switchActivePlayerStart () {
@@ -1040,8 +1057,15 @@ function updatePlayerPrescore () {
 }
 
 function calculateGoBackInTime () {
-    switchActivePlayerPrevious();
-    removePreviousScoreFromList();
+    if (bot.present === true) {
+        console.log("gobackintime bot present");
+        switchActivePlayerPrevious();
+        removePreviousScoreFromList();
+    } else {
+        console.log("gobackintime not bot");
+        switchActivePlayerPrevious();
+        removePreviousScoreFromList();
+    }
 }
 
 // Lists
