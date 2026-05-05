@@ -548,28 +548,56 @@ async function applyRecentMatches() {
     document.getElementById("recent4won").innerText = recent[6];
     document.getElementById("recent4lost").innerText = recent[7];
 
-    if (recent[1] != "") {document.getElementById("recent1text").innerText = `${playername} vs ${last4matches[0].opponent}`;}
+    if (recent[0] != "" || recent[1] != "") {document.getElementById("recent1text").innerText = `${playername} vs ${last4matches[0].opponent}`;}
     else {document.getElementById("recent1text").innerText = "";}
-    if (recent[3] != "") {document.getElementById("recent2text").innerText = `${playername} vs ${last4matches[1].opponent}`;}
+    if (recent[2] != "" || recent[3] != "") {document.getElementById("recent2text").innerText = `${playername} vs ${last4matches[1].opponent}`;}
     else {document.getElementById("recent2text").innerText = "";}
-    if (recent[5] != "") {document.getElementById("recent3text").innerText = `${playername} vs ${last4matches[2].opponent}`;}
+    if (recent[4] != "" || recent[5] != "") {document.getElementById("recent3text").innerText = `${playername} vs ${last4matches[2].opponent}`;}
     else {document.getElementById("recent3text").innerText = "";}
-    if (recent[7] != "") {document.getElementById("recent4text").innerText = `${playername} vs ${last4matches[3].opponent}`;}
+    if (recent[6] != "" || recent[7] != "") {document.getElementById("recent4text").innerText = `${playername} vs ${last4matches[3].opponent}`;}
     else {document.getElementById("recent4text").innerText = "";}
     
     function calculatePercentage(a, b) {
         const percentage = 100 / (a + b) * a;
+        console.log("percentage:",a, b, percentage);
         return percentage
     }
-    // document.querySelector(".match_barbox").style.backgroundColor = "grey";
-    if (recent[1] != "") {document.getElementById("bar1").style.width = calculatePercentage(recent[0], recent[1]) + "%";}
-    else {document.getElementById("bar1").style.width = 100 + "%"; document.getElementById("bar1").style.backgroundColor = "hsl(0, 0%, 18%)";}
-    if (recent[3] != "") {document.getElementById("bar2").style.width = calculatePercentage(recent[2], recent[3]) + "%";}
-    else {document.getElementById("bar2").style.width = 100 + "%"; document.getElementById("bar1").style.backgroundColor = "hsl(0, 0%, 18%)";}
-    if (recent[5] != "") {document.getElementById("bar3").style.width = calculatePercentage(recent[4], recent[5]) + "%";}
-    else {document.getElementById("bar3").style.width = 100 + "%"; document.getElementById("bar1").style.backgroundColor = "hsl(0, 0%, 18%)";}
-    if (recent[7] != "") {document.getElementById("bar4").style.width = calculatePercentage(recent[6], recent[7]) + "%";}
-    else {document.getElementById("bar4").style.width = 100 + "%"; document.getElementById("bar1").style.backgroundColor = "hsl(0, 0%, 18%)";}
+    
+    if (recent[0] != "" || recent[1] != "") {
+        document.getElementById("bar1").style.width = calculatePercentage(recent[0], recent[1]) + "%";
+        console.log("bar 1 if triggered");
+    } else {
+        document.getElementById("bar1").style.width = 100 + "%";
+        document.getElementById("bar1").style.backgroundColor = "hsl(0, 0%, 18%)";
+        console.log("bar 1 else triggered");
+    }
+
+    if (recent[2] != "" || recent[3] != "") {
+        document.getElementById("bar2").style.width = calculatePercentage(recent[2], recent[3]) + "%";
+        console.log("bar 2 if triggered");
+    } else {
+        document.getElementById("bar2").style.width = 100 + "%";
+        document.getElementById("bar2").style.backgroundColor = "hsl(0, 0%, 18%)";
+        console.log("bar 2 else triggered");
+    }
+
+    if (recent[4] != "" || recent[5] != "") {
+        document.getElementById("bar3").style.width = calculatePercentage(recent[4], recent[5]) + "%";
+        console.log("bar 3 if triggered");
+    } else {
+        document.getElementById("bar3").style.width = 100 + "%";
+        document.getElementById("bar3").style.backgroundColor = "hsl(0, 0%, 18%)";
+        console.log("bar 3 else triggered");
+    }
+
+    if (recent[6] != "" || recent[7] != "") {
+        document.getElementById("bar4").style.width = calculatePercentage(recent[6], recent[7]) + "%";
+        console.log("bar 4 if triggered");
+    } else {
+        document.getElementById("bar4").style.width = 100 + "%";
+        document.getElementById("bar4").style.backgroundColor = "hsl(0, 0%, 18%)";
+        console.log("bar 4 else triggered");
+    }
 }
 
 async function statsrun() {
