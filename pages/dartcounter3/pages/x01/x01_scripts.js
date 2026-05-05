@@ -655,11 +655,11 @@ function addAveragesToAverageList () {
     }
     
     addToList(p1);
-    if (gamerules.numberofplayers === 2) {
+    if (gamerules.numberofplayers >= 2) {
         addToList(p2);
-        if (gamerules.numberofplayers === 3) {
+        if (gamerules.numberofplayers >= 3) {
             addToList(p3);
-            if (gamerules.numberofplayers === 4) {
+            if (gamerules.numberofplayers >= 4) {
                 addToList(p4);
             }
         }
@@ -1118,8 +1118,6 @@ function calculateLastScore () {
 //supabase /backend
 
 async function sendStatsToSupabase () {
-    console.log(gamerules.numberofplayers);
-
     const supabaseUrl = "https://tretfgmkwrwkurncitma.supabase.co";
     const supabaseKey = "sb_publishable_e-fhuxHuNeIUVNIJId9lDQ_lk7ccsgb";
     const db = supabase.createClient(supabaseUrl, supabaseKey);
@@ -1149,16 +1147,12 @@ async function sendStatsToSupabase () {
         }
     }
     
-    console.log("Start p1");
     await sendsupabase(p1);
-    if (gamerules.numberofplayers === 2) {
-        console.log("Start p2");
+    if (gamerules.numberofplayers >= 2) {
         await sendsupabase(p2);
-        if (gamerules.numberofplayers === 3) {
-            console.log("Start p3");
+        if (gamerules.numberofplayers >= 3) {
             await sendsupabase(p3);
-            if (gamerules.numberofplayers === 4) {
-                console.log("Start p4");
+            if (gamerules.numberofplayers >= 4) {
                 await sendsupabase(p4);
             }
         }
