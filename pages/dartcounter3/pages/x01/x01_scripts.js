@@ -786,18 +786,20 @@ function applyScore () {
                 switchActivePlayerNext();
                 displayScore();
             } else {
+                const lastremaining = activeplayer.remaining;
                 activeplayer.remaining = activeplayer.remaining-score;
                 updatePlayerRemainingScore();
                 //check how many darts return darts
-                let darts = askHowManyDarts();
+                let darts = askHowManyDarts(lastremaining);
                 // addScoreToList (score, darts);
                 // addLeg();
             }
         } else if (gamerules.gamemode === 2 || 4) {
+            const lastremaining = activeplayer.remaining;
             activeplayer.remaining = activeplayer.remaining-score;
             updatePlayerRemainingScore();
             //check how many darts return darts
-            let darts = askHowManyDarts();
+            let darts = askHowManyDarts(lastremaining);
             // addScoreToList (score, darts);
             // addLeg();
         }
@@ -812,11 +814,33 @@ function applyScore () {
     }
 }
 //Check number of darts
-function askHowManyDarts () {
+const threedartslist = [170, 167, 164, 161, 160, 158, 157, 156, 155, 154, 153, 152, 151, 150,
+     149, 148, 147, 146, 145, 144, 143, 142, 141, 140, 139, 138, 137, 136, 135, 134, 133, 132, 131, 130,
+      129, 128, 127, 126, 125, 124, 123, 122, 121, 120, 119, 118, 117, 116, 115, 114, 113, 112, 111, 110,
+       109, 108, 107, 106, 105, 104, 103, 102, 101, 99];
+const twodartslist = [100, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80,
+     79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60,
+      59, 58, 57, 56, 55, 54, 53, 52, 51, 49, 48, 47, 46, 45, 44, 43, 42, 41, 39, 37, 35, 33, 31, 29, 27, 25, 23, 21, 19, 17, 15, 13, 11, 9, 7, 5, 3, 1];
+const onedartslist = [50, 40, 38, 36, 34, 32, 30, 28, 26, 24, 22, 20, 18, 16, 14, 12, 10, 8, 6, 4, 2];
+
+function askHowManyDarts (lastremaining) {
     if (activeplayer === bot.player) {
         applyHowManyDarts(3);
     } else {
-        document.querySelector(".howmanydarts_popup").style.display = "flex";
+        if (threedartslist.includes(lastremaining)) {
+            // 3 darts
+            applyHowManyDarts(3);
+        } else if (twodartslist.includes(lastremaining)) {
+            // 2 or 3 darts
+            document.querySelector(".howmanydarts_popup").style.display = "flex";
+            document.getElementById("howmanydarts_1").style.display = "none";
+        } else if (onedartslist.includes(lastremaining)) {
+            // 1 2 or 3 darts
+            document.querySelector(".howmanydarts_popup").style.display = "flex";
+        } else {
+            alert("remaining not in list");
+        }
+        
     }
 }
 function applyHowManyDarts (darts) {
