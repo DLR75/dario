@@ -264,6 +264,21 @@ document.getElementById("bullPopupWinner3").addEventListener("click", () => {bul
 document.getElementById("bullPopupWinner4").addEventListener("click", () => {bullPopupWinner(p4);})
 function openBullPopup () {
     document.getElementById("popup").style.display="flex";
+    document.getElementById("bullPopupWinner1").innerText = p1.name;
+    document.getElementById("bullPopupWinner1").style.display="flex";
+    if (gamerules.numberofplayers > 1) {
+        console.log("pop > 1");
+        document.getElementById("bullPopupWinner2").innerText = p2.name;
+        document.getElementById("bullPopupWinner2").style.display="flex";
+    } if (gamerules.numberofplayers > 2) {
+        console.log("pop > 2");
+        document.getElementById("bullPopupWinner3").innerText = p3.name;
+        document.getElementById("bullPopupWinner3").style.display="flex";
+    } if (gamerules.numberofplayers > 3) {
+        console.log("pop > 3");
+        document.getElementById("bullPopupWinner4").innerText = p4.name;
+        document.getElementById("bullPopupWinner4").style.display="flex";
+    }
 }   function closeBullPopup () {
     document.getElementById("popup").style.display="none";
 }   function bullPopupWinner (winner) {

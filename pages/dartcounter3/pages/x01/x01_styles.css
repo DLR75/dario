@@ -77,6 +77,13 @@ h4 {
     border-radius: 10px;
     text-align: center;
 }
+.popup_button_wrapper {
+    display: flex;
+    flex-direction: row;
+}
+.popup_button {
+    display: none;
+}
 
 .settings_popup {
     /* display: flex; */
