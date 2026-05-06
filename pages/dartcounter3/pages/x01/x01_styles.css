@@ -271,6 +271,12 @@ h4 {
         background-color: hsl(0, 0%, 25%);
         color: hsl(0, 0%, 68%);
     }
+    .display_flex {
+        display: flex;
+    }
+    .display_none {
+        display: none;
+    }
         .player_name_wrapper {
             display: flex;
             align-self: stretch;

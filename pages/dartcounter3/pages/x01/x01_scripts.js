@@ -16,6 +16,16 @@ const player4_legs_selector = document.querySelector("#player_4 .player_legs");
 const player4_average_selector = document.querySelector("#player_4 .player_average");
 const player4_lastscore_selector = document.querySelector("#player_4 .player_lastscore");
 
+const player1_set_grey_selector = document.getElementById("p1_set_grey");
+const player2_set_grey_selector = document.getElementById("p2_set_grey");
+const player3_set_grey_selector = document.getElementById("p3_set_grey");
+const player4_set_grey_selector = document.getElementById("p4_set_grey");
+
+const player1_set_red_selector = document.getElementById("p1_set_red");
+const player2_set_red_selector = document.getElementById("p2_set_red");
+const player3_set_red_selector = document.getElementById("p3_set_red");
+const player4_set_red_selector = document.getElementById("p4_set_red");
+
 const get_input_display = document.getElementById("inputdisplay");
 const plate_1 = document.getElementById("plate_1");
 const plate_2 = document.getElementById("plate_2");
@@ -38,6 +48,8 @@ let score;
 let scorestring;
 let activeplayer;
 
+let u;
+let v;
 let w;
 let x;
 let y;
@@ -309,26 +321,38 @@ function activate(player) {
     // console.log("run activate", player);
     
     if (player === p1) {
+        u = player1_set_grey_selector;
+        v = player1_set_red_selector;
         w = player1_selector;
         x = player1_legs_selector;
         y = player1_average_selector;
         z = player1_lastscore_selector;
     } else if (player === p2) {
+        u = player2_set_grey_selector;
+        v = player2_set_red_selector;
         w = player2_selector;
         x = player2_legs_selector;
         y = player2_average_selector;
         z = player2_lastscore_selector;
     } else if (player === p3) {
+        u = player3_set_grey_selector;
+        v = player3_set_red_selector;
         w = player3_selector;
         x = player3_legs_selector;
         y = player3_average_selector;
         z = player3_lastscore_selector;
     } else if (player === p4) {
+        u = player4_set_grey_selector;
+        v = player4_set_red_selector;
         w = player4_selector;
         x = player4_legs_selector;
         y = player4_average_selector;
         z = player4_lastscore_selector;
     }
+    u.classList.remove("display_flex");
+    u.classList.add("display_none");
+    v.classList.remove("display_none");
+    v.classList.add("display_flex");
 
     w.classList.remove("passive");
     w.classList.add("active");
@@ -338,7 +362,7 @@ function activate(player) {
     y.classList.add("active");
     z.classList.remove("passive");
     z.classList.add("active");
-
+    
     determineActivePlayer();
     const checkOut = activeplayer.remaining;
 
@@ -351,26 +375,38 @@ function activate(player) {
 function deactivate(player) {
     // console.log("run deactivate", player);
     if (player === p1) {
+        u = player1_set_grey_selector;
+        v = player1_set_red_selector;
         w = player1_selector;
         x = player1_legs_selector;
         y = player1_average_selector;
         z = player1_lastscore_selector;
     } else if (player === p2) {
+        u = player2_set_grey_selector;
+        v = player2_set_red_selector;
         w = player2_selector;
         x = player2_legs_selector;
         y = player2_average_selector;
         z = player2_lastscore_selector;
     } else if (player === p3) {
+        u = player3_set_grey_selector;
+        v = player3_set_red_selector;
         w = player3_selector;
         x = player3_legs_selector;
         y = player3_average_selector;
         z = player3_lastscore_selector;
     } else if (player === p4) {
+        u = player4_set_grey_selector;
+        v = player4_set_red_selector;
         w = player4_selector;
         x = player4_legs_selector;
         y = player4_average_selector;
         z = player4_lastscore_selector;
     }
+    u.classList.remove("display_none");
+    u.classList.add("display_flex");
+    v.classList.remove("display_flex");
+    v.classList.add("display_none");
 
     w.classList.remove("active");
     w.classList.add("passive");
