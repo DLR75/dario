@@ -248,6 +248,10 @@ function pickRandomPlayer () {
     let pick = Math.floor(Math.random() * gamerules.numberofplayers) +1;
     selectStartingPlayer(pick);
 }
+document.getElementById("bullPopupWinner1").addEventListener("click", () => {bullPopupWinner(p1);})
+document.getElementById("bullPopupWinner2").addEventListener("click", () => {bullPopupWinner(p2);})
+document.getElementById("bullPopupWinner3").addEventListener("click", () => {bullPopupWinner(p3);})
+document.getElementById("bullPopupWinner4").addEventListener("click", () => {bullPopupWinner(p4);})
 function openBullPopup () {
     document.getElementById("popup").style.display="flex";
 }   function closeBullPopup () {
@@ -259,24 +263,11 @@ function openBullPopup () {
 }
 function selectStartingPlayer (winner) {
     startingplayer = winner;
-    if (winner === 1) {
-        // console.log("P1 active");
-        p1.active = true;
-    } else if (winner === 2) {
-        // console.log("P2 active");
-        p2.active = true;
-    } else if (winner === 3) {
-        // console.log("P3 active");
-        p3.active = true;
-    } else if (winner === 4) {
-        // console.log("P4 active");
-        p4.active = true;
-    }
+    winner.active = true;
     checkActivity(p1);
     checkActivity(p2);
     checkActivity(p3);
     checkActivity(p4);
-
     speakMessage("Game - on!");
 }
 function checkActivity (n) {
