@@ -452,59 +452,10 @@ function deleteInputs () {
     preScore(scorestring);
 }
 
-// function switchActivePlayerNext (activeplayer) {
-//     if (gamerules.numberofplayers === 1) {
-
-//     } else if (gamerules.numberofplayers === 2) {
-//         if (activeplayer === p1) {
-//             p1.active = false;
-//             p2.active = true;
-//             activeplayer = p2;
-//         } else if (activeplayer === p2) {
-//             p2.active = false;
-//             p1.active = true;
-//             activeplayer = p1;
-//         }
-//     } else if (gamerules.numberofplayers === 3) {
-//         if (activeplayer === p1) {
-//             p1.active = false;
-//             p2.active = true;
-//             activeplayer = p2;
-//         } else if (activeplayer === p2) {
-//             p2.active = false;
-//             p3.active = true;
-//             activeplayer = p3;
-//         } else if (activeplayer === p3) {
-//             p3.active = false;
-//             p1.active = true;
-//             activeplayer = p1;
-//         }
-//     } else if (gamerules.numberofplayers === 4) {
-//         if (activeplayer === p1) {
-//             p1.active = false;
-//             p2.active = true;
-//             activeplayer = p2;
-//         } else if (activeplayer === p2) {
-//             p2.active = false;
-//             p3.active = true;
-//             activeplayer = p3;
-//         } else if (activeplayer === p3) {
-//             p3.active = false;
-//             p4.active = true;
-//             activeplayer = p4;
-//         } else if (activeplayer === p4) {
-//             p4.active = false;
-//             p1.active = true;
-//             activeplayer = p1;
-//         }
-//     }
-//     checkActivity(p1);
-//     checkActivity(p2);
-//     checkActivity(p3);
-//     checkActivity(p4);
-// }
-
 function switchActivePlayerNext () {
+    document.getElementById("plate_score").style.color = "hsl(0, 0%, 95%)";
+    document.getElementById("plate_score").style.backgroundColor = "hsl(163, 85%, 42%)";
+
     const playerlist = [p1, p2, p3, p4].slice(0, gamerules.numberofplayers); //list of all players cut to length
 
     let currentplayerIndex = playerlist.indexOf(activeplayer); //position of activeplayer in playerlist
@@ -1329,6 +1280,10 @@ function delay(ms) {
 
 async function checkBotActive() {
     if (activeplayer === bot.player) {
+
+        document.getElementById("plate_score").style.color = "hsl(0, 0%, 44%)";
+        document.getElementById("plate_score").style.backgroundColor = "hsl(0, 0%, 25%)";
+
         await delay(1500);
         await buildScorestring(bot.legscores[bot.legnumber][bot.turnnumber]);
         bot.turnnumber = bot.turnnumber + 1;
