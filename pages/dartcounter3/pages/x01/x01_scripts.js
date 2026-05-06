@@ -235,18 +235,28 @@ function figureOutStartPlayer () {
     } else if (gamerules.startingplayermode === "Bull") {
         openBullPopup();
     } else if (gamerules.startingplayermode === "P1") {
-        selectStartingPlayer(1);
+        selectStartingPlayer(p1);
     } else if (gamerules.startingplayermode === "P2") {
-        selectStartingPlayer(2);
+        selectStartingPlayer(p2);
     } else if (gamerules.startingplayermode === "P3") {
-        selectStartingPlayer(3);
+        selectStartingPlayer(p3);
     } else if (gamerules.startingplayermode === "P4") {
-        selectStartingPlayer(4);
+        selectStartingPlayer(p4);
     }
 }
 function pickRandomPlayer () {
     let pick = Math.floor(Math.random() * gamerules.numberofplayers) +1;
-    selectStartingPlayer(pick);
+    let winner = p1;
+    if (pick === 1) {
+        winner = p1;
+    } else if (pick === 2) {
+        winner = p2;
+    } else if (pick === 3) {
+        winner = p3;
+    } else if (pick === 4) {
+        winner = p4;
+    }
+    selectStartingPlayer(winner);
 }
 document.getElementById("bullPopupWinner1").addEventListener("click", () => {bullPopupWinner(p1);})
 document.getElementById("bullPopupWinner2").addEventListener("click", () => {bullPopupWinner(p2);})
